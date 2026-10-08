@@ -1,0 +1,7 @@
+{
+  "schema": "harness-managed-pack/0.1",
+  "id": "builtin-vrc",
+  "version": "0.1.0-dev.1",
+  "channel": "builtin",
+  "description": "Harness 内置的 VRChat 改模流程、阶段知识与执行工具"
+}

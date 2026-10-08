@@ -1,0 +1,6261 @@
+# 已随包分发、但还没有接进能力清单的上下文引用：所在阶段还没有能力清单（完整定制流程），
+# 或者判断条件要用的项目事实 Harness 还不提供（when: []）。补上对应能力或事实后，再挪进能力清单。
+schema: context-refs/0.1
+refs:
+  - stage: ref_images
+    id: common.discipline.ref_images
+    path: context/common/执行纪律.md
+    priority: 900
+    required: false
+    covers:
+      - common.evidence
+      - common.prove-cause
+      - common.delivered-state
+      - common.numeric-criteria
+      - common.falsifiable-criteria
+      - common.closeout
+      - common.meta-guid
+      - common.irreversible
+      - common.escalation
+  - stage: blend_keys
+    id: common.discipline.blend_keys
+    path: context/common/执行纪律.md
+    priority: 900
+    required: false
+    covers:
+      - common.evidence
+      - common.prove-cause
+      - common.delivered-state
+      - common.numeric-criteria
+      - common.falsifiable-criteria
+      - common.closeout
+      - common.meta-guid
+      - common.irreversible
+      - common.escalation
+  - stage: face_edit
+    id: common.discipline.face_edit
+    path: context/common/执行纪律.md
+    priority: 900
+    required: false
+    covers:
+      - common.evidence
+      - common.prove-cause
+      - common.delivered-state
+      - common.numeric-criteria
+      - common.falsifiable-criteria
+      - common.closeout
+      - common.meta-guid
+      - common.irreversible
+      - common.escalation
+  - stage: accessories
+    id: common.discipline.accessories
+    path: context/common/执行纪律.md
+    priority: 900
+    required: false
+    covers:
+      - common.evidence
+      - common.prove-cause
+      - common.delivered-state
+      - common.numeric-criteria
+      - common.falsifiable-criteria
+      - common.closeout
+      - common.meta-guid
+      - common.irreversible
+      - common.escalation
+  - stage: face_tracking
+    id: common.discipline.face_tracking
+    path: context/common/执行纪律.md
+    priority: 900
+    required: false
+    covers:
+      - common.evidence
+      - common.prove-cause
+      - common.delivered-state
+      - common.numeric-criteria
+      - common.falsifiable-criteria
+      - common.closeout
+      - common.meta-guid
+      - common.irreversible
+      - common.escalation
+  - stage: setup
+    id: setup.compile-criteria
+    path: context/setup/环境与工具链.md
+    heading: 编译成功的判据：看程序集 dll，不数日志
+    priority: 800
+    required: false
+    when: []
+    covers:
+      - setup.compile
+  - stage: setup
+    id: setup.human-ops
+    path: context/setup/环境与工具链.md
+    heading: 本阶段交回人的操作：面板、重启、Play 与上传
+    priority: 650
+    required: false
+    when: []
+    covers:
+      - setup.human-ops
+  - stage: setup
+    id: setup.editor-bridge
+    path: context/setup/环境与工具链.md
+    heading: 编辑器桥（MCP for Unity）连不上：按阶梯判，不跳步
+    priority: 500
+    required: false
+    when: []
+    covers:
+      - setup.editor-bridge
+  - stage: face_tracking
+    id: face_tracking.avatar-roots
+    path: context/plan/装配与冲突通则.md
+    heading: 头像根的四种数法：交付与验收只认活跃根
+    priority: 600
+    required: false
+    covers:
+      - face_tracking.avatar-roots
+  - stage: face_edit
+    id: face_edit.fbx-ordering
+    path: context/plan/装配与冲突通则.md
+    heading: 排期依赖：换 FBX 会作废配色与装配
+    priority: 500
+    required: false
+    covers:
+      - face_edit.fbx-ordering
+  - stage: accessories
+    id: accessories.mem.image-granularity
+    path: memory/独立验证.md
+    heading: 喂图粒度：被评对象至少占画面的四分之一
+    priority: 300
+    required: false
+    covers:
+      - verify.image-granularity
+  - stage: face_edit
+    id: face_edit.mem.reverse-variant
+    path: memory/独立验证.md
+    heading: 比较用反向变体，不用中性基准
+    priority: 300
+    required: false
+    covers:
+      - verify.reverse-variant
+  - stage: face_edit
+    id: face_edit.mem.diff-crop
+    path: memory/独立验证.md
+    heading: 用差异图定位裁切区域，别凭眼指坐标
+    priority: 290
+    required: false
+    covers:
+      - verify.diff-crop
+  - stage: face_edit
+    id: face_edit.mem.repeatability
+    path: memory/独立验证.md
+    heading: 判定翻转先测重复性：分清评审不稳与刺激变了
+    priority: 280
+    required: false
+    covers:
+      - verify.repeatability
+  - stage: blend_keys
+    id: blend_keys.mem.reverse-variant
+    path: memory/独立验证.md
+    heading: 比较用反向变体，不用中性基准
+    priority: 300
+    required: false
+    covers:
+      - verify.reverse-variant
+  - stage: ref_images
+    id: ref_images.mem.falsify-shape
+    path: memory/独立验证.md
+    heading: 证伪题的形状：编号论断、三选一、禁止附和
+    priority: 300
+    required: false
+    covers:
+      - verify.falsify-shape
+  - stage: ref_images
+    id: ref_images.mem.vision-limits
+    path: memory/独立验证.md
+    heading: 视觉模型的能力边界（成文时实测）：判有无，不判计数、取色与对齐
+    priority: 200
+    required: false
+    covers:
+      - verify.vision-limits
+  - stage: accessories
+    id: accessories.mem.render-trust
+    path: memory/环境与工具链.md
+    heading: 编辑器渲图可信度：图形 API、GPU 与首次读数
+    priority: 200
+    required: false
+    covers:
+      - env.render-trust
+  - stage: face_edit
+    id: face_edit.mem.blender-geometry
+    path: memory/环境与工具链.md
+    heading: Blender 5.2 几何脚本：骨骼 API、量纲与精度
+    priority: 250
+    required: false
+    covers:
+      - env.blender-geometry
+  - stage: blend_keys
+    id: blend_keys.mem.blender-geometry
+    path: memory/环境与工具链.md
+    heading: Blender 5.2 几何脚本：骨骼 API、量纲与精度
+    priority: 250
+    required: false
+    covers:
+      - env.blender-geometry
+  - stage: accessories
+    id: accessories.mem.blender-geometry
+    path: memory/环境与工具链.md
+    heading: Blender 5.2 几何脚本：骨骼 API、量纲与精度
+    priority: 200
+    required: false
+    covers:
+      - env.blender-geometry
+  - stage: face_edit
+    id: face_edit.mem.headless-blender
+    path: memory/环境与工具链.md
+    heading: 无头 Blender：驱动告警不等于不能渲，实例要串行
+    priority: 200
+    required: false
+    covers:
+      - env.headless-blender
+  - stage: blend_keys
+    id: blend_keys.mem.headless-blender
+    path: memory/环境与工具链.md
+    heading: 无头 Blender：驱动告警不等于不能渲，实例要串行
+    priority: 200
+    required: false
+    covers:
+      - env.headless-blender
+  - stage: face_edit
+    id: face_edit.mem.measure-criteria
+    path: memory/环境与工具链.md
+    heading: 工具里固化的三条测量判据（成文时）
+    priority: 250
+    required: false
+    covers:
+      - env.measure-criteria
+  - stage: blend_keys
+    id: blend_keys.mem.measure-criteria
+    path: memory/环境与工具链.md
+    heading: 工具里固化的三条测量判据（成文时）
+    priority: 250
+    required: false
+    covers:
+      - env.measure-criteria
+  - stage: setup
+    id: setup.mem.editor-bridge-env
+    path: memory/环境与工具链.md
+    heading: 编辑器桥的环境细节：配置被改写、失败关闭与死实例路由
+    priority: 250
+    required: false
+    when: []
+    covers:
+      - env.editor-bridge
+  - stage: ref_images
+    id: ref_images.gate.direction
+    path: memory/阶段通过判据.md
+    heading: 参考图解读、选型图鉴与定方向的通过判据
+    priority: 300
+    required: false
+    covers:
+      - gate.direction
+  - stage: blend_keys
+    id: blend_keys.gate.face
+    path: memory/阶段通过判据.md
+    heading: 形态键枚举、捏脸与面捕的通过判据
+    priority: 300
+    required: false
+    covers:
+      - gate.face
+  - stage: face_edit
+    id: face_edit.gate.face
+    path: memory/阶段通过判据.md
+    heading: 形态键枚举、捏脸与面捕的通过判据
+    priority: 300
+    required: false
+    covers:
+      - gate.face
+  - stage: face_tracking
+    id: face_tracking.gate.face
+    path: memory/阶段通过判据.md
+    heading: 形态键枚举、捏脸与面捕的通过判据
+    priority: 200
+    required: false
+    covers:
+      - gate.face
+  - stage: accessories
+    id: accessories.gate.outfit-accessory
+    path: memory/阶段通过判据.md
+    heading: 服装装配与配饰装位的通过判据
+    priority: 200
+    required: false
+    covers:
+      - gate.outfit-accessory
+  - stage: face_edit
+    id: face_edit.ref-intersection
+    path: context/plan/需求拆解与方案边界.md
+    heading: 参考图结论进方案：想往哪走与能往哪走取交集
+    priority: 40
+    required: false
+    covers:
+      - face_edit.direction
+  - stage: face_tracking
+    id: face_tracking.vpm-zip
+    path: context/setup/解包导入与包落位.md
+    heading: 功能插件的 VPM 包必须落在 Packages/
+    priority: 50
+    required: false
+    covers:
+      - face_tracking.framework_install
+  - stage: ref_images
+    id: ref_images.method.direction-not-plan
+    path: context/ref_images/参考图解读.md
+    heading: 参考图解读：产出是方向，不是捏脸方案
+    priority: 90
+    required: true
+    covers:
+      - ref_images.role
+  - stage: ref_images
+    id: ref_images.method.routes
+    path: context/ref_images/参考图解读.md
+    heading: 多路独立描述与一条独立审美路
+    priority: 70
+    required: false
+    covers:
+      - ref_images.routes
+  - stage: ref_images
+    id: ref_images.method.prep-schema
+    path: context/ref_images/参考图解读.md
+    heading: 备图与描述型结构化输出
+    priority: 65
+    required: false
+    covers:
+      - ref_images.prep
+  - stage: ref_images
+    id: ref_images.method.dispatch-failures
+    path: context/ref_images/参考图解读.md
+    heading: 分发与失败处理：每一路都标成功或失败
+    priority: 60
+    required: false
+    covers:
+      - ref_images.dispatch
+  - stage: ref_images
+    id: ref_images.method.summary
+    path: context/ref_images/参考图解读.md
+    heading: 汇总结构：六部分，方向写成部位、方向、幅度
+    priority: 80
+    required: false
+    covers:
+      - ref_images.summary
+  - stage: ref_images
+    id: ref_images.method.reading
+    path: context/ref_images/参考图解读.md
+    heading: 读结果：跨方法一致才算证实
+    priority: 75
+    required: false
+    covers:
+      - ref_images.reading
+  - stage: blend_keys
+    id: blend_keys.enumerate.all-keys
+    path: context/blend_keys/形态键枚举.md
+    heading: 形态键枚举：出捏脸候选前列全可选项
+    priority: 90
+    required: true
+    covers:
+      - blend_keys.enumeration
+  - stage: face_edit
+    id: face_edit.enumerate.all-keys
+    path: context/blend_keys/形态键枚举.md
+    heading: 形态键枚举：出捏脸候选前列全可选项
+    priority: 60
+    required: false
+    covers:
+      - face_edit.key_scope
+  - stage: ref_images
+    id: ref_images.enumerate.all-keys
+    path: context/blend_keys/形态键枚举.md
+    heading: 形态键枚举：出捏脸候选前列全可选项
+    priority: 55
+    required: false
+    covers:
+      - ref_images.key_scope
+  - stage: blend_keys
+    id: blend_keys.enumerate.classify
+    path: context/blend_keys/形态键枚举.md
+    heading: 形态键分类：用分段标记、前缀与默认权重来分
+    priority: 70
+    required: false
+    covers:
+      - blend_keys.classification
+  - stage: face_edit
+    id: face_edit.enumerate.classify
+    path: context/blend_keys/形态键枚举.md
+    heading: 形态键分类：用分段标记、前缀与默认权重来分
+    priority: 40
+    required: false
+    covers:
+      - face_edit.key_scope
+  - stage: accessories
+    id: accessories.vendor.boneproxy-first
+    path: memory/厂商包常见机制.md
+    heading: 发型与小件常走 BoneProxy：先探测，不要补 MergeArmature
+    priority: 40
+    required: false
+    covers:
+      - accessories.attach_mode
+  - stage: accessories
+    id: accessories.vendor.no-components
+    path: memory/厂商包常见机制.md
+    heading: 什么装配组件都不带的包：不能当成「不用装」
+    priority: 35
+    required: false
+    covers:
+      - accessories.attach_mode
+  - stage: accessories
+    id: accessories.vendor.edit-time-boneproxy
+    path: memory/厂商包常见机制.md
+    heading: 编辑期量不准：BoneProxy 子树在编辑期不吸附
+    priority: 15
+    required: false
+    covers:
+      - accessories.measurement
+  - stage: setup
+    id: setup.products.487-stockings
+    path: memory/素材与商品.md
+    heading: 487+Style Stockings（ADAMEVE桜）：只装单品，4 个陈列架预制体不能装
+    priority: -200
+    required: false
+    when: []
+    covers:
+      - products.487-stockings
+  - stage: outfit
+    id: outfit.products.487-stockings
+    path: memory/素材与商品.md
+    heading: 487+Style Stockings（ADAMEVE桜）：只装单品，4 个陈列架预制体不能装
+    priority: -200
+    required: false
+    when: []
+    covers:
+      - products.487-stockings
+  - stage: setup
+    id: setup.products.lunalice
+    path: memory/素材与商品.md
+    heading: LUNALICE（KNIVES DESIGN，Booth 7567561）：色系即预制体，匕首道具的菜单要自己路由
+    priority: -200
+    required: false
+    when: []
+    covers:
+      - products.lunalice
+  - stage: outfit
+    id: outfit.products.lunalice
+    path: memory/素材与商品.md
+    heading: LUNALICE（KNIVES DESIGN，Booth 7567561）：色系即预制体，匕首道具的菜单要自己路由
+    priority: -200
+    required: false
+    when: []
+    covers:
+      - products.lunalice
+  - stage: menu
+    id: menu.products.lunalice
+    path: memory/素材与商品.md
+    heading: LUNALICE（KNIVES DESIGN，Booth 7567561）：色系即预制体，匕首道具的菜单要自己路由
+    priority: -250
+    required: false
+    when: []
+    covers:
+      - products.lunalice
+  - stage: setup
+    id: setup.products.itazura
+    path: memory/素材与商品.md
+    heading: いたずらメイド（wako's atelier dress，Booth 7506561）：材质先装包、自带猫耳尾从未接线
+    priority: -200
+    required: false
+    when: []
+    covers:
+      - products.itazura
+  - stage: outfit
+    id: outfit.products.itazura
+    path: memory/素材与商品.md
+    heading: いたずらメイド（wako's atelier dress，Booth 7506561）：材质先装包、自带猫耳尾从未接线
+    priority: -200
+    required: false
+    when: []
+    covers:
+      - products.itazura
+  - stage: menu
+    id: menu.products.itazura
+    path: memory/素材与商品.md
+    heading: いたずらメイド（wako's atelier dress，Booth 7506561）：材质先装包、自带猫耳尾从未接线
+    priority: -250
+    required: false
+    when: []
+    covers:
+      - products.itazura
+  - stage: setup
+    id: setup.products.violet-nocturne
+    path: memory/素材与商品.md
+    heading: Violet Nocturne（Mana-Apparel，Booth 7439709）：用 MA 就绪版，伞道具菜单要路由
+    priority: -200
+    required: false
+    when: []
+    covers:
+      - products.violet-nocturne
+  - stage: outfit
+    id: outfit.products.violet-nocturne
+    path: memory/素材与商品.md
+    heading: Violet Nocturne（Mana-Apparel，Booth 7439709）：用 MA 就绪版，伞道具菜单要路由
+    priority: -200
+    required: false
+    when: []
+    covers:
+      - products.violet-nocturne
+  - stage: setup
+    id: setup.products.winter-cozy-knit
+    path: memory/素材与商品.md
+    heading: winter cozy knit（ROSI atelier）：原厂不带任何装配组件，要手挂 MergeArmature
+    priority: -200
+    required: false
+    when: []
+    covers:
+      - products.winter-cozy-knit
+  - stage: outfit
+    id: outfit.products.winter-cozy-knit
+    path: memory/素材与商品.md
+    heading: winter cozy knit（ROSI atelier）：原厂不带任何装配组件，要手挂 MergeArmature
+    priority: -200
+    required: false
+    when: []
+    covers:
+      - products.winter-cozy-knit
+  - stage: plan
+    id: plan.products.silent-twilight
+    path: memory/素材与商品.md
+    heading: Silent Twilight（Cresveil，Booth 6368893）：对 Booth 6106863 的しなの 不兼容
+    priority: -200
+    required: false
+    when: []
+    covers:
+      - products.silent-twilight
+  - stage: setup
+    id: setup.products.silent-twilight
+    path: memory/素材与商品.md
+    heading: Silent Twilight（Cresveil，Booth 6368893）：对 Booth 6106863 的しなの 不兼容
+    priority: -200
+    required: false
+    when: []
+    covers:
+      - products.silent-twilight
+  - stage: setup
+    id: setup.products.hollow
+    path: memory/素材与商品.md
+    heading: Hollow（BlueKuma）：按まめふれんず企划适配，凉拖本来就露趾
+    priority: -200
+    required: false
+    when: []
+    covers:
+      - products.hollow
+  - stage: outfit
+    id: outfit.products.hollow
+    path: memory/素材与商品.md
+    heading: Hollow（BlueKuma）：按まめふれんず企划适配，凉拖本来就露趾
+    priority: -200
+    required: false
+    when: []
+    covers:
+      - products.hollow
+  - stage: setup
+    id: setup.products.default-arrange-set
+    path: memory/素材与商品.md
+    heading: デフォルト衣装アレンジセット：Kipfel 默认服的追加部件，不是整套
+    priority: -200
+    required: false
+    when: []
+    covers:
+      - products.default-arrange-set
+  - stage: outfit
+    id: outfit.products.default-arrange-set
+    path: memory/素材与商品.md
+    heading: デフォルト衣装アレンジセット：Kipfel 默认服的追加部件，不是整套
+    priority: -200
+    required: false
+    when: []
+    covers:
+      - products.default-arrange-set
+  - stage: setup
+    id: setup.products.goldenhour
+    path: memory/素材与商品.md
+    heading: GoldenHour（!Yueby&Mekoko，Booth 7112255）：走 BoneProxy，公共宝石材质与 SweetyHair 共用 GUID
+    priority: -200
+    required: false
+    when: []
+    covers:
+      - products.goldenhour
+  - stage: outfit
+    id: outfit.products.goldenhour
+    path: memory/素材与商品.md
+    heading: GoldenHour（!Yueby&Mekoko，Booth 7112255）：走 BoneProxy，公共宝石材质与 SweetyHair 共用 GUID
+    priority: -200
+    required: false
+    when: []
+    covers:
+      - products.goldenhour
+  - stage: setup
+    id: setup.products.sweetyhair
+    path: memory/素材与商品.md
+    heading: SweetyHair（!Yueby&Mekoko，Booth 6318626）：多素体通用，走 BoneProxy，材质包只导一版
+    priority: -200
+    required: false
+    when: []
+    covers:
+      - products.sweetyhair
+  - stage: outfit
+    id: outfit.products.sweetyhair
+    path: memory/素材与商品.md
+    heading: SweetyHair（!Yueby&Mekoko，Booth 6318626）：多素体通用，走 BoneProxy，材质包只导一版
+    priority: -200
+    required: false
+    when: []
+    covers:
+      - products.sweetyhair
+  - stage: setup
+    id: setup.products.halo-ring-hair
+    path: memory/素材与商品.md
+    heading: Halo Ring Hair（mochipun）：换色要同步 7 个材质槽
+    priority: -200
+    required: false
+    when: []
+    covers:
+      - products.halo-ring-hair
+  - stage: recolor
+    id: recolor.products.halo-ring-hair
+    path: memory/素材与商品.md
+    heading: Halo Ring Hair（mochipun）：换色要同步 7 个材质槽
+    priority: -250
+    required: false
+    when: []
+    covers:
+      - products.halo-ring-hair
+  - stage: setup
+    id: setup.products.gradation-hair-texture
+    path: memory/素材与商品.md
+    heading: グラデーションヘアーテクスチャ：一个渐变发色材质是父级缺失的变体
+    priority: -200
+    required: false
+    when: []
+    covers:
+      - products.gradation-hair-texture
+  - stage: recolor
+    id: recolor.products.gradation-hair-texture
+    path: memory/素材与商品.md
+    heading: グラデーションヘアーテクスチャ：一个渐变发色材质是父级缺失的变体
+    priority: -250
+    required: false
+    when: []
+    covers:
+      - products.gradation-hair-texture
+  - stage: setup
+    id: setup.products.aquaglass
+    path: memory/素材与商品.md
+    heading: Aquaglass（あいかわらぼ，Booth 7871786）：共享企划目录名，骨骼比对通过
+    priority: -200
+    required: false
+    when: []
+    covers:
+      - products.aquaglass
+  - stage: outfit
+    id: outfit.products.aquaglass
+    path: memory/素材与商品.md
+    heading: Aquaglass（あいかわらぼ，Booth 7871786）：共享企划目录名，骨骼比对通过
+    priority: -200
+    required: false
+    when: []
+    covers:
+      - products.aquaglass
+  - stage: accessories
+    id: accessories.products.aquaglass
+    path: memory/素材与商品.md
+    heading: Aquaglass（あいかわらぼ，Booth 7871786）：共享企划目录名，骨骼比对通过
+    priority: -200
+    required: false
+    when: []
+    covers:
+      - products.aquaglass
+  - stage: outfit
+    id: outfit.products.pair-sign-ring
+    path: memory/素材与商品.md
+    heading: Pair Sign Ring（メイク研究所さも，Booth 8802886）：直接挂手指骨，孔心不在骨原点
+    priority: -200
+    required: false
+    when: []
+    covers:
+      - products.pair-sign-ring
+  - stage: accessories
+    id: accessories.products.pair-sign-ring
+    path: memory/素材与商品.md
+    heading: Pair Sign Ring（メイク研究所さも，Booth 8802886）：直接挂手指骨，孔心不在骨原点
+    priority: -200
+    required: false
+    when: []
+    covers:
+      - products.pair-sign-ring
+  - stage: outfit
+    id: outfit.products.stardust-whispers
+    path: memory/素材与商品.md
+    heading: Stardust Whispers（ARCA-WORKS，Booth 6626299）：粒子与贴花先逐个探清，折射材质离屏不可信
+    priority: -200
+    required: false
+    when: []
+    covers:
+      - products.stardust-whispers
+  - stage: accessories
+    id: accessories.products.stardust-whispers
+    path: memory/素材与商品.md
+    heading: Stardust Whispers（ARCA-WORKS，Booth 6626299）：粒子与贴花先逐个探清，折射材质离屏不可信
+    priority: -200
+    required: false
+    when: []
+    covers:
+      - products.stardust-whispers
+  - stage: setup
+    id: setup.products.horonail
+    path: memory/素材与商品.md
+    heading: HoroNail（[An-Labo.Virtual]，Booth 3407613）：工具驱动生成，交付装钉要人手在 GUI 里执行
+    priority: -200
+    required: false
+    when: []
+    covers:
+      - products.horonail
+  - stage: accessories
+    id: accessories.products.horonail
+    path: memory/素材与商品.md
+    heading: HoroNail（[An-Labo.Virtual]，Booth 3407613）：工具驱动生成，交付装钉要人手在 GUI 里执行
+    priority: -200
+    required: false
+    when: []
+    covers:
+      - products.horonail
+  - stage: setup
+    id: setup.products.gothic-rose-fox
+    path: memory/素材与商品.md
+    heading: GOTHIC ROSE FOX EARS AND TAIL（KILLNYA，Booth 5857614）：通用件，带 lilToon 兜底副本，骨段超长是真骨骼
+    priority: -200
+    required: false
+    when: []
+    covers:
+      - products.gothic-rose-fox
+  - stage: outfit
+    id: outfit.products.gothic-rose-fox
+    path: memory/素材与商品.md
+    heading: GOTHIC ROSE FOX EARS AND TAIL（KILLNYA，Booth 5857614）：通用件，带 lilToon 兜底副本，骨段超长是真骨骼
+    priority: -200
+    required: false
+    when: []
+    covers:
+      - products.gothic-rose-fox
+  - stage: accessories
+    id: accessories.products.gothic-rose-fox
+    path: memory/素材与商品.md
+    heading: GOTHIC ROSE FOX EARS AND TAIL（KILLNYA，Booth 5857614）：通用件，带 lilToon 兜底副本，骨段超长是真骨骼
+    priority: -200
+    required: false
+    when: []
+    covers:
+      - products.gothic-rose-fox
+  - stage: setup
+    id: setup.products.berrixy-eye
+    path: memory/素材与商品.md
+    heading: Berrixy「夜空の夢」眼部贴图包：主贴图槽放图集，眼睛颜色走第二层
+    priority: -200
+    required: false
+    when: []
+    covers:
+      - products.berrixy-eye
+  - stage: recolor
+    id: recolor.products.berrixy-eye
+    path: memory/素材与商品.md
+    heading: Berrixy「夜空の夢」眼部贴图包：主贴图槽放图集，眼睛颜色走第二层
+    priority: -250
+    required: false
+    when: []
+    covers:
+      - products.berrixy-eye
+  - stage: setup
+    id: setup.products.twinkle-eye
+    path: memory/素材与商品.md
+    heading: Twinkle 眼睛贴图与高光包：图集同布局，PSD 目标图层在隐藏组里
+    priority: -200
+    required: false
+    when: []
+    covers:
+      - products.twinkle-eye
+  - stage: recolor
+    id: recolor.products.twinkle-eye
+    path: memory/素材与商品.md
+    heading: Twinkle 眼睛贴图与高光包：图集同布局，PSD 目标图层在隐藏组里
+    priority: -250
+    required: false
+    when: []
+    covers:
+      - products.twinkle-eye
+  - stage: setup
+    id: setup.products.polka
+    path: memory/素材与商品.md
+    heading: PoLKA：用硬编码 GUID 定位自己的目录
+    priority: -200
+    required: false
+    when: []
+    covers:
+      - products.polka
+  - stage: setup
+    id: setup.products.gogoloco-dynamic-gesture
+    path: memory/素材与商品.md
+    heading: GoGo Loco 与 Dynamic Gesture：记录很少的两个功能插件
+    priority: -200
+    required: false
+    when: []
+    covers:
+      - products.gogoloco-dynamic-gesture
+  - stage: setup
+    id: setup.products.triturbo-blendshare
+    path: memory/素材与商品.md
+    heading: Triturbo 面捕框架与 BlendShare：必须作为包装进 Packages/
+    priority: -200
+    required: false
+    when: []
+    covers:
+      - products.triturbo-blendshare
+  - stage: face_tracking
+    id: face_tracking.products.triturbo-blendshare
+    path: memory/素材与商品.md
+    heading: Triturbo 面捕框架与 BlendShare：必须作为包装进 Packages/
+    priority: -150
+    required: false
+    when: []
+    covers:
+      - products.triturbo-blendshare
+  - stage: setup
+    id: setup.products.sexyh-skin
+    path: memory/素材与商品.md
+    heading: SexyH Skin for liltoon（Miu，Booth 6363733）：素体无关的质感预设
+    priority: -200
+    required: false
+    when: []
+    covers:
+      - products.sexyh-skin
+  - stage: recolor
+    id: recolor.products.sexyh-skin
+    path: memory/素材与商品.md
+    heading: SexyH Skin for liltoon（Miu，Booth 6363733）：素体无关的质感预设
+    priority: -250
+    required: false
+    when: []
+    covers:
+      - products.sexyh-skin
+  - stage: setup
+    id: setup.products.anemone-kaguya
+    path: memory/素材与商品.md
+    heading: ANEMONE（fumitikishop，Booth 8215331）× Kaguya：袜子删脚、鞋是浅口设计
+    priority: -200
+    required: false
+    when: []
+    covers:
+      - products.anemone-kaguya
+  - stage: outfit
+    id: outfit.products.anemone-kaguya
+    path: memory/素材与商品.md
+    heading: ANEMONE（fumitikishop，Booth 8215331）× Kaguya：袜子删脚、鞋是浅口设计
+    priority: -200
+    required: false
+    when: []
+    covers:
+      - products.anemone-kaguya
+  - stage: setup
+    id: setup.products.mmn-kaguya
+    path: memory/素材与商品.md
+    heading: MMN（Medical Melty Nightmare，Booth 8339462）× Kaguya：认准 Kaguya 分包，袜与裤上有厂商形态键
+    priority: -200
+    required: false
+    when: []
+    covers:
+      - products.mmn-kaguya
+  - stage: outfit
+    id: outfit.products.mmn-kaguya
+    path: memory/素材与商品.md
+    heading: MMN（Medical Melty Nightmare，Booth 8339462）× Kaguya：认准 Kaguya 分包，袜与裤上有厂商形态键
+    priority: -200
+    required: false
+    when: []
+    covers:
+      - products.mmn-kaguya
+  - stage: outfit
+    id: outfit.products.lead-under-kaguya
+    path: memory/素材与商品.md
+    heading: Lead under（macro0622，Booth 8820693）× Kaguya：连裤袜删腿脚顶点，机关菜单进根菜单
+    priority: -200
+    required: false
+    when: []
+    covers:
+      - products.lead-under-kaguya
+  - stage: setup
+    id: setup.products.noem-hoodie-milfy
+    path: memory/素材与商品.md
+    heading: NOEM Hoodie（Noem，Booth 70065708）× Milfy：没有任何 MA 组件，说明图的体型配方没接线
+    priority: -200
+    required: false
+    when: []
+    covers:
+      - products.noem-hoodie-milfy
+  - stage: outfit
+    id: outfit.products.noem-hoodie-milfy
+    path: memory/素材与商品.md
+    heading: NOEM Hoodie（Noem，Booth 70065708）× Milfy：没有任何 MA 组件，说明图的体型配方没接线
+    priority: -200
+    required: false
+    when: []
+    covers:
+      - products.noem-hoodie-milfy
+  - stage: outfit
+    id: outfit.products.peridot-milfy
+    path: memory/素材与商品.md
+    heading: Peridot（ピンク♡プリン，Booth 7290413）× Milfy：12 色预制体，胸型与腿型靠 BlendshapeSync
+    priority: -200
+    required: false
+    when: []
+    covers:
+      - products.peridot-milfy
+  - stage: outfit
+    id: outfit.products.petal-drape-milfy
+    path: memory/素材与商品.md
+    heading: Petal Drape 2025（柚ノ葉，Booth 6861579）× Milfy：选 MA 版，凉鞋无形态键
+    priority: -200
+    required: false
+    when: []
+    covers:
+      - products.petal-drape-milfy
+  - stage: outfit
+    id: outfit.products.punyanya
+    path: memory/素材与商品.md
+    heading: PuNyaNya（Dollit，Booth 8829757）：只有 Rurune 版时套到 Kaguya，厂商形态键驱动较多
+    priority: -200
+    required: false
+    when: []
+    covers:
+      - products.punyanya
+  - stage: outfit
+    id: outfit.products.rogue-noir-milfy
+    path: memory/素材与商品.md
+    heading: Rogue Noir（EDEN Oasis，Booth 7593555）× Milfy：胸型键没有同步组件
+    priority: -200
+    required: false
+    when: []
+    covers:
+      - products.rogue-noir-milfy
+  - stage: outfit
+    id: outfit.products.the-velour-kaguya
+    path: memory/素材与商品.md
+    heading: The Velour（トリニティ，Booth 8867011）× Kaguya：预制体内部名写成别的素体
+    priority: -200
+    required: false
+    when: []
+    covers:
+      - products.the-velour-kaguya
+  - stage: outfit
+    id: outfit.products.namaikimaid-milfy
+    path: memory/素材与商品.md
+    heading: NamaikiMaid（かぷちや，Booth 6802428）× Milfy：14 个开关、true 为显示，鞋蝴蝶结极性相反
+    priority: -200
+    required: false
+    when: []
+    covers:
+      - products.namaikimaid-milfy
+  - stage: menu
+    id: menu.products.namaikimaid-milfy
+    path: memory/素材与商品.md
+    heading: NamaikiMaid（かぷちや，Booth 6802428）× Milfy：14 个开关、true 为显示，鞋蝴蝶结极性相反
+    priority: -250
+    required: false
+    when: []
+    covers:
+      - products.namaikimaid-milfy
+  - stage: outfit
+    id: outfit.products.usatenshi-milfy
+    path: memory/素材与商品.md
+    heading: UsaTenshiCostume（かぷちや，Booth 6682492）× Milfy：一个开关同时写两件
+    priority: -200
+    required: false
+    when: []
+    covers:
+      - products.usatenshi-milfy
+  - stage: menu
+    id: menu.products.usatenshi-milfy
+    path: memory/素材与商品.md
+    heading: UsaTenshiCostume（かぷちや，Booth 6682492）× Milfy：一个开关同时写两件
+    priority: -250
+    required: false
+    when: []
+    covers:
+      - products.usatenshi-milfy
+  - stage: outfit
+    id: outfit.products.usagisan-milfy
+    path: memory/素材与商品.md
+    heading: UsagisanRoomwearRe（かぷちや，Booth 5657072）× Milfy：默认只显示右腿环，有无效曲线
+    priority: -200
+    required: false
+    when: []
+    covers:
+      - products.usagisan-milfy
+  - stage: menu
+    id: menu.products.usagisan-milfy
+    path: memory/素材与商品.md
+    heading: UsagisanRoomwearRe（かぷちや，Booth 5657072）× Milfy：默认只显示右腿环，有无效曲线
+    priority: -250
+    required: false
+    when: []
+    covers:
+      - products.usagisan-milfy
+  - stage: outfit
+    id: outfit.products.kemohand-milfy
+    path: memory/素材与商品.md
+    heading: KemoHandMB（かぷちや，Booth 5593582）× Milfy：兽爪鞋套归鞋，比基尼两件不存档
+    priority: -200
+    required: false
+    when: []
+    covers:
+      - products.kemohand-milfy
+  - stage: menu
+    id: menu.products.kemohand-milfy
+    path: memory/素材与商品.md
+    heading: KemoHandMB（かぷちや，Booth 5593582）× Milfy：兽爪鞋套归鞋，比基尼两件不存档
+    priority: -250
+    required: false
+    when: []
+    covers:
+      - products.kemohand-milfy
+  - stage: outfit
+    id: outfit.products.lop-ear-mine-milfy
+    path: memory/素材与商品.md
+    heading: Lop Ear Mine（てんぱすおおもり，Booth 6721544）× Milfy：无条件收缩身体，两双袜子二选一
+    priority: -200
+    required: false
+    when: []
+    covers:
+      - products.lop-ear-mine-milfy
+  - stage: menu
+    id: menu.products.lop-ear-mine-milfy
+    path: memory/素材与商品.md
+    heading: Lop Ear Mine（てんぱすおおもり，Booth 6721544）× Milfy：无条件收缩身体，两双袜子二选一
+    priority: -250
+    required: false
+    when: []
+    covers:
+      - products.lop-ear-mine-milfy
+  - stage: outfit
+    id: outfit.products.snowflake-milfy
+    path: memory/素材与商品.md
+    heading: Snowflake Romance（てんぱすおおもり，Booth 7751175）× Milfy：靴子删脚型键，可能与脚型层抢写
+    priority: -200
+    required: false
+    when: []
+    covers:
+      - products.snowflake-milfy
+  - stage: setup
+    id: setup.products.fog-knit-milfy
+    path: memory/素材与商品.md
+    heading: Fog Knit FullSet（LOVACE，Booth 6976313）× Milfy：rar 发布，胸型键没接线
+    priority: -200
+    required: false
+    when: []
+    covers:
+      - products.fog-knit-milfy
+  - stage: outfit
+    id: outfit.products.fog-knit-milfy
+    path: memory/素材与商品.md
+    heading: Fog Knit FullSet（LOVACE，Booth 6976313）× Milfy：rar 发布，胸型键没接线
+    priority: -200
+    required: false
+    when: []
+    covers:
+      - products.fog-knit-milfy
+  - stage: blend_keys
+    id: blend_keys.reports.blendshapes
+    path: memory/工具报告判读.md
+    heading: 形态键清单：按网格分组、带默认权重
+    priority: 60
+    required: false
+    covers:
+      - blend_keys.report
+  - stage: face_edit
+    id: face_edit.reports.blendshapes
+    path: memory/工具报告判读.md
+    heading: 形态键清单：按网格分组、带默认权重
+    priority: 30
+    required: false
+    covers:
+      - face_edit.key_scope
+  - stage: ref_images
+    id: ref_images.cases.ref_images.multi-image-timeout
+    path: cases/ref_images/参考图解读.md
+    heading: 多图一次送审超时，被误诊成解析错误
+    priority: 20
+    required: false
+    covers:
+      - ref_images.dispatch
+  - stage: ref_images
+    id: ref_images.cases.ref_images.phantom-images
+    path: cases/ref_images/参考图解读.md
+    heading: 描述模型评了没附上的图
+    priority: 18
+    required: false
+    covers:
+      - ref_images.prep
+  - stage: ref_images
+    id: ref_images.cases.ref_images.subagent-conflicts
+    path: cases/ref_images/参考图解读.md
+    heading: 子代理的结论与建档冲突
+    priority: 18
+    required: false
+    covers:
+      - ref_images.reading
+  - stage: ref_images
+    id: ref_images.cases.ref_images.cross-method-success
+    path: cases/ref_images/参考图解读.md
+    heading: 两种方法各自得出同一结论：交叉验证成立的样子
+    priority: 15
+    required: false
+    covers:
+      - ref_images.routes
+  - stage: recolor
+    id: recolor.bodies.shinano.eye-face-texture
+    path: bodies/Shinano.md
+    heading: Shinano：眼睛颜色变体是整张脸贴图，替换会连带改睫毛与贴花
+    priority: 50
+    required: false
+    when: []
+    covers:
+      - recolor.eye_color
+  - stage: blend_keys
+    id: blend_keys.bodies.kipfel.face-key-segments
+    path: bodies/Kipfel.md
+    heading: Kipfel：Body 形态键的分段与捏脸可选项
+    priority: 65
+    required: false
+    when:
+      - path: memory.project.identity.base
+        equals: Kipfel
+    covers:
+      - blend_keys.body_keys
+  - stage: face_edit
+    id: face_edit.bodies.kipfel.face-key-segments
+    path: bodies/Kipfel.md
+    heading: Kipfel：Body 形态键的分段与捏脸可选项
+    priority: 55
+    required: false
+    when:
+      - path: memory.project.identity.base
+        equals: Kipfel
+    covers:
+      - face_edit.key_scope
+  - stage: ref_images
+    id: ref_images.bodies.kipfel.face-key-segments
+    path: bodies/Kipfel.md
+    heading: Kipfel：Body 形态键的分段与捏脸可选项
+    priority: 40
+    required: false
+    when:
+      - path: memory.project.identity.base
+        equals: Kipfel
+    covers:
+      - ref_images.key_scope
+  - stage: face_edit
+    id: face_edit.stage-split
+    path: context/face_edit/捏脸分工与造型边界.md
+    heading: 捏脸分三段：AI 出候选、人定形、AI 全自动落地
+    priority: 90
+    required: false
+    covers:
+      - face_edit.candidates
+      - face_edit.human_gate
+  - stage: face_edit
+    id: face_edit.vendor-keys-only
+    path: context/face_edit/捏脸分工与造型边界.md
+    heading: 捏脸造型手段：只调厂商形态键的数值
+    priority: 100
+    required: true
+    covers:
+      - face_edit.vendor_keys_only
+  - stage: face_edit
+    id: face_edit.custom-closed-form-key
+    path: context/face_edit/捏脸分工与造型边界.md
+    heading: 捏脸自建键：只允许闭式变换，要有实测证据和用户点头
+    priority: 55
+    required: false
+    covers:
+      - face_edit.custom_key_exception
+  - stage: face_edit
+    id: face_edit.route-blender
+    path: context/face_edit/捏脸路线与工具.md
+    heading: 捏脸路线：默认在 Blender 里烘焙并做闭眼补偿
+    priority: 85
+    required: false
+    covers:
+      - face_edit.route
+      - face_edit.vertex_order
+  - stage: face_edit
+    id: face_edit.tool-routing
+    path: context/face_edit/捏脸路线与工具.md
+    heading: 捏脸问题分流：几何量用 Blender 读顶点位移，观感才渲图评审
+    priority: 70
+    required: false
+    covers:
+      - face_edit.tool_routing
+  - stage: blend_keys
+    id: blend_keys.tool-routing
+    path: context/face_edit/捏脸路线与工具.md
+    heading: 捏脸问题分流：几何量用 Blender 读顶点位移，观感才渲图评审
+    priority: 60
+    required: false
+    covers:
+      - blend_keys.tool_routing
+  - stage: face_edit
+    id: face_edit.schedule-before-outfit
+    path: context/face_edit/捏脸路线与工具.md
+    heading: 捏脸排在服装装配之前：换 FBX 会作废装配与配色
+    priority: 50
+    required: false
+    covers:
+      - face_edit.schedule
+  - stage: face_edit
+    id: face_edit.30b-bake
+    path: context/face_edit/30b烘焙补偿与导出.md
+    heading: 30b 前两步：留三个还原点，再做精确重建式烘焙
+    priority: 92
+    required: false
+    covers:
+      - face_edit.restore_points
+      - face_edit.bake_exact_rebuild
+      - face_edit.bake_list
+  - stage: face_edit
+    id: face_edit.30b-blink-compensation
+    path: context/face_edit/30b烘焙补偿与导出.md
+    heading: 30b 闭眼补偿：按眼分开，做加性抵消
+    priority: 94
+    required: false
+    covers:
+      - face_edit.blink_compensation
+  - stage: face_edit
+    id: face_edit.30b-shapekey-audit
+    path: context/face_edit/30b烘焙补偿与导出.md
+    heading: 30b 全量形态键检查：烘焙量加动画峰值不超过 100
+    priority: 88
+    required: false
+    covers:
+      - face_edit.shapekey_extrapolation
+      - face_edit.no_baked_key_in_rest
+  - stage: face_edit
+    id: face_edit.30b-export
+    path: context/face_edit/30b烘焙补偿与导出.md
+    heading: 30b 导出：先还原材质槽，再导出并做二进制自检
+    priority: 90
+    required: false
+    covers:
+      - face_edit.export_binary
+      - face_edit.vertex_order
+      - face_edit.material_slots_restored
+  - stage: face_edit
+    id: face_edit.30b-overwrite
+    path: context/face_edit/30b烘焙补偿与导出.md
+    heading: 30b 覆盖 FBX：只换本体，然后重挂材质、扫空槽、服装拆装
+    priority: 87
+    required: false
+    covers:
+      - face_edit.empty_material_slots
+  - stage: face_edit
+    id: face_edit.acceptance
+    path: context/face_edit/30b烘焙补偿与导出.md
+    heading: 捏脸验收：四条数值判据，再用对比渲图证伪
+    priority: 86
+    required: false
+    covers:
+      - face_edit.seam_depth
+      - face_edit.acceptance
+  - stage: face_edit
+    id: face_edit.bump-attribution
+    path: context/face_edit/捏脸凹凸修复.md
+    heading: 捏完脸上起凹凸：先否掉两条错路，再用指标定位
+    priority: 45
+    required: false
+    covers:
+      - face_edit.bump_diagnosis
+  - stage: face_edit
+    id: face_edit.bump-repair
+    path: context/face_edit/捏脸凹凸修复.md
+    heading: 捏脸凹凸的修法：只在出事邻域平滑位移场
+    priority: 44
+    required: false
+    covers:
+      - face_edit.bump_repair
+  - stage: blend_keys
+    id: blend_keys.enumerate-classify
+    path: context/blend_keys/形态键枚举与键义.md
+    heading: 形态键枚举：列全素体形态键，分出脸型类与表情类
+    priority: 100
+    required: true
+    covers:
+      - blend_keys.list_classified
+      - blend_keys.plan_refs_resolved
+  - stage: blend_keys
+    id: blend_keys.key-probe
+    path: context/blend_keys/形态键枚举与键义.md
+    heading: 键义探查：读顶点位移定方向和强度，不信键名
+    priority: 85
+    required: false
+    covers:
+      - blend_keys.key_probe
+  - stage: face_edit
+    id: face_edit.key-probe
+    path: context/blend_keys/形态键枚举与键义.md
+    heading: 键义探查：读顶点位移定方向和强度，不信键名
+    priority: 65
+    required: false
+    covers:
+      - face_edit.key_probe
+  - stage: blend_keys
+    id: blend_keys.stats-per-eye
+    path: context/blend_keys/形态键枚举与键义.md
+    heading: 键位移统计：左右眼分开算，对称性当自检
+    priority: 70
+    required: false
+    covers:
+      - blend_keys.displacement_stats
+  - stage: face_edit
+    id: face_edit.stats-per-eye
+    path: context/blend_keys/形态键枚举与键义.md
+    heading: 键位移统计：左右眼分开算，对称性当自检
+    priority: 40
+    required: false
+    covers:
+      - face_edit.displacement_stats
+  - stage: blend_keys
+    id: blend_keys.extrapolation
+    path: context/blend_keys/形态键枚举与键义.md
+    heading: 形态键外推：先放宽 slider 再赋值，赋完回读
+    priority: 75
+    required: false
+    covers:
+      - blend_keys.extrapolation
+  - stage: face_edit
+    id: face_edit.extrapolation
+    path: context/blend_keys/形态键枚举与键义.md
+    heading: 形态键外推：先放宽 slider 再赋值，赋完回读
+    priority: 80
+    required: false
+    covers:
+      - face_edit.extrapolation
+  - stage: face_tracking
+    id: face_tracking.single-active-root
+    path: context/face_tracking/面捕装后核查.md
+    heading: 面捕装完：场景里只能有一个活跃的头像根
+    priority: 100
+    required: true
+    covers:
+      - face_tracking.single_active_root
+  - stage: face_tracking
+    id: face_tracking.shared-materials
+    path: context/face_tracking/面捕装后核查.md
+    heading: 面捕根与原生根：改材质前先核是否共享材质和贴图
+    priority: 80
+    required: false
+    covers:
+      - face_tracking.shared_materials
+  - stage: face_tracking
+    id: face_tracking.large-blendshare
+    path: context/face_tracking/面捕装后核查.md
+    heading: 面捕 BlendShare 大文件：工具跳过不等于没有
+    priority: 75
+    required: false
+    covers:
+      - face_tracking.large_blendshare
+  - stage: face_tracking
+    id: face_tracking.param-budget
+    path: context/face_tracking/面捕装后核查.md
+    heading: 面捕参数位账：装之前先算同步参数与 PhysBone 余量
+    priority: 85
+    required: false
+    covers:
+      - face_tracking.param_budget
+  - stage: face_tracking
+    id: face_tracking.component-parity
+    path: context/face_tracking/面捕装后核查.md
+    heading: 面捕根与原生根：组件差异要逐条说出理由
+    priority: 78
+    required: false
+    covers:
+      - face_tracking.component_parity
+  - stage: recolor
+    id: recolor.texture-typing
+    path: context/recolor/配色来源与判型.md
+    heading: 替换贴图判型：按 alpha 不透明占比分整张底图与叠加层
+    priority: 80
+    required: false
+    when: []
+    covers:
+      - recolor.texture_typing
+  - stage: recolor
+    id: recolor.mask-recolor
+    path: context/recolor/贴图合成与改色手法.md
+    heading: 按掩膜改色：先找厂商遮罩和源文件，掩膜来源要可证
+    priority: 60
+    required: false
+    when: []
+    covers:
+      - recolor.mask_recolor
+  - stage: recolor
+    id: recolor.heterochromia
+    path: context/recolor/贴图合成与改色手法.md
+    heading: 异色瞳：先证明两眼在 UV 上分离，回读用眼色层自己的 alpha
+    priority: 50
+    required: false
+    when: []
+    covers:
+      - recolor.heterochromia
+  - stage: recolor
+    id: recolor.vertical-gradient
+    path: context/recolor/贴图合成与改色手法.md
+    heading: 竖向渐变：方向靠分列投票，t 逐列归一化
+    priority: 48
+    required: false
+    when: []
+    covers:
+      - recolor.vertical_gradient
+  - stage: recolor
+    id: recolor.split-pupil
+    path: context/recolor/贴图合成与改色手法.md
+    heading: 两色拼瞳：分割线对准源图自带的暗带
+    priority: 42
+    required: false
+    when: []
+    covers:
+      - recolor.split_pupil
+  - stage: recolor
+    id: recolor.eye-pack-atlas
+    path: context/recolor/眼睛贴图包.md
+    heading: 眼睛贴图包多半是整脸图集：只换眼时按眼盘掩膜合成
+    priority: 58
+    required: false
+    when: []
+    covers:
+      - recolor.eye_texture_pack
+  - stage: recolor
+    id: recolor.eye-pack-native-first
+    path: context/recolor/眼睛贴图包.md
+    heading: 眼睛贴图包：先判是不是给本素体的，是就直搬、一个像素都不缩
+    priority: 57
+    required: false
+    when: []
+    covers:
+      - recolor.eye_texture_pack
+  - stage: recolor
+    id: recolor.eye-pack-foreign-affine
+    path: context/recolor/眼睛贴图包.md
+    heading: 眼睛贴图包：确属别的素体时，按虹膜框做仿射
+    priority: 30
+    required: false
+    when: []
+    covers:
+      - recolor.eye_texture_pack
+  - stage: recolor
+    id: recolor.liltoon-2nd-layer
+    path: context/recolor/lilToon改色.md
+    heading: lilToon 叠色层：用厂商闲置遮罩只染局部
+    priority: 70
+    required: false
+    when: []
+    covers:
+      - recolor.liltoon_layers
+  - stage: recolor
+    id: recolor.liltoon-blend-mode
+    path: context/recolor/lilToon改色.md
+    heading: lilToon 叠色层混合模式：枚举值去源码查，乗算提不亮
+    priority: 68
+    required: false
+    when: []
+    covers:
+      - recolor.liltoon_layers
+  - stage: recolor
+    id: recolor.psd-source-first
+    path: context/recolor/源文件与许可.md
+    heading: 有 PSD 或 CLIP 分层源文件时，优先改源文件
+    priority: 64
+    required: false
+    when: []
+    covers:
+      - recolor.source_files
+  - stage: face_edit
+    id: face_edit.obs.extrapolation-client-clamp
+    path: memory/观测与感知.md
+    heading: 形态键外推的客户端口径：在 Play 里渲图判定
+    priority: 70
+    required: false
+    covers:
+      - face_edit.extrapolation_client
+  - stage: face_edit
+    id: face_edit.obs.criteria-known-answer
+    path: memory/观测与感知.md
+    heading: 自建判据先过已知答案，并且不能随变形漂移
+    priority: 66
+    required: false
+    covers:
+      - face_edit.criteria_validity
+  - stage: face_edit
+    id: face_edit.obs.numbers-vs-residuals
+    path: memory/观测与感知.md
+    heading: 数值指标归零不等于肉眼无残留：两者都要报
+    priority: 60
+    required: false
+    covers:
+      - face_edit.visual_falsification
+  - stage: face_edit
+    id: face_edit.obs.screenshot-protocol
+    path: memory/观测与感知.md
+    heading: 截图对比口径：同机位、同布光、同材质，规格逐字段相同
+    priority: 58
+    required: false
+    covers:
+      - face_edit.observation_protocol
+  - stage: face_edit
+    id: face_edit.obs.control-region-threshold
+    path: memory/观测与感知.md
+    heading: 阈值拿未触碰的对照区来定
+    priority: 52
+    required: false
+    covers:
+      - face_edit.criteria_validity
+  - stage: face_edit
+    id: face_edit.obs.preview-artifacts
+    path: memory/观测与感知.md
+    heading: 预览假象：Blender 预览锯齿、贴图缩略图、材质文件数值都不能直接下结论
+    priority: 50
+    required: false
+    covers:
+      - face_edit.observation_protocol
+  - stage: face_edit
+    id: face_edit.obs.single-model-findings
+    path: memory/观测与感知.md
+    heading: 单个模型的视觉指认只算待核，零条指认也不等于通过
+    priority: 46
+    required: false
+    covers:
+      - face_edit.visual_falsification
+  - stage: face_edit
+    id: face_edit.obs.projectsettings-side-effect
+    path: memory/观测与感知.md
+    heading: 构建验证与 Play 都会改 ProjectSettings：收工前查差异
+    priority: 45
+    required: false
+    when:
+      - path: memory.project.packageIds
+        includes: nadena.dev.ndmf
+    covers:
+      - face_edit.projectsettings_side_effect
+  - stage: face_edit
+    id: face_edit.obs.falsifier-premise
+    path: memory/观测与感知.md
+    heading: 给证伪模型的前提，会决定它证伪什么
+    priority: 42
+    required: false
+    covers:
+      - face_edit.visual_falsification
+  - stage: face_edit
+    id: face_edit.obs.compensation-noop-diff
+    path: memory/观测与感知.md
+    heading: 补偿类操作要做逐像素差：差为 0 就是空操作
+    priority: 40
+    required: false
+    covers:
+      - face_edit.criteria_validity
+  - stage: blend_keys
+    id: blend_keys.obs.criteria-known-answer
+    path: memory/观测与感知.md
+    heading: 自建判据先过已知答案，并且不能随变形漂移
+    priority: 55
+    required: false
+    covers:
+      - blend_keys.criteria_validity
+  - stage: face_edit
+    id: face_edit.mem.aao-freeze-no-compensation
+    path: memory/形态键与捏脸.md
+    heading: AAO FreezeBlendShape 固化捏脸时不补偿闭合表情
+    priority: 62
+    required: false
+    when:
+      - path: memory.project.packageIds
+        includes: com.anatawa12.avatar-optimizer
+    covers:
+      - face_edit.route
+  - stage: face_edit
+    id: face_edit.mem.layered-card-eyes
+    path: memory/形态键与捏脸.md
+    heading: 叠层卡片式眼部：任何变换都要保持层序
+    priority: 64
+    required: false
+    covers:
+      - face_edit.layered_cards
+  - stage: face_edit
+    id: face_edit.mem.custom-normals
+    path: memory/形态键与捏脸.md
+    heading: 叠层脸卡片素体的厂商自定义法线常是手绘场
+    priority: 38
+    required: false
+    covers:
+      - face_edit.bump_diagnosis
+  - stage: face_edit
+    id: face_edit.mem.negative-extrapolation-risk
+    path: memory/形态键与捏脸.md
+    heading: 负值外推与满幅键最容易让脸部网格塌陷、互穿
+    priority: 48
+    required: false
+    covers:
+      - face_edit.extrapolation
+  - stage: face_edit
+    id: face_edit.mem.triturbo-fork
+    path: memory/形态键与捏脸.md
+    heading: Triturbo 面捕接受改过的 FBX：sha256 失配走 fork，fork 路径不做校验
+    priority: 56
+    required: false
+    when: []
+    covers:
+      - face_edit.vertex_order
+  - stage: face_tracking
+    id: face_tracking.mem.triturbo-fork
+    path: memory/形态键与捏脸.md
+    heading: Triturbo 面捕接受改过的 FBX：sha256 失配走 fork，fork 路径不做校验
+    priority: 70
+    required: false
+    when: []
+    covers:
+      - face_tracking.fork_install
+  - stage: face_edit
+    id: face_edit.case.scaling-layered-eyes
+    path: cases/face_edit/捏脸案例.md
+    heading: 案例：叠层卡片眼睛整体缩小，按深度分成前后两簇做相似变换
+    priority: 20
+    required: false
+    covers:
+      - face_edit.layered_cards
+  - stage: face_edit
+    id: face_edit.case.corner-rotation-key
+    path: cases/face_edit/捏脸案例.md
+    heading: 案例：外眼角要「转平」，厂商键到天花板后改用自建闭式旋转键
+    priority: 30
+    required: false
+    covers:
+      - face_edit.custom_key_exception
+  - stage: face_edit
+    id: face_edit.case.bump-lowerlid-repair
+    path: cases/face_edit/捏脸案例.md
+    heading: 案例：捏脸后下眼睑到脸颊一带起褶皱，局部同步位移场修复
+    priority: 28
+    required: false
+    covers:
+      - face_edit.bump_repair
+  - stage: face_edit
+    id: face_edit.case.stepped-banding
+    path: cases/face_edit/捏脸案例.md
+    heading: 案例：三项指标全部归零，上眼睑的阶梯横纹却一条没动
+    priority: 27
+    required: false
+    covers:
+      - face_edit.bump_diagnosis
+  - stage: face_edit
+    id: face_edit.case.temp-material-export
+    path: cases/face_edit/捏脸案例.md
+    heading: 案例：导出时带出临时材质，脸用上了眼睛的材质
+    priority: 32
+    required: false
+    covers:
+      - face_edit.material_slots_restored
+  - stage: face_edit
+    id: face_edit.case.index-override-shift
+    path: cases/face_edit/捏脸案例.md
+    heading: 案例：清理按索引的权重覆盖，冒出错位的厂商默认值
+    priority: 26
+    required: false
+    covers:
+      - face_edit.index_overrides
+  - stage: face_edit
+    id: face_edit.case.start-from-ceiling
+    path: cases/face_edit/捏脸案例.md
+    heading: 案例：候选开局全部给满，委托方逐条往回砍了十几轮
+    priority: 34
+    required: false
+    covers:
+      - face_edit.candidates
+  - stage: face_edit
+    id: face_edit.case.read-the-difference
+    path: cases/face_edit/捏脸案例.md
+    heading: 案例：只看定稿值读不出偏好，提案与定稿的差才是信号
+    priority: 22
+    required: false
+    covers:
+      - face_edit.candidates
+  - stage: blend_keys
+    id: blend_keys.case.weak-key-small-values
+    path: cases/blend_keys/键义探查案例.md
+    heading: 案例：候选表选了弱键又配小数值，三组眼尾差异渲不出来
+    priority: 30
+    required: false
+    covers:
+      - blend_keys.key_probe
+  - stage: blend_keys
+    id: blend_keys.case.render-for-geometry
+    path: cases/blend_keys/键义探查案例.md
+    heading: 案例：十几次批量渲图回答一个几何量问题，结论还与读数冲突
+    priority: 25
+    required: false
+    covers:
+      - blend_keys.tool_routing
+  - stage: face_tracking
+    id: face_tracking.case.removed-shapechanger
+    path: cases/face_tracking/面捕案例.md
+    heading: 案例：面捕根上的身体收缩组件被预制体覆盖删掉，弯肘时袖套穿模
+    priority: 35
+    required: false
+    covers:
+      - face_tracking.component_parity
+  - stage: face_tracking
+    id: face_tracking.case.blendshare-skipped
+    path: cases/face_tracking/面捕案例.md
+    heading: 案例：大体积 BlendShare 文件被指纹工具跳过，捏脸没被查到
+    priority: 30
+    required: false
+    covers:
+      - face_tracking.large_blendshare
+  - stage: face_edit
+    id: face_edit.body.kaguya.blink-upper-lid-only
+    path: bodies/Kaguya.md
+    heading: Kaguya：闭眼键只推上睑，下睑完全不动
+    priority: 66
+    required: false
+    when:
+      - path: memory.project.identity.base
+        equals: Kaguya
+    covers:
+      - face_edit.blink_compensation
+  - stage: face_edit
+    id: face_edit.body.kaguya.body-material-slots
+    path: bodies/Kaguya.md
+    heading: Kaguya：Body 网格有三个厂商材质槽，重导 FBX 前要原样还原
+    priority: 64
+    required: false
+    when:
+      - path: memory.project.identity.base
+        equals: Kaguya
+    covers:
+      - face_edit.material_slots_restored
+  - stage: recolor
+    id: recolor.body.kaguya.texture-pack-layers
+    path: bodies/Kaguya.md
+    heading: Kaguya：素体贴图包里的底图、叠加层与两眼的 UV 岛
+    priority: 68
+    required: false
+    when: []
+    covers:
+      - recolor.texture_typing
+  - stage: recolor
+    id: recolor.body.kaguya.lash-brow-masks
+    path: bodies/Kaguya.md
+    heading: Kaguya：睫毛与眉毛改色的掩膜来源
+    priority: 60
+    required: false
+    when: []
+    covers:
+      - recolor.mask_recolor
+  - stage: recolor
+    id: recolor.body.kaguya.ikusia-psd
+    path: bodies/Kaguya.md
+    heading: Kaguya：IKUSIA 附带的分层源文件与渐变映射图层
+    priority: 62
+    required: false
+    when: []
+    covers:
+      - recolor.source_files
+  - stage: face_edit
+    id: face_edit.body.kaguya.baked-keys-undriven
+    path: bodies/Kaguya.md
+    heading: Kaguya：一个工程里被烤的脸型键没有任何动画驱动
+    priority: 40
+    required: false
+    when:
+      - path: memory.project.identity.base
+        equals: Kaguya
+    covers:
+      - face_edit.shapekey_extrapolation
+  - stage: face_edit
+    id: face_edit.body.milfy.layered-card-eyes
+    path: bodies/Milfy.md
+    heading: Milfy：眼部是间距约 0.03 mm 的叠层卡片
+    priority: 66
+    required: false
+    when:
+      - path: memory.project.identity.base
+        equals: Milfy
+    covers:
+      - face_edit.layered_cards
+  - stage: face_edit
+    id: face_edit.body.milfy.corner-key-capability
+    path: bodies/Milfy.md
+    heading: Milfy：外眼角与眼裂相关厂商键的实测能力
+    priority: 60
+    required: false
+    when:
+      - path: memory.project.identity.base
+        equals: Milfy
+    covers:
+      - face_edit.custom_key_exception
+  - stage: blend_keys
+    id: blend_keys.body.milfy.corner-key-capability
+    path: bodies/Milfy.md
+    heading: Milfy：外眼角与眼裂相关厂商键的实测能力
+    priority: 62
+    required: false
+    when:
+      - path: memory.project.identity.base
+        equals: Milfy
+    covers:
+      - blend_keys.key_probe
+  - stage: face_edit
+    id: face_edit.body.milfy.closure-residual
+    path: bodies/Milfy.md
+    heading: Milfy：放大眼睛的脸型键与闭眼残留的实测
+    priority: 58
+    required: false
+    when:
+      - path: memory.project.identity.base
+        equals: Milfy
+    covers:
+      - face_edit.route
+  - stage: face_edit
+    id: face_edit.body.milfy.start-values
+    path: bodies/Milfy.md
+    heading: Milfy：捏脸候选的起手值，放大类从弱、弧度类从强
+    priority: 57
+    required: false
+    when:
+      - path: memory.project.identity.base
+        equals: Milfy
+    covers:
+      - face_edit.candidates
+  - stage: face_edit
+    id: face_edit.body.milfy.custom-normals
+    path: bodies/Milfy.md
+    heading: Milfy：Body 的厂商自定义法线是手绘场
+    priority: 45
+    required: false
+    when:
+      - path: memory.project.identity.base
+        equals: Milfy
+    covers:
+      - face_edit.bump_diagnosis
+  - stage: face_edit
+    id: face_edit.body.milfy.bump-prone-keys
+    path: bodies/Milfy.md
+    heading: Milfy：捏脸后最容易起凹凸的键与部位
+    priority: 50
+    required: false
+    when:
+      - path: memory.project.identity.base
+        equals: Milfy
+    covers:
+      - face_edit.bump_diagnosis
+  - stage: face_edit
+    id: face_edit.body.milfy.index-weight-shift
+    path: bodies/Milfy.md
+    heading: Milfy：删脸型键后，厂商默认权重会按索引错位
+    priority: 48
+    required: false
+    when:
+      - path: memory.project.identity.base
+        equals: Milfy
+    covers:
+      - face_edit.index_overrides
+  - stage: recolor
+    id: recolor.body.milfy.mask-and-blend-mode
+    path: bodies/Milfy.md
+    heading: Milfy：厂商叠色层遮罩与脸材质的混合模式
+    priority: 66
+    required: false
+    when: []
+    covers:
+      - recolor.liltoon_layers
+  - stage: recolor
+    id: recolor.body.milfy.eye-disk-atlas
+    path: bodies/Milfy.md
+    heading: Milfy：面部图集的眼盘坐标与同 UV 的眼睛贴图
+    priority: 60
+    required: false
+    when: []
+    covers:
+      - recolor.eye_texture_pack
+  - stage: recolor
+    id: recolor.body.milfy.pupil-dark-band
+    path: bodies/Milfy.md
+    heading: Milfy：星屑系列瞳孔贴图自带的暗带位置
+    priority: 45
+    required: false
+    when: []
+    covers:
+      - recolor.split_pupil
+  - stage: blend_keys
+    id: blend_keys.body.shinano.eyelid-tilt-keys
+    path: bodies/Shinano.md
+    heading: Shinano：眼尾上挑键的实测强度与一条方向存疑的键
+    priority: 70
+    required: false
+    when:
+      - path: memory.project.identity.base
+        equals: Shinano
+    covers:
+      - blend_keys.key_probe
+  - stage: face_edit
+    id: face_edit.body.shinano.eyelid-tilt-keys
+    path: bodies/Shinano.md
+    heading: Shinano：眼尾上挑键的实测强度与一条方向存疑的键
+    priority: 60
+    required: false
+    when:
+      - path: memory.project.identity.base
+        equals: Shinano
+    covers:
+      - face_edit.key_probe
+  - stage: face_edit
+    id: face_edit.outfit.fbx-swap-impact
+    path: context/outfit/装配机制与骨骼.md
+    heading: 上游更换了素体 FBX 时，装配成果需要复核
+    priority: 50
+    required: false
+    covers:
+      - face_edit.downstream-outfit
+  - stage: accessories
+    id: accessories.outfit.acceptance
+    path: context/outfit/装配机制与骨骼.md
+    heading: 装配验收：逐项取证，不抽查
+    priority: 30
+    required: false
+    covers:
+      - accessories.acceptance
+  - stage: outfit
+    id: outfit.variant.pose-needs-instance
+    path: context/outfit/厂商变体与多实例.md
+    heading: 变体差在骨架姿态时：只差父骨可用约束，子骨姿态不同就上第二份实例
+    priority: 45
+    required: false
+    when: []
+    covers:
+      - outfit.variants
+  - stage: outfit
+    id: outfit.variant.copy-weighted-meshes
+    path: context/outfit/厂商变体与多实例.md
+    heading: 第二份实例只复制蒙在差异骨链上的网格（按逐顶点权重）
+    priority: 45
+    required: false
+    when: []
+    covers:
+      - outfit.variants
+  - stage: outfit
+    id: outfit.variant.container-gating
+    path: context/outfit/厂商变体与多实例.md
+    heading: 第二份实例的结构与组件取舍：容器门控
+    priority: 45
+    required: false
+    when: []
+    covers:
+      - outfit.variants
+      - outfit.multi-outfit
+  - stage: outfit
+    id: outfit.variant.wiring
+    path: context/outfit/厂商变体与多实例.md
+    heading: 第二份实例的接线：部位开关写全路径，轮盘只负责压掉一份
+    priority: 40
+    required: false
+    when: []
+    covers:
+      - outfit.multi-outfit
+  - stage: menu
+    id: menu.variant.wiring
+    path: context/outfit/厂商变体与多实例.md
+    heading: 第二份实例的接线：部位开关写全路径，轮盘只负责压掉一份
+    priority: 55
+    required: false
+    when: []
+    covers:
+      - menu.variant-wiring
+  - stage: outfit
+    id: outfit.variant.readback
+    path: context/outfit/厂商变体与多实例.md
+    heading: 第二份实例装完的回读判据：以原件为对照逐路径比
+    priority: 45
+    required: false
+    when: []
+    covers:
+      - outfit.variants
+  - stage: outfit
+    id: outfit.foot.pose-follows-shoe
+    path: context/outfit/收缩键与脚型.md
+    heading: 贴合姿态键跟鞋走，改之前列全这个键的全部写者
+    priority: 70
+    required: false
+    when: []
+    covers:
+      - outfit.foot-keys
+      - outfit.shape-writers
+  - stage: outfit
+    id: outfit.follow.patch-frames
+    path: context/outfit/形态键跟随.md
+    heading: 衣物缺身体的某个键：在 Unity 里给原网格副本加帧
+    priority: 50
+    required: false
+    when: []
+    covers:
+      - outfit.shape-patch
+  - stage: regression_pre
+    id: regression_pre.follow.patch-frames
+    path: context/outfit/形态键跟随.md
+    heading: 衣物缺身体的某个键：在 Unity 里给原网格副本加帧
+    priority: 40
+    required: false
+    when: []
+    covers:
+      - regression.shape-follow
+  - stage: regression
+    id: regression.follow.patch-frames
+    path: context/outfit/形态键跟随.md
+    heading: 衣物缺身体的某个键：在 Unity 里给原网格副本加帧
+    priority: 40
+    required: false
+    when: []
+    covers:
+      - regression.shape-follow
+  - stage: outfit
+    id: outfit.follow.patch-acceptance
+    path: context/outfit/形态键跟随.md
+    heading: 补帧的验收：三档量距与零档逐值相同
+    priority: 45
+    required: false
+    when: []
+    covers:
+      - outfit.shape-patch
+  - stage: outfit
+    id: outfit.parts.evidence-images
+    path: context/outfit/部件理解.md
+    heading: 部件取证的图种：仅部件、在身上、整套有／无
+    priority: 40
+    required: false
+    when: []
+    covers:
+      - outfit.visual-review
+  - stage: outfit
+    id: outfit.parts.anonymize-images
+    path: context/outfit/部件理解.md
+    heading: 送给视觉模型的图：去掉身份文字，成对图用同一遮罩
+    priority: 30
+    required: false
+    when: []
+    covers:
+      - outfit.visual-review
+  - stage: outfit
+    id: outfit.parts.visual-batching
+    path: context/outfit/部件理解.md
+    heading: 视觉判读的分批与送审写法
+    priority: 30
+    required: false
+    when: []
+    covers:
+      - outfit.visual-review
+  - stage: outfit
+    id: outfit.parts.describe-metal
+    path: context/outfit/部件理解.md
+    heading: 部件描述逐项过：别漏小而显眼的金属件
+    priority: 25
+    required: false
+    when: []
+    covers:
+      - outfit.visual-review
+  - stage: menu
+    id: menu.parts.radial-and-colors
+    path: context/menu/部件菜单编排.md
+    heading: 决策三：什么时候用轮盘，配色怎么切
+    priority: 60
+    required: false
+    when: []
+    covers:
+      - menu.radial
+  - stage: menu
+    id: menu.parts.nail-gate
+    path: context/menu/部件菜单编排.md
+    heading: 脚甲压制门：鞋开或袜开都要压，露趾款例外
+    priority: 40
+    required: false
+    when: []
+    covers:
+      - menu.nail-gate
+  - stage: regression_pre
+    id: regression_pre.fit.freeze-render-contrast
+    path: context/regression/装配类失败定位.md
+    heading: 缺写者的收缩键有没有可见后果：冻结 Animator 渲 0／100 对照
+    priority: 45
+    required: false
+    when: []
+    covers:
+      - regression.visible-consequence
+  - stage: regression
+    id: regression.fit.freeze-render-contrast
+    path: context/regression/装配类失败定位.md
+    heading: 缺写者的收缩键有没有可见后果：冻结 Animator 渲 0／100 对照
+    priority: 45
+    required: false
+    when: []
+    covers:
+      - regression.visible-consequence
+  - stage: blend_keys
+    id: blend_keys.shape.unity-blendshape-api
+    path: memory/网格与形状键.md
+    heading: Unity 形态键 API 的三个陷阱：索引不含 Basis、改帧只能整体重灌、按名字回填
+    priority: 40
+    required: false
+    covers:
+      - blend_keys.api
+  - stage: menu
+    id: menu.anim.colorway-material-swap
+    path: memory/动画层与菜单.md
+    heading: 同构配色合成一份实例，按材质数组切换
+    priority: 40
+    required: false
+    when: []
+    covers:
+      - menu.radial
+  - stage: recolor
+    id: recolor.anim.colorway-material-swap
+    path: memory/动画层与菜单.md
+    heading: 同构配色合成一份实例，按材质数组切换
+    priority: 35
+    required: false
+    when: []
+    covers:
+      - recolor.variants
+  - stage: optimize
+    id: optimize.anim.colorway-material-swap
+    path: memory/动画层与菜单.md
+    heading: 同构配色合成一份实例，按材质数组切换
+    priority: 30
+    required: false
+    when: []
+    covers:
+      - optimize.renderers
+  - stage: outfit
+    id: outfit.case.no-foot-shrink-needed
+    path: cases/regression/脚型与收缩键.md
+    heading: 案例：四套衣服一个脚部收缩键都不需要
+    priority: 25
+    required: false
+    when: []
+    covers:
+      - outfit.shrink-flow
+  - stage: outfit
+    id: outfit.body.kaguya.breast-key-suffix
+    path: bodies/Kaguya.md
+    heading: Kaguya v1.06：身体胸型键带「(mizuki)」后缀，厂商 BlendshapeSync 会空转
+    priority: 65
+    required: false
+    when: []
+    covers:
+      - outfit.shape-follow
+  - stage: regression_pre
+    id: regression_pre.body.kaguya.breast-key-suffix
+    path: bodies/Kaguya.md
+    heading: Kaguya v1.06：身体胸型键带「(mizuki)」后缀，厂商 BlendshapeSync 会空转
+    priority: 55
+    required: false
+    when: []
+    covers:
+      - regression.shape-follow
+  - stage: outfit
+    id: outfit.body.rurune.same-name-breast-keys
+    path: bodies/Rurune.md
+    heading: Rurune：外购上衣的同名胸型键常无人同步
+    priority: 65
+    required: false
+    when: []
+    covers:
+      - outfit.shape-follow
+  - stage: regression_pre
+    id: regression_pre.body.rurune.same-name-breast-keys
+    path: bodies/Rurune.md
+    heading: Rurune：外购上衣的同名胸型键常无人同步
+    priority: 55
+    required: false
+    when: []
+    covers:
+      - regression.shape-follow
+  - stage: menu
+    id: menu.suppress-vs-once
+    path: context/menu/layers-and-writes.md
+    heading: 「切换时关一次」与「开着期间一直压」是两种写法
+    priority: 70
+    required: false
+    when: []
+    covers:
+      - menu.suppression
+  - stage: menu
+    id: menu.ma-reactive
+    path: context/menu/implementation.md
+    heading: 用 MA 反应式组件切换衣装：适用条件与接线检查
+    priority: 60
+    required: false
+    when: []
+    covers:
+      - menu.ma-reactive
+      - menu.outfit-switching
+  - stage: menu
+    id: menu.generated-layers
+    path: context/menu/implementation.md
+    heading: 生成动画层的结构约定：状态、转移、参数与合并设置
+    priority: 65
+    required: false
+    when: []
+    covers:
+      - menu.generated-layers
+      - menu.outfit-switching
+  - stage: menu
+    id: menu.control-shapes
+    path: context/menu/implementation.md
+    heading: 同一位置多件饰品与戒指：控件形态
+    priority: 50
+    required: false
+    when: []
+    covers:
+      - menu.structure
+      - menu.control-shapes
+  - stage: accessories
+    id: accessories.duties
+    path: context/accessories/placement.md
+    heading: 配饰装位阶段：职责、输入与完成口径
+    priority: 95
+    required: true
+    covers:
+      - accessories.duties
+  - stage: accessories
+    id: accessories.mount-method
+    path: context/accessories/placement.md
+    heading: 挂载方式：直接挂到人形骨挂点，不用 BoneProxy 或 MergeArmature
+    priority: 90
+    required: true
+    covers:
+      - accessories.mount-method
+  - stage: accessories
+    id: accessories.parent-bone
+    path: context/accessories/placement.md
+    heading: 父骨选择：定位参照可以会动，父骨不能自己转
+    priority: 70
+    required: false
+    covers:
+      - accessories.parent-bone
+  - stage: accessories
+    id: accessories.author-intent
+    path: context/accessories/placement.md
+    heading: 挂之前先看作者设计，并按实测识别部件
+    priority: 80
+    required: false
+    covers:
+      - accessories.author-intent
+      - accessories.identify
+  - stage: accessories
+    id: accessories.rigged-packs
+    path: context/accessories/placement.md
+    heading: 带骨架配饰：保留作者坐标，挂完查骨段与动骨链
+    priority: 80
+    required: false
+    covers:
+      - accessories.rigged-packs
+      - accessories.bone-length
+  - stage: accessories
+    id: accessories.idempotency
+    path: context/accessories/placement.md
+    heading: 装位的幂等、回退与重来
+    priority: 75
+    required: false
+    covers:
+      - accessories.idempotency
+  - stage: accessories
+    id: accessories.verification
+    path: context/accessories/placement.md
+    heading: 装位验收：数值判据加一张能看懂的图
+    priority: 75
+    required: false
+    covers:
+      - accessories.verification
+  - stage: accessories
+    id: accessories.ring-fit
+    path: context/accessories/fitting.md
+    heading: 环形配饰的贴合：从几何求解，至少两条判据
+    priority: 70
+    required: false
+    covers:
+      - accessories.ring-fit
+  - stage: accessories
+    id: accessories.reference-surface
+    path: context/accessories/fitting.md
+    heading: 装位参照面：埋深看渲染出的表面，挂位按件类选面
+    priority: 65
+    required: false
+    covers:
+      - accessories.reference-surface
+  - stage: accessories
+    id: accessories.author-given
+    path: context/accessories/fitting.md
+    heading: 作者已定的朝向、尺寸与形状键：只补作者没给的
+    priority: 65
+    required: false
+    covers:
+      - accessories.author-intent
+      - accessories.scaling
+      - accessories.mirror
+  - stage: menu
+    id: mem.menu.boolean-visibility
+    path: memory/动画层与菜单.md
+    heading: 显隐由几个部件的布尔组合决定时，新开一层做所有者
+    priority: 25
+    required: false
+    when: []
+    covers:
+      - menu.ownership
+  - stage: menu
+    id: mem.menu.builtin-underwear
+    path: memory/动画层与菜单.md
+    heading: 整套自带同部位件：在整套层点名关掉素体那份
+    priority: 20
+    required: false
+    when: []
+    covers:
+      - menu.layer-order
+  - stage: menu
+    id: mem.menu.playable-mask-layer0
+    path: memory/动画层与菜单.md
+    heading: 可播放层的遮罩来自合并后控制器的第 0 层
+    priority: 20
+    required: false
+    when: []
+    covers:
+      - menu.humanoid-pose
+  - stage: menu
+    id: mem.menu.humanoid-zero-pose
+    path: memory/动画层与菜单.md
+    heading: 遮罩认领的人形部位没人写，会输出零姿势
+    priority: 25
+    required: false
+    when: []
+    covers:
+      - menu.humanoid-pose
+  - stage: menu
+    id: mem.menu.arm-pose-routes
+    path: memory/动画层与菜单.md
+    heading: 手臂姿势的三条路线与 Additive 叠加层
+    priority: 20
+    required: false
+    when: []
+    covers:
+      - menu.humanoid-pose
+  - stage: menu
+    id: mem.menu.additive-pitfalls
+    path: memory/动画层与菜单.md
+    heading: Additive 叠加层的三个坑
+    priority: 20
+    required: false
+    when: []
+    covers:
+      - menu.humanoid-pose
+  - stage: menu
+    id: mem.menu.finger-weight-layers
+    path: memory/动画层与菜单.md
+    heading: 手指层用权重按需接管
+    priority: 20
+    required: false
+    when: []
+    covers:
+      - menu.humanoid-pose
+  - stage: menu
+    id: mem.menu.desktop-vr-isdefault
+    path: memory/动画层与菜单.md
+    heading: 桌面与 VR 的手臂姿势、isDefault 与遮罩复核
+    priority: 20
+    required: false
+    when: []
+    covers:
+      - menu.humanoid-pose
+  - stage: menu
+    id: mem.menu.finger-muscle-names
+    path: memory/动画层与菜单.md
+    heading: 人形 clip 的手指肌肉曲线绑定名
+    priority: 20
+    required: false
+    when: []
+    covers:
+      - menu.humanoid-pose
+  - stage: menu
+    id: mem.menu.particle-toggle
+    path: memory/动画层与菜单.md
+    heading: 粒子特效开关：切渲染器，不切物体
+    priority: 25
+    required: false
+    when: []
+    covers:
+      - menu.particles
+  - stage: menu
+    id: mem.menu.appearance-states
+    path: memory/动画层与菜单.md
+    heading: 换外观的档位：材质引用可动画，贴图引用不可
+    priority: 25
+    required: false
+    when: []
+    covers:
+      - menu.appearance-states
+  - stage: menu
+    id: mem.menu.material-slot-expand
+    path: memory/动画层与菜单.md
+    heading: 材质槽扩容：同一网格画两遍
+    priority: 15
+    required: false
+    when: []
+    covers:
+      - menu.appearance-states
+  - stage: face_tracking
+    id: mem.menu.budget-floor-ft:face_tracking
+    path: memory/动画层与菜单.md
+    heading: 真实预算地板与面捕参数
+    priority: 40
+    required: false
+    covers:
+      - menu.budget
+  - stage: face_edit
+    id: mem.menu.expression-extrapolation
+    path: memory/动画层与菜单.md
+    heading: 捏脸烤进网格后，表情 clip 会越界外推
+    priority: 30
+    required: false
+    covers:
+      - face_edit.expression-range
+  - stage: accessories
+    id: mem.acc.boneproxy-editmode
+    path: memory/配饰装位.md
+    heading: MA BoneProxy 在编辑期不生效
+    priority: 50
+    required: false
+    covers:
+      - accessories.mount-method
+  - stage: accessories
+    id: mem.acc.bone-length
+    path: memory/配饰装位.md
+    heading: 挂完骨架必查骨段长度，并分清是否在动骨模拟链
+    priority: 50
+    required: false
+    covers:
+      - accessories.bone-length
+  - stage: accessories
+    id: mem.acc.name-is-not-part
+    path: memory/配饰装位.md
+    heading: 部件是什么看实测，不看名字
+    priority: 45
+    required: false
+    covers:
+      - accessories.identify
+  - stage: accessories
+    id: mem.acc.ring-axis-center
+    path: memory/配饰装位.md
+    heading: 环状件的孔轴与孔心：逐组最大空圆与扇区判据
+    priority: 40
+    required: false
+    covers:
+      - accessories.ring-fit
+  - stage: accessories
+    id: mem.acc.ring-size-hole
+    path: memory/配饰装位.md
+    heading: 环状件的内径与佩戴孔：薄片 97 分位与 60% 门槛
+    priority: 40
+    required: false
+    covers:
+      - accessories.ring-fit
+  - stage: accessories
+    id: mem.acc.ring-roll
+    path: memory/配饰装位.md
+    heading: 环状件的滚转与正反：径向凸出参照与手性验证
+    priority: 40
+    required: false
+    covers:
+      - accessories.ring-fit
+  - stage: accessories
+    id: mem.acc.scale-to-body
+    path: memory/配饰装位.md
+    heading: 通用配饰包换素体：先按头宽等比缩放
+    priority: 35
+    required: false
+    covers:
+      - accessories.scaling
+  - stage: accessories
+    id: mem.acc.embed-surface
+    path: memory/配饰装位.md
+    heading: 埋深参照面是渲染出来的发丝表面
+    priority: 35
+    required: false
+    covers:
+      - accessories.reference-surface
+  - stage: accessories
+    id: mem.acc.reference-planes
+    path: memory/配饰装位.md
+    heading: 可穿戴件的装位参照面按件类定，顶端对齐
+    priority: 30
+    required: false
+    covers:
+      - accessories.reference-surface
+  - stage: accessories
+    id: mem.acc.author-orientation
+    path: memory/配饰装位.md
+    heading: 作者已定的朝向与形状键，不要再算一遍
+    priority: 35
+    required: false
+    covers:
+      - accessories.author-intent
+  - stage: accessories
+    id: mem.acc.criteria-pollution
+    path: memory/配饰装位.md
+    heading: 装位判据要排除本轮产物与不渲染的件
+    priority: 30
+    required: false
+    covers:
+      - accessories.verification
+  - stage: accessories
+    id: mem.acc.mirror-sign
+    path: memory/配饰装位.md
+    heading: 镜像件的缩放符号沿用原型
+    priority: 25
+    required: false
+    covers:
+      - accessories.mirror
+  - stage: accessories
+    id: mem.acc.local-bounds
+    path: memory/配饰装位.md
+    heading: 挪过骨架的蒙皮件要重算 localBounds
+    priority: 35
+    required: false
+    covers:
+      - accessories.verification
+  - stage: accessories
+    id: mem.acc.body-specific-pack
+    path: memory/配饰装位.md
+    heading: 素体专用配饰包：先解包预制体，再保世界坐标挂载
+    priority: 35
+    required: false
+    covers:
+      - accessories.rigged-packs
+  - stage: accessories
+    id: mem.acc.long-bone-fix
+    path: memory/配饰装位.md
+    heading: 骨段过长的修法：转接节点归零，动骨挪到子骨
+    priority: 30
+    required: false
+    covers:
+      - accessories.bone-length
+  - stage: accessories
+    id: mem.acc.vendor-animator
+    path: memory/配饰装位.md
+    heading: 配饰自带 Animator 会在 Play 里把骨按回去
+    priority: 30
+    required: false
+    covers:
+      - accessories.rigged-packs
+  - stage: accessories
+    id: mem.acc.remount-bound-branch
+    path: memory/配饰装位.md
+    heading: 重挂骨架要改网格实际绑定的那一份
+    priority: 30
+    required: false
+    covers:
+      - accessories.idempotency
+  - stage: accessories
+    id: mem.acc.occlusion-not-occupancy
+    path: memory/配饰装位.md
+    heading: 遮挡不等于占用：被遮住没有要渲图判
+    priority: 30
+    required: false
+    covers:
+      - accessories.occlusion
+  - stage: accessories
+    id: mem.acc.new-bone-bend-test
+    path: memory/配饰装位.md
+    heading: 给身体网格新插骨后的弯曲试验
+    priority: 20
+    required: false
+    covers:
+      - accessories.new-bones
+  - stage: regression_pre
+    id: case.reg.loop-wrap
+    path: cases/regression/menu-state.md
+    heading: 厂商衣装轮盘最后一档永远选不到：循环 clip 的 1.0 回绕
+    priority: 20
+    required: false
+    when: []
+    covers:
+      - regression.menu-missing-state
+  - stage: regression
+    id: case.reg.loop-wrap:regression
+    path: cases/regression/menu-state.md
+    heading: 厂商衣装轮盘最后一档永远选不到：循环 clip 的 1.0 回绕
+    priority: 20
+    required: false
+    when: []
+    covers:
+      - regression.menu-missing-state
+  - stage: accessories
+    id: case.acc.halo-at-feet
+    path: cases/accessories/mounting-and-fitting.md
+    heading: 光环渲染在脚底：BoneProxy 编辑期不生效
+    priority: 25
+    required: false
+    covers:
+      - accessories.mount-method
+  - stage: accessories
+    id: case.acc.sticker-slides-with-eye
+    path: cases/accessories/mounting-and-fitting.md
+    heading: 目元贴纸随眼珠在脸上滑：父骨选了眼骨
+    priority: 25
+    required: false
+    covers:
+      - accessories.parent-bone
+  - stage: accessories
+    id: case.acc.prefab-setparent-silent
+    path: cases/accessories/mounting-and-fitting.md
+    heading: 耳尾整套停在脚边，日志却说已挂载：预制体实例拒绝移动子物体
+    priority: 20
+    required: false
+    covers:
+      - accessories.mount-method
+  - stage: accessories
+    id: case.acc.zeroed-local-transform
+    path: cases/accessories/mounting-and-fitting.md
+    heading: 耳朵翻到胸前、尾巴从肩膀横着伸出：清零了素体专用包的局部变换
+    priority: 20
+    required: false
+    covers:
+      - accessories.rigged-packs
+  - stage: accessories
+    id: case.acc.second-run-misaligned
+    path: cases/accessories/mounting-and-fitting.md
+    heading: 第一次跑是对的，第二次跑就错位：拆挂点时没保持世界坐标
+    priority: 20
+    required: false
+    covers:
+      - accessories.idempotency
+  - stage: accessories
+    id: case.acc.ring-too-thick
+    path: cases/accessories/mounting-and-fitting.md
+    heading: 戒指有手指两倍粗：拿骨间距当肢体粗细
+    priority: 15
+    required: false
+    when:
+      - path: memory.history.failedStageIds
+        includes: accessories
+    covers:
+      - accessories.ring-fit
+  - stage: accessories
+    id: case.acc.wrong-wearing-hole
+    path: cases/accessories/mounting-and-fitting.md
+    heading: 腕饰甩到手掌外侧，或整件放大 1.3 倍：佩戴孔取了最大或最小的圈
+    priority: 15
+    required: false
+    when:
+      - path: memory.history.failedStageIds
+        includes: accessories
+    covers:
+      - accessories.ring-fit
+  - stage: accessories
+    id: case.acc.bow-faces-palm
+    path: cases/accessories/mounting-and-fitting.md
+    heading: 一只手的蝴蝶结朝手心，另一只朝手背：用弯曲量求和定手背方向
+    priority: 15
+    required: false
+    when:
+      - path: memory.history.failedStageIds
+        includes: accessories
+    covers:
+      - accessories.ring-fit
+  - stage: accessories
+    id: case.acc.bow-lying-flat
+    path: cases/accessories/mounting-and-fitting.md
+    heading: 戒指上的蝴蝶结趴着没立起来：滚转参照取错了顶点组
+    priority: 15
+    required: false
+    when:
+      - path: memory.history.failedStageIds
+        includes: accessories
+    covers:
+      - accessories.ring-fit
+  - stage: accessories
+    id: case.acc.oversized-generic-ears
+    path: cases/accessories/mounting-and-fitting.md
+    heading: 兽耳像顶着两块黑板：通用包没按素体缩放
+    priority: 20
+    required: false
+    covers:
+      - accessories.scaling
+  - stage: accessories
+    id: case.acc.floating-ear-base
+    path: cases/accessories/mounting-and-fitting.md
+    heading: 耳底悬浮在发丝上，日志却说埋深 3 cm：量错了参照面
+    priority: 20
+    required: false
+    covers:
+      - accessories.reference-surface
+  - stage: accessories
+    id: case.acc.headdress-yawed
+    path: cases/accessories/mounting-and-fitting.md
+    heading: 头饰偏航十几度，侧面的大蝴蝶结被拧到正前方：重算了作者已定的朝向
+    priority: 20
+    required: false
+    covers:
+      - accessories.author-intent
+  - stage: accessories
+    id: case.acc.shape-key-bracket
+    path: cases/accessories/mounting-and-fitting.md
+    heading: 后脑串珠切进头发或整条飘到发外：形状键权重要用渲图夹
+    priority: 15
+    required: false
+    covers:
+      - accessories.author-intent
+  - stage: accessories
+    id: case.acc.mirror-lost
+    path: cases/accessories/mounting-and-fitting.md
+    heading: 左腕戴了一个右腕的件：缩放符号被抹掉
+    priority: 15
+    required: false
+    covers:
+      - accessories.mirror
+  - stage: accessories
+    id: case.acc.vendor-animator-play
+    path: cases/accessories/mounting-and-fitting.md
+    heading: 进 Play 后耳朵倒下来、只有一侧：配饰自带 Animator 按回了骨
+    priority: 15
+    required: false
+    covers:
+      - accessories.rigged-packs
+  - stage: accessories
+    id: case.acc.misjudged-not-fitted
+    path: cases/accessories/verification.md
+    heading: 连续两轮报「没套住」，其实早已套住：看图误判
+    priority: 20
+    required: false
+    covers:
+      - accessories.verification
+  - stage: accessories
+    id: case.acc.closeup-contradiction
+    path: cases/accessories/verification.md
+    heading: 多个独立评审互相矛盾：喂了贴脸特写
+    priority: 20
+    required: false
+    covers:
+      - accessories.verification
+  - stage: accessories
+    id: case.acc.criteria-polluted
+    path: cases/accessories/verification.md
+    heading: 截面半径虚报 3 cm：判据扫到了本轮刚挂上的配饰
+    priority: 15
+    required: false
+    when:
+      - path: memory.history.failedStageIds
+        includes: accessories
+    covers:
+      - accessories.verification
+  - stage: accessories
+    id: case.acc.same-name-mesh
+    path: cases/accessories/verification.md
+    heading: 光环被顶到离头心 28 cm，判据全绿：撞上素体的同名网格
+    priority: 20
+    required: false
+    covers:
+      - accessories.identify
+  - stage: accessories
+    id: case.acc.culled-ears
+    path: cases/accessories/verification.md
+    heading: 兽耳从任何机位都不画：localBounds 与真实几何脱节
+    priority: 20
+    required: false
+    covers:
+      - accessories.verification
+  - stage: accessories
+    id: case.acc.head-3-percent
+    path: cases/accessories/verification.md
+    heading: 头部同框图里头只占 3%：用 Renderer.bounds 定框
+    priority: 15
+    required: false
+    covers:
+      - accessories.verification
+  - stage: accessories
+    id: case.acc.buried-headdress-shots
+    path: cases/accessories/verification.md
+    heading: 埋在头发里的头饰，三张验收图拍的全是头发
+    priority: 15
+    required: false
+    covers:
+      - accessories.verification
+  - stage: accessories
+    id: case.acc.ears-fling
+    path: cases/accessories/verification.md
+    heading: 耳朵进 Play 甩到两米外：4 米长的转接骨段
+    priority: 25
+    required: false
+    covers:
+      - accessories.bone-length
+  - stage: accessories
+    id: case.acc.bone-length-false-positive
+    path: cases/accessories/verification.md
+    heading: 狐耳挂载触发骨段超长停止：长偏移在动骨根之上，是假阳性
+    priority: 20
+    required: false
+    covers:
+      - accessories.bone-length
+  - stage: accessories
+    id: case.acc.wrong-branch
+    path: cases/accessories/verification.md
+    heading: 骨到位了，网格没跟过去：改错了同名骨架分支
+    priority: 20
+    required: false
+    covers:
+      - accessories.idempotency
+  - stage: accessories
+    id: case.acc.toenail-occlusion
+    path: cases/accessories/verification.md
+    heading: 按判据五套鞋都会藏掉脚甲，其中两套是错的：用占用判遮挡
+    priority: 15
+    required: false
+    covers:
+      - accessories.occlusion
+  - stage: accessories
+    id: case.acc.tongue-bend
+    path: cases/accessories/verification.md
+    heading: 舌头最大弯曲时内侧自穿插：弯曲半径与权重分布
+    priority: 10
+    required: false
+    covers:
+      - accessories.new-bones
+  - stage: accessories
+    id: body.kaguya.head-axes-ear-pack
+    path: bodies/Kaguya.md
+    heading: Kaguya：Head 骨的局部轴与素体专用耳尾包的坐标
+    priority: 60
+    required: false
+    when:
+      - path: memory.project.identity.base
+        equals: Kaguya
+    covers:
+      - accessories.rigged-packs
+  - stage: accessories
+    id: body.kaguya.builtin-ear-mesh
+    path: bodies/Kaguya.md
+    heading: Kaguya：素体自带一对名为 ear 的兽耳网格
+    priority: 55
+    required: false
+    when:
+      - path: memory.project.identity.base
+        equals: Kaguya
+    covers:
+      - accessories.identify
+      - menu.control-shapes
+  - stage: accessories
+    id: body.kaguya.measurements
+    path: bodies/Kaguya.md
+    heading: Kaguya：实测肢体与头部尺寸
+    priority: 50
+    required: false
+    when:
+      - path: memory.project.identity.base
+        equals: Kaguya
+    covers:
+      - accessories.ring-fit
+      - accessories.reference-surface
+  - stage: face_tracking
+    id: body.milfy.budget-scale:face_tracking
+    path: bodies/Milfy.md
+    heading: Milfy：同步参数预算的量级
+    priority: 45
+    required: false
+    when:
+      - path: memory.project.identity.base
+        equals: Milfy
+    covers:
+      - menu.budget
+  - stage: regression_pre
+    id: regression_pre.mechanism-matrix
+    path: context/regression/状态集与覆盖.md
+    heading: 按工程类型追加的必测组合（九类换装机制）
+    priority: 45
+    required: false
+    when: []
+    covers:
+      - regression.mechanism-matrix
+  - stage: regression
+    id: regression.mechanism-matrix
+    path: context/regression/状态集与覆盖.md
+    heading: 按工程类型追加的必测组合（九类换装机制）
+    priority: 45
+    required: false
+    when: []
+    covers:
+      - regression.mechanism-matrix
+  - stage: face_tracking
+    id: face_tracking.mechanism-matrix
+    path: context/regression/状态集与覆盖.md
+    heading: 按工程类型追加的必测组合（九类换装机制）
+    priority: 30
+    required: false
+    covers:
+      - regression.mechanism-matrix
+  - stage: face_edit
+    id: face_edit.blendshape-clamp
+    path: context/regression/观测口径.md
+    heading: 越界形态键按 Play 口径判
+    priority: 30
+    required: false
+    covers:
+      - regression.blendshape-clamp
+  - stage: face_tracking
+    id: face_tracking.client-gap
+    path: context/regression/观测口径.md
+    heading: 读回通过不等于上传后可用
+    priority: 30
+    required: false
+    covers:
+      - regression.client-gap
+  - stage: regression_pre
+    id: regression_pre.mem-editor-resend
+    path: memory/工程与构建.md
+    heading: 超时的编辑器调用会被重发：动作必须幂等
+    priority: 15
+    required: false
+    when: []
+    covers:
+      - memory.editor-resend
+  - stage: regression_pre
+    id: regression_pre.mem-batch-heavy
+    path: memory/工程与构建.md
+    heading: 重活不进单次编辑器调用：构建与预处理走批处理
+    priority: 15
+    required: false
+    when: []
+    covers:
+      - memory.batch-heavy
+  - stage: regression_pre
+    id: regression_pre.mem-external-scene-edit
+    path: memory/工程与构建.md
+    heading: 候选：编辑器开着时不要从外部改写已打开的场景文件
+    priority: 10
+    required: false
+    when: []
+    covers:
+      - memory.external-scene-edit
+  - stage: regression_pre
+    id: regression_pre.mem-native-crash
+    path: memory/工程与构建.md
+    heading: 候选：构建中的原生崩溃按崩溃线程栈归因
+    priority: 5
+    required: false
+    when: []
+    covers:
+      - memory.native-crash
+  - stage: regression_pre
+    id: regression_pre.mem-bridge-pitfalls
+    path: memory/工程与构建.md
+    heading: 候选：编辑器桥执行代码的两个编译与拦截坑
+    priority: 5
+    required: false
+    when: []
+    covers:
+      - memory.bridge-pitfalls
+  - stage: face_edit
+    id: face_edit.mem-legacy-clamp
+    path: memory/工程与构建.md
+    heading: 未决：legacyClamp 的三个未实证问题
+    priority: 25
+    required: false
+    covers:
+      - regression.blendshape-clamp
+  - stage: accessories
+    id: accessories.k6-physbone-params
+    path: memory/骨骼与动骨.md
+    heading: 候选：改动骨参数前先确认现状，先抬 falloff 再加 gravity
+    priority: 20
+    required: false
+    covers:
+      - physbone.params
+  - stage: face_tracking
+    id: face_tracking.case-param-not-in-table
+    path: cases/regression/实测缺陷.md
+    heading: 新增参数在 Play 里验收全过，上传后却不起作用
+    priority: 25
+    required: false
+    covers:
+      - case.param-not-in-table
+  - stage: face_tracking
+    id: face_tracking.case-ft-root-missing-sc
+    path: cases/regression/实测缺陷.md
+    heading: 面捕根上的收缩组件被覆盖删除
+    priority: 25
+    required: false
+    covers:
+      - case.ft-root-missing-component
+  - stage: accessories
+    id: accessories.case-aps-handle-aabb
+    path: cases/optimize/实测收益与事故.md
+    heading: AvatarPoseSystem 的抓取手柄把包围盒撑到 9.6 m
+    priority: 20
+    required: false
+    covers:
+      - case.aps-handle-aabb
+  - stage: setup
+    id: k7.setup.ctx.scene.no-sampleanimation
+    path: context/common/场景安全与恢复.md
+    heading: 不对人形头像调用 clip.SampleAnimation：验绑定只读数据
+    priority: 850
+    required: false
+    when: []
+    covers:
+      - scene.no-sampleanimation
+  - stage: outfit
+    id: k7.outfit.ctx.scene.no-sampleanimation
+    path: context/common/场景安全与恢复.md
+    heading: 不对人形头像调用 clip.SampleAnimation：验绑定只读数据
+    priority: 850
+    required: false
+    when: []
+    covers:
+      - scene.no-sampleanimation
+  - stage: recolor
+    id: k7.recolor.ctx.scene.no-sampleanimation
+    path: context/common/场景安全与恢复.md
+    heading: 不对人形头像调用 clip.SampleAnimation：验绑定只读数据
+    priority: 850
+    required: false
+    when: []
+    covers:
+      - scene.no-sampleanimation
+  - stage: menu
+    id: k7.menu.ctx.scene.no-sampleanimation
+    path: context/common/场景安全与恢复.md
+    heading: 不对人形头像调用 clip.SampleAnimation：验绑定只读数据
+    priority: 850
+    required: false
+    when: []
+    covers:
+      - scene.no-sampleanimation
+  - stage: regression_pre
+    id: k7.regression_pre.ctx.scene.no-sampleanimation
+    path: context/common/场景安全与恢复.md
+    heading: 不对人形头像调用 clip.SampleAnimation：验绑定只读数据
+    priority: 850
+    required: false
+    when: []
+    covers:
+      - scene.no-sampleanimation
+  - stage: optimize
+    id: k7.optimize.ctx.scene.no-sampleanimation
+    path: context/common/场景安全与恢复.md
+    heading: 不对人形头像调用 clip.SampleAnimation：验绑定只读数据
+    priority: 850
+    required: false
+    when: []
+    covers:
+      - scene.no-sampleanimation
+  - stage: regression
+    id: k7.regression.ctx.scene.no-sampleanimation
+    path: context/common/场景安全与恢复.md
+    heading: 不对人形头像调用 clip.SampleAnimation：验绑定只读数据
+    priority: 850
+    required: false
+    when: []
+    covers:
+      - scene.no-sampleanimation
+  - stage: package
+    id: k7.package.ctx.scene.no-sampleanimation
+    path: context/common/场景安全与恢复.md
+    heading: 不对人形头像调用 clip.SampleAnimation：验绑定只读数据
+    priority: 850
+    required: false
+    when: []
+    covers:
+      - scene.no-sampleanimation
+  - stage: blend_keys
+    id: k7.blend_keys.ctx.scene.no-sampleanimation
+    path: context/common/场景安全与恢复.md
+    heading: 不对人形头像调用 clip.SampleAnimation：验绑定只读数据
+    priority: 850
+    required: false
+    covers:
+      - scene.no-sampleanimation
+  - stage: face_edit
+    id: k7.face_edit.ctx.scene.no-sampleanimation
+    path: context/common/场景安全与恢复.md
+    heading: 不对人形头像调用 clip.SampleAnimation：验绑定只读数据
+    priority: 850
+    required: false
+    covers:
+      - scene.no-sampleanimation
+  - stage: accessories
+    id: k7.accessories.ctx.scene.no-sampleanimation
+    path: context/common/场景安全与恢复.md
+    heading: 不对人形头像调用 clip.SampleAnimation：验绑定只读数据
+    priority: 850
+    required: false
+    covers:
+      - scene.no-sampleanimation
+  - stage: face_tracking
+    id: k7.face_tracking.ctx.scene.no-sampleanimation
+    path: context/common/场景安全与恢复.md
+    heading: 不对人形头像调用 clip.SampleAnimation：验绑定只读数据
+    priority: 850
+    required: false
+    covers:
+      - scene.no-sampleanimation
+  - stage: plan
+    id: k7.plan.ctx.scene.no-sampleanimation
+    path: context/common/场景安全与恢复.md
+    heading: 不对人形头像调用 clip.SampleAnimation：验绑定只读数据
+    priority: 600
+    required: false
+    when: []
+    covers:
+      - scene.no-sampleanimation
+  - stage: ref_images
+    id: k7.ref_images.ctx.scene.no-sampleanimation
+    path: context/common/场景安全与恢复.md
+    heading: 不对人形头像调用 clip.SampleAnimation：验绑定只读数据
+    priority: 600
+    required: false
+    covers:
+      - scene.no-sampleanimation
+  - stage: setup
+    id: k7.setup.ctx.scene.baseline-selfcheck
+    path: context/common/场景安全与恢复.md
+    heading: 开工记骨架基线，改场景后先自检再存盘
+    priority: 845
+    required: false
+    when: []
+    covers:
+      - scene.baseline-selfcheck
+  - stage: outfit
+    id: k7.outfit.ctx.scene.baseline-selfcheck
+    path: context/common/场景安全与恢复.md
+    heading: 开工记骨架基线，改场景后先自检再存盘
+    priority: 845
+    required: false
+    when: []
+    covers:
+      - scene.baseline-selfcheck
+  - stage: recolor
+    id: k7.recolor.ctx.scene.baseline-selfcheck
+    path: context/common/场景安全与恢复.md
+    heading: 开工记骨架基线，改场景后先自检再存盘
+    priority: 845
+    required: false
+    when: []
+    covers:
+      - scene.baseline-selfcheck
+  - stage: menu
+    id: k7.menu.ctx.scene.baseline-selfcheck
+    path: context/common/场景安全与恢复.md
+    heading: 开工记骨架基线，改场景后先自检再存盘
+    priority: 845
+    required: false
+    when: []
+    covers:
+      - scene.baseline-selfcheck
+  - stage: regression_pre
+    id: k7.regression_pre.ctx.scene.baseline-selfcheck
+    path: context/common/场景安全与恢复.md
+    heading: 开工记骨架基线，改场景后先自检再存盘
+    priority: 845
+    required: false
+    when: []
+    covers:
+      - scene.baseline-selfcheck
+  - stage: optimize
+    id: k7.optimize.ctx.scene.baseline-selfcheck
+    path: context/common/场景安全与恢复.md
+    heading: 开工记骨架基线，改场景后先自检再存盘
+    priority: 845
+    required: false
+    when: []
+    covers:
+      - scene.baseline-selfcheck
+  - stage: regression
+    id: k7.regression.ctx.scene.baseline-selfcheck
+    path: context/common/场景安全与恢复.md
+    heading: 开工记骨架基线，改场景后先自检再存盘
+    priority: 845
+    required: false
+    when: []
+    covers:
+      - scene.baseline-selfcheck
+  - stage: package
+    id: k7.package.ctx.scene.baseline-selfcheck
+    path: context/common/场景安全与恢复.md
+    heading: 开工记骨架基线，改场景后先自检再存盘
+    priority: 845
+    required: false
+    when: []
+    covers:
+      - scene.baseline-selfcheck
+  - stage: blend_keys
+    id: k7.blend_keys.ctx.scene.baseline-selfcheck
+    path: context/common/场景安全与恢复.md
+    heading: 开工记骨架基线，改场景后先自检再存盘
+    priority: 845
+    required: false
+    covers:
+      - scene.baseline-selfcheck
+  - stage: face_edit
+    id: k7.face_edit.ctx.scene.baseline-selfcheck
+    path: context/common/场景安全与恢复.md
+    heading: 开工记骨架基线，改场景后先自检再存盘
+    priority: 845
+    required: false
+    covers:
+      - scene.baseline-selfcheck
+  - stage: accessories
+    id: k7.accessories.ctx.scene.baseline-selfcheck
+    path: context/common/场景安全与恢复.md
+    heading: 开工记骨架基线，改场景后先自检再存盘
+    priority: 845
+    required: false
+    covers:
+      - scene.baseline-selfcheck
+  - stage: face_tracking
+    id: k7.face_tracking.ctx.scene.baseline-selfcheck
+    path: context/common/场景安全与恢复.md
+    heading: 开工记骨架基线，改场景后先自检再存盘
+    priority: 845
+    required: false
+    covers:
+      - scene.baseline-selfcheck
+  - stage: plan
+    id: k7.plan.ctx.scene.baseline-selfcheck
+    path: context/common/场景安全与恢复.md
+    heading: 开工记骨架基线，改场景后先自检再存盘
+    priority: 595
+    required: false
+    when: []
+    covers:
+      - scene.baseline-selfcheck
+  - stage: ref_images
+    id: k7.ref_images.ctx.scene.baseline-selfcheck
+    path: context/common/场景安全与恢复.md
+    heading: 开工记骨架基线，改场景后先自检再存盘
+    priority: 595
+    required: false
+    covers:
+      - scene.baseline-selfcheck
+  - stage: setup
+    id: k7.setup.ctx.scene.recovery-order
+    path: context/common/场景安全与恢复.md
+    heading: 场景已被改坏：按代价从小到大恢复
+    priority: 840
+    required: false
+    when: []
+    covers:
+      - scene.recovery-order
+  - stage: outfit
+    id: k7.outfit.ctx.scene.recovery-order
+    path: context/common/场景安全与恢复.md
+    heading: 场景已被改坏：按代价从小到大恢复
+    priority: 840
+    required: false
+    when: []
+    covers:
+      - scene.recovery-order
+  - stage: recolor
+    id: k7.recolor.ctx.scene.recovery-order
+    path: context/common/场景安全与恢复.md
+    heading: 场景已被改坏：按代价从小到大恢复
+    priority: 840
+    required: false
+    when: []
+    covers:
+      - scene.recovery-order
+  - stage: menu
+    id: k7.menu.ctx.scene.recovery-order
+    path: context/common/场景安全与恢复.md
+    heading: 场景已被改坏：按代价从小到大恢复
+    priority: 840
+    required: false
+    when: []
+    covers:
+      - scene.recovery-order
+  - stage: regression_pre
+    id: k7.regression_pre.ctx.scene.recovery-order
+    path: context/common/场景安全与恢复.md
+    heading: 场景已被改坏：按代价从小到大恢复
+    priority: 840
+    required: false
+    when: []
+    covers:
+      - scene.recovery-order
+  - stage: optimize
+    id: k7.optimize.ctx.scene.recovery-order
+    path: context/common/场景安全与恢复.md
+    heading: 场景已被改坏：按代价从小到大恢复
+    priority: 840
+    required: false
+    when: []
+    covers:
+      - scene.recovery-order
+  - stage: regression
+    id: k7.regression.ctx.scene.recovery-order
+    path: context/common/场景安全与恢复.md
+    heading: 场景已被改坏：按代价从小到大恢复
+    priority: 840
+    required: false
+    when: []
+    covers:
+      - scene.recovery-order
+  - stage: package
+    id: k7.package.ctx.scene.recovery-order
+    path: context/common/场景安全与恢复.md
+    heading: 场景已被改坏：按代价从小到大恢复
+    priority: 840
+    required: false
+    when: []
+    covers:
+      - scene.recovery-order
+  - stage: blend_keys
+    id: k7.blend_keys.ctx.scene.recovery-order
+    path: context/common/场景安全与恢复.md
+    heading: 场景已被改坏：按代价从小到大恢复
+    priority: 840
+    required: false
+    covers:
+      - scene.recovery-order
+  - stage: face_edit
+    id: k7.face_edit.ctx.scene.recovery-order
+    path: context/common/场景安全与恢复.md
+    heading: 场景已被改坏：按代价从小到大恢复
+    priority: 840
+    required: false
+    covers:
+      - scene.recovery-order
+  - stage: accessories
+    id: k7.accessories.ctx.scene.recovery-order
+    path: context/common/场景安全与恢复.md
+    heading: 场景已被改坏：按代价从小到大恢复
+    priority: 840
+    required: false
+    covers:
+      - scene.recovery-order
+  - stage: face_tracking
+    id: k7.face_tracking.ctx.scene.recovery-order
+    path: context/common/场景安全与恢复.md
+    heading: 场景已被改坏：按代价从小到大恢复
+    priority: 840
+    required: false
+    covers:
+      - scene.recovery-order
+  - stage: plan
+    id: k7.plan.ctx.scene.recovery-order
+    path: context/common/场景安全与恢复.md
+    heading: 场景已被改坏：按代价从小到大恢复
+    priority: 590
+    required: false
+    when: []
+    covers:
+      - scene.recovery-order
+  - stage: ref_images
+    id: k7.ref_images.ctx.scene.recovery-order
+    path: context/common/场景安全与恢复.md
+    heading: 场景已被改坏：按代价从小到大恢复
+    priority: 590
+    required: false
+    covers:
+      - scene.recovery-order
+  - stage: setup
+    id: k7.setup.ctx.scene.revert-own-changes
+    path: context/common/场景安全与恢复.md
+    heading: 回退只撤自己的改动：按属性回退或回到记下的撤销组
+    priority: 835
+    required: false
+    when: []
+    covers:
+      - scene.revert-own-changes
+  - stage: outfit
+    id: k7.outfit.ctx.scene.revert-own-changes
+    path: context/common/场景安全与恢复.md
+    heading: 回退只撤自己的改动：按属性回退或回到记下的撤销组
+    priority: 835
+    required: false
+    when: []
+    covers:
+      - scene.revert-own-changes
+  - stage: recolor
+    id: k7.recolor.ctx.scene.revert-own-changes
+    path: context/common/场景安全与恢复.md
+    heading: 回退只撤自己的改动：按属性回退或回到记下的撤销组
+    priority: 835
+    required: false
+    when: []
+    covers:
+      - scene.revert-own-changes
+  - stage: menu
+    id: k7.menu.ctx.scene.revert-own-changes
+    path: context/common/场景安全与恢复.md
+    heading: 回退只撤自己的改动：按属性回退或回到记下的撤销组
+    priority: 835
+    required: false
+    when: []
+    covers:
+      - scene.revert-own-changes
+  - stage: regression_pre
+    id: k7.regression_pre.ctx.scene.revert-own-changes
+    path: context/common/场景安全与恢复.md
+    heading: 回退只撤自己的改动：按属性回退或回到记下的撤销组
+    priority: 835
+    required: false
+    when: []
+    covers:
+      - scene.revert-own-changes
+  - stage: optimize
+    id: k7.optimize.ctx.scene.revert-own-changes
+    path: context/common/场景安全与恢复.md
+    heading: 回退只撤自己的改动：按属性回退或回到记下的撤销组
+    priority: 835
+    required: false
+    when: []
+    covers:
+      - scene.revert-own-changes
+  - stage: regression
+    id: k7.regression.ctx.scene.revert-own-changes
+    path: context/common/场景安全与恢复.md
+    heading: 回退只撤自己的改动：按属性回退或回到记下的撤销组
+    priority: 835
+    required: false
+    when: []
+    covers:
+      - scene.revert-own-changes
+  - stage: package
+    id: k7.package.ctx.scene.revert-own-changes
+    path: context/common/场景安全与恢复.md
+    heading: 回退只撤自己的改动：按属性回退或回到记下的撤销组
+    priority: 835
+    required: false
+    when: []
+    covers:
+      - scene.revert-own-changes
+  - stage: blend_keys
+    id: k7.blend_keys.ctx.scene.revert-own-changes
+    path: context/common/场景安全与恢复.md
+    heading: 回退只撤自己的改动：按属性回退或回到记下的撤销组
+    priority: 835
+    required: false
+    covers:
+      - scene.revert-own-changes
+  - stage: face_edit
+    id: k7.face_edit.ctx.scene.revert-own-changes
+    path: context/common/场景安全与恢复.md
+    heading: 回退只撤自己的改动：按属性回退或回到记下的撤销组
+    priority: 835
+    required: false
+    covers:
+      - scene.revert-own-changes
+  - stage: accessories
+    id: k7.accessories.ctx.scene.revert-own-changes
+    path: context/common/场景安全与恢复.md
+    heading: 回退只撤自己的改动：按属性回退或回到记下的撤销组
+    priority: 835
+    required: false
+    covers:
+      - scene.revert-own-changes
+  - stage: face_tracking
+    id: k7.face_tracking.ctx.scene.revert-own-changes
+    path: context/common/场景安全与恢复.md
+    heading: 回退只撤自己的改动：按属性回退或回到记下的撤销组
+    priority: 835
+    required: false
+    covers:
+      - scene.revert-own-changes
+  - stage: plan
+    id: k7.plan.ctx.scene.revert-own-changes
+    path: context/common/场景安全与恢复.md
+    heading: 回退只撤自己的改动：按属性回退或回到记下的撤销组
+    priority: 585
+    required: false
+    when: []
+    covers:
+      - scene.revert-own-changes
+  - stage: ref_images
+    id: k7.ref_images.ctx.scene.revert-own-changes
+    path: context/common/场景安全与恢复.md
+    heading: 回退只撤自己的改动：按属性回退或回到记下的撤销组
+    priority: 585
+    required: false
+    covers:
+      - scene.revert-own-changes
+  - stage: setup
+    id: k7.setup.ctx.scene.silent-damage-calls
+    path: context/common/场景安全与恢复.md
+    heading: 会悄悄改坏场景或工程的调用：替代做法
+    priority: 830
+    required: false
+    when: []
+    covers:
+      - scene.silent-damage-calls
+  - stage: outfit
+    id: k7.outfit.ctx.scene.silent-damage-calls
+    path: context/common/场景安全与恢复.md
+    heading: 会悄悄改坏场景或工程的调用：替代做法
+    priority: 830
+    required: false
+    when: []
+    covers:
+      - scene.silent-damage-calls
+  - stage: recolor
+    id: k7.recolor.ctx.scene.silent-damage-calls
+    path: context/common/场景安全与恢复.md
+    heading: 会悄悄改坏场景或工程的调用：替代做法
+    priority: 830
+    required: false
+    when: []
+    covers:
+      - scene.silent-damage-calls
+  - stage: menu
+    id: k7.menu.ctx.scene.silent-damage-calls
+    path: context/common/场景安全与恢复.md
+    heading: 会悄悄改坏场景或工程的调用：替代做法
+    priority: 830
+    required: false
+    when: []
+    covers:
+      - scene.silent-damage-calls
+  - stage: regression_pre
+    id: k7.regression_pre.ctx.scene.silent-damage-calls
+    path: context/common/场景安全与恢复.md
+    heading: 会悄悄改坏场景或工程的调用：替代做法
+    priority: 830
+    required: false
+    when: []
+    covers:
+      - scene.silent-damage-calls
+  - stage: optimize
+    id: k7.optimize.ctx.scene.silent-damage-calls
+    path: context/common/场景安全与恢复.md
+    heading: 会悄悄改坏场景或工程的调用：替代做法
+    priority: 830
+    required: false
+    when: []
+    covers:
+      - scene.silent-damage-calls
+  - stage: regression
+    id: k7.regression.ctx.scene.silent-damage-calls
+    path: context/common/场景安全与恢复.md
+    heading: 会悄悄改坏场景或工程的调用：替代做法
+    priority: 830
+    required: false
+    when: []
+    covers:
+      - scene.silent-damage-calls
+  - stage: package
+    id: k7.package.ctx.scene.silent-damage-calls
+    path: context/common/场景安全与恢复.md
+    heading: 会悄悄改坏场景或工程的调用：替代做法
+    priority: 830
+    required: false
+    when: []
+    covers:
+      - scene.silent-damage-calls
+  - stage: blend_keys
+    id: k7.blend_keys.ctx.scene.silent-damage-calls
+    path: context/common/场景安全与恢复.md
+    heading: 会悄悄改坏场景或工程的调用：替代做法
+    priority: 830
+    required: false
+    covers:
+      - scene.silent-damage-calls
+  - stage: face_edit
+    id: k7.face_edit.ctx.scene.silent-damage-calls
+    path: context/common/场景安全与恢复.md
+    heading: 会悄悄改坏场景或工程的调用：替代做法
+    priority: 830
+    required: false
+    covers:
+      - scene.silent-damage-calls
+  - stage: accessories
+    id: k7.accessories.ctx.scene.silent-damage-calls
+    path: context/common/场景安全与恢复.md
+    heading: 会悄悄改坏场景或工程的调用：替代做法
+    priority: 830
+    required: false
+    covers:
+      - scene.silent-damage-calls
+  - stage: face_tracking
+    id: k7.face_tracking.ctx.scene.silent-damage-calls
+    path: context/common/场景安全与恢复.md
+    heading: 会悄悄改坏场景或工程的调用：替代做法
+    priority: 830
+    required: false
+    covers:
+      - scene.silent-damage-calls
+  - stage: plan
+    id: k7.plan.ctx.scene.silent-damage-calls
+    path: context/common/场景安全与恢复.md
+    heading: 会悄悄改坏场景或工程的调用：替代做法
+    priority: 580
+    required: false
+    when: []
+    covers:
+      - scene.silent-damage-calls
+  - stage: ref_images
+    id: k7.ref_images.ctx.scene.silent-damage-calls
+    path: context/common/场景安全与恢复.md
+    heading: 会悄悄改坏场景或工程的调用：替代做法
+    priority: 580
+    required: false
+    covers:
+      - scene.silent-damage-calls
+  - stage: blend_keys
+    id: k7.blend_keys.ctx.scene.batch-rollback-path
+    path: context/common/场景安全与恢复.md
+    heading: 批量破坏性改动：还原路径先落盘、读回，再动手
+    priority: 825
+    required: false
+    covers:
+      - scene.batch-rollback-path
+  - stage: face_edit
+    id: k7.face_edit.ctx.scene.batch-rollback-path
+    path: context/common/场景安全与恢复.md
+    heading: 批量破坏性改动：还原路径先落盘、读回，再动手
+    priority: 825
+    required: false
+    covers:
+      - scene.batch-rollback-path
+  - stage: accessories
+    id: k7.accessories.ctx.scene.batch-rollback-path
+    path: context/common/场景安全与恢复.md
+    heading: 批量破坏性改动：还原路径先落盘、读回，再动手
+    priority: 825
+    required: false
+    covers:
+      - scene.batch-rollback-path
+  - stage: face_tracking
+    id: k7.face_tracking.ctx.scene.batch-rollback-path
+    path: context/common/场景安全与恢复.md
+    heading: 批量破坏性改动：还原路径先落盘、读回，再动手
+    priority: 825
+    required: false
+    covers:
+      - scene.batch-rollback-path
+  - stage: ref_images
+    id: k7.ref_images.ctx.scene.batch-rollback-path
+    path: context/common/场景安全与恢复.md
+    heading: 批量破坏性改动：还原路径先落盘、读回，再动手
+    priority: 575
+    required: false
+    covers:
+      - scene.batch-rollback-path
+  - stage: blend_keys
+    id: k7.blend_keys.mem.render.pixel-check
+    path: memory/渲染与材质.md
+    heading: 出图后先验像素：纯色图、重复图与逐字节相同
+    priority: 40
+    required: false
+    covers:
+      - obs.render.pixel-check
+  - stage: face_edit
+    id: k7.face_edit.mem.render.pixel-check
+    path: memory/渲染与材质.md
+    heading: 出图后先验像素：纯色图、重复图与逐字节相同
+    priority: 45
+    required: false
+    covers:
+      - obs.render.pixel-check
+  - stage: accessories
+    id: k7.accessories.mem.render.pixel-check
+    path: memory/渲染与材质.md
+    heading: 出图后先验像素：纯色图、重复图与逐字节相同
+    priority: 40
+    required: false
+    covers:
+      - obs.render.pixel-check
+  - stage: blend_keys
+    id: k7.blend_keys.mem.render.no-nographics
+    path: memory/渲染与材质.md
+    heading: 出图的批处理命令不加 -nographics
+    priority: 30
+    required: false
+    covers:
+      - obs.render.batch-flags
+  - stage: face_edit
+    id: k7.face_edit.mem.render.no-nographics
+    path: memory/渲染与材质.md
+    heading: 出图的批处理命令不加 -nographics
+    priority: 30
+    required: false
+    covers:
+      - obs.render.batch-flags
+  - stage: face_edit
+    id: k7.face_edit.mem.render.editor-closeup
+    path: memory/渲染与材质.md
+    heading: 编辑模式拍局部特写：烘成静态网格、空闲层隔离、时间定死、关效果作对照
+    priority: 50
+    required: false
+    covers:
+      - obs.render.editor-closeup
+  - stage: accessories
+    id: k7.accessories.mem.render.editor-closeup
+    path: memory/渲染与材质.md
+    heading: 编辑模式拍局部特写：烘成静态网格、空闲层隔离、时间定死、关效果作对照
+    priority: 40
+    required: false
+    covers:
+      - obs.render.editor-closeup
+  - stage: blend_keys
+    id: k7.blend_keys.mem.render.editor-closeup
+    path: memory/渲染与材质.md
+    heading: 编辑模式拍局部特写：烘成静态网格、空闲层隔离、时间定死、关效果作对照
+    priority: 40
+    required: false
+    covers:
+      - obs.render.editor-closeup
+  - stage: blend_keys
+    id: k7.blend_keys.mem.render.double-render
+    path: memory/渲染与材质.md
+    heading: 编辑模式改完形态键要渲两次，拍前先跑 0 与 100 的对照
+    priority: 55
+    required: false
+    covers:
+      - obs.render.stale-skinning
+  - stage: face_edit
+    id: k7.face_edit.mem.render.double-render
+    path: memory/渲染与材质.md
+    heading: 编辑模式改完形态键要渲两次，拍前先跑 0 与 100 的对照
+    priority: 55
+    required: false
+    covers:
+      - obs.render.stale-skinning
+  - stage: face_tracking
+    id: k7.face_tracking.mem.render.portrait-clearing
+    path: memory/渲染与材质.md
+    heading: 整机出图前清场：第二个头像根、插件摆位件与手动摆档
+    priority: 45
+    required: false
+    covers:
+      - obs.render.portrait-clearing
+  - stage: face_edit
+    id: k7.face_edit.mem.render.readout-after-landing
+    path: memory/渲染与材质.md
+    heading: 捏脸与默认表情要在状态落地之后再读一次
+    priority: 35
+    required: false
+    covers:
+      - obs.render.readout-after-landing
+  - stage: blend_keys
+    id: k7.blend_keys.mem.render.readout-after-landing
+    path: memory/渲染与材质.md
+    heading: 捏脸与默认表情要在状态落地之后再读一次
+    priority: 35
+    required: false
+    covers:
+      - obs.render.readout-after-landing
+  - stage: face_edit
+    id: k7.face_edit.mem.render.effect-delta-e
+    path: memory/渲染与材质.md
+    heading: 叠加效果读不读得出来：先看底色余量，再把 ΔE 拆成明度与色相
+    priority: 40
+    required: false
+    covers:
+      - obs.effect.readability
+  - stage: accessories
+    id: k7.accessories.mem.render.effect-delta-e
+    path: memory/渲染与材质.md
+    heading: 叠加效果读不读得出来：先看底色余量，再把 ΔE 拆成明度与色相
+    priority: 35
+    required: false
+    covers:
+      - obs.effect.readability
+  - stage: face_edit
+    id: k7.face_edit.mem.render.salience-blind-test
+    path: memory/渲染与材质.md
+    heading: 凸显度数值证明不了「好看」：形态归类靠盲测复述
+    priority: 35
+    required: false
+    covers:
+      - obs.effect.readability
+  - stage: accessories
+    id: k7.accessories.mem.render.salience-blind-test
+    path: memory/渲染与材质.md
+    heading: 凸显度数值证明不了「好看」：形态归类靠盲测复述
+    priority: 30
+    required: false
+    covers:
+      - obs.effect.readability
+  - stage: face_edit
+    id: k7.face_edit.mem.render.viewing-distance
+    path: memory/渲染与材质.md
+    heading: 小尺度效果按目标视距的真实像素尺寸签字
+    priority: 45
+    required: false
+    covers:
+      - obs.effect.viewing-distance
+  - stage: accessories
+    id: k7.accessories.mem.render.viewing-distance
+    path: memory/渲染与材质.md
+    heading: 小尺度效果按目标视距的真实像素尺寸签字
+    priority: 45
+    required: false
+    covers:
+      - obs.effect.viewing-distance
+  - stage: face_edit
+    id: k7.face_edit.mem.render.visibility-rate
+    path: memory/渲染与材质.md
+    heading: 效果位置要在有遮挡的真实环境里定：逐档量可见率
+    priority: 40
+    required: false
+    covers:
+      - obs.effect.visibility-rate
+  - stage: accessories
+    id: k7.accessories.mem.render.visibility-rate
+    path: memory/渲染与材质.md
+    heading: 效果位置要在有遮挡的真实环境里定：逐档量可见率
+    priority: 40
+    required: false
+    covers:
+      - obs.effect.visibility-rate
+  - stage: accessories
+    id: k7.accessories.mem.render.transparency-triage
+    path: memory/渲染与材质.md
+    heading: 透过半透明件看不见后面：先分抓屏时点、写深度、视锥剔除
+    priority: 45
+    required: false
+    covers:
+      - render.transparency-triage
+  - stage: accessories
+    id: k7.accessories.mem.render.grabpass-point
+    path: memory/渲染与材质.md
+    heading: 抓屏时点：具名 GrabPass 每帧只抓一次，修要两头夹
+    priority: 45
+    required: false
+    when:
+      - path: memory.project.packageIds
+        includes: jp.lilxyzw.liltoon
+    covers:
+      - render.grabpass
+  - stage: accessories
+    id: k7.accessories.mem.render.refraction-zero
+    path: memory/渲染与材质.md
+    heading: 折射强度为 0 的材质，可能正拿抓屏当透明
+    priority: 35
+    required: false
+    when:
+      - path: memory.project.packageIds
+        includes: jp.lilxyzw.liltoon
+    covers:
+      - render.grabpass
+  - stage: accessories
+    id: k7.accessories.mem.render.transparent-material-state
+    path: memory/渲染与材质.md
+    heading: 自配透明材质：换 shader 不重置渲染状态，对照厂商件只比渲染状态
+    priority: 35
+    required: false
+    when:
+      - path: memory.project.packageIds
+        includes: jp.lilxyzw.liltoon
+    covers:
+      - render.material-render-state
+  - stage: accessories
+    id: k7.accessories.mem.method.five-questions
+    path: memory/工作方法.md
+    heading: 报「没生效」之前五问：运行时、可播放图、粒子、抢写、脚本本身
+    priority: 40
+    required: false
+    covers:
+      - obs.no-effect-checklist
+  - stage: face_tracking
+    id: k7.face_tracking.mem.method.five-questions
+    path: memory/工作方法.md
+    heading: 报「没生效」之前五问：运行时、可播放图、粒子、抢写、脚本本身
+    priority: 40
+    required: false
+    covers:
+      - obs.no-effect-checklist
+  - stage: accessories
+    id: k7.accessories.mem.method.scene-view-switches
+    path: memory/工作方法.md
+    heading: 「看不到」先查观察手段：Scene 视图的两个开关与 Game 视图
+    priority: 40
+    required: false
+    covers:
+      - obs.observation-channel
+  - stage: accessories
+    id: k7.accessories.mem.method.self-negating-count
+    path: memory/工作方法.md
+    heading: 统计判据里放一条能否定自己的计数：绝对阈值会被结构性偏移骗
+    priority: 35
+    required: false
+    covers:
+      - obs.criteria-self-check
+  - stage: blend_keys
+    id: k7.blend_keys.mem.method.zero-wrong-place
+    path: memory/工作方法.md
+    heading: 零结果先排除「量错地方」：带扫描定位，并带一条已知会变的对照带
+    priority: 50
+    required: false
+    covers:
+      - obs.zero-result
+  - stage: face_edit
+    id: k7.face_edit.mem.method.zero-wrong-place
+    path: memory/工作方法.md
+    heading: 零结果先排除「量错地方」：带扫描定位，并带一条已知会变的对照带
+    priority: 50
+    required: false
+    covers:
+      - obs.zero-result
+  - stage: face_edit
+    id: k7.face_edit.mem.method.neighborhood-extreme
+    path: memory/工作方法.md
+    heading: 邻域极值会被不相干的暗区钉死：改用同帧逐像素差
+    priority: 40
+    required: false
+    covers:
+      - obs.pixel-metric
+  - stage: accessories
+    id: k7.accessories.mem.method.neighborhood-extreme
+    path: memory/工作方法.md
+    heading: 邻域极值会被不相干的暗区钉死：改用同帧逐像素差
+    priority: 30
+    required: false
+    covers:
+      - obs.pixel-metric
+  - stage: face_edit
+    id: k7.face_edit.mem.method.push-to-extreme
+    path: memory/工作方法.md
+    heading: 低对比度下分不清「没生效」和「反了」：把旋钮拧到底
+    priority: 40
+    required: false
+    covers:
+      - obs.push-to-extreme
+  - stage: blend_keys
+    id: k7.blend_keys.mem.method.push-to-extreme
+    path: memory/工作方法.md
+    heading: 低对比度下分不清「没生效」和「反了」：把旋钮拧到底
+    priority: 40
+    required: false
+    covers:
+      - obs.push-to-extreme
+  - stage: accessories
+    id: k7.accessories.mem.method.push-to-extreme
+    path: memory/工作方法.md
+    heading: 低对比度下分不清「没生效」和「反了」：把旋钮拧到底
+    priority: 30
+    required: false
+    covers:
+      - obs.push-to-extreme
+  - stage: blend_keys
+    id: k7.blend_keys.mem.method.unverified-absolute-weak
+    path: memory/工作方法.md
+    heading: 未实测：判据还会错在「量绝对值」与「挑了太弱的量」
+    priority: 30
+    required: false
+    covers:
+      - obs.criteria-shape
+  - stage: face_edit
+    id: k7.face_edit.mem.method.unverified-absolute-weak
+    path: memory/工作方法.md
+    heading: 未实测：判据还会错在「量绝对值」与「挑了太弱的量」
+    priority: 30
+    required: false
+    covers:
+      - obs.criteria-shape
+  - stage: face_edit
+    id: k7.face_edit.mem.mesh.occlusion-ray-self
+    path: memory/网格与形状键.md
+    heading: 遮挡射线判据：先剔除被测物自己的面，再验「该报」与「不该报」两侧
+    priority: 50
+    required: false
+    covers:
+      - obs.occlusion-ray
+  - stage: blend_keys
+    id: k7.blend_keys.mem.mesh.occlusion-ray-self
+    path: memory/网格与形状键.md
+    heading: 遮挡射线判据：先剔除被测物自己的面，再验「该报」与「不该报」两侧
+    priority: 45
+    required: false
+    covers:
+      - obs.occlusion-ray
+  - stage: accessories
+    id: k7.accessories.mem.mesh.occlusion-ray-self
+    path: memory/网格与形状键.md
+    heading: 遮挡射线判据：先剔除被测物自己的面，再验「该报」与「不该报」两侧
+    priority: 30
+    required: false
+    covers:
+      - obs.occlusion-ray
+  - stage: face_edit
+    id: k7.face_edit.mem.mesh.unverified-occluder-set
+    path: memory/网格与形状键.md
+    heading: 未实测：跨网格比较遮挡率时，两边的遮挡体集合必须一致
+    priority: 35
+    required: false
+    covers:
+      - obs.occlusion-ray
+  - stage: blend_keys
+    id: k7.blend_keys.mem.mesh.unverified-occluder-set
+    path: memory/网格与形状键.md
+    heading: 未实测：跨网格比较遮挡率时，两边的遮挡体集合必须一致
+    priority: 30
+    required: false
+    covers:
+      - obs.occlusion-ray
+  - stage: face_edit
+    id: k7.face_edit.mem.mesh.unverified-fbx-prefixed-count
+    path: memory/网格与形状键.md
+    heading: 未实测：FBX 二进制自检要数带长度前缀的节点名，比例因子要读值
+    priority: 40
+    required: false
+    covers:
+      - mesh.fbx-self-check
+  - stage: blend_keys
+    id: k7.blend_keys.mem.mesh.unverified-fbx-prefixed-count
+    path: memory/网格与形状键.md
+    heading: 未实测：FBX 二进制自检要数带长度前缀的节点名，比例因子要读值
+    priority: 30
+    required: false
+    covers:
+      - mesh.fbx-self-check
+  - stage: face_edit
+    id: k7.face_edit.mem.mesh.unverified-vertex-calibers
+    path: memory/网格与形状键.md
+    heading: 未实测：顶点数有两个口径，Blender 拓扑顶点与 Unity 渲染顶点不能互比
+    priority: 30
+    required: false
+    covers:
+      - obs.criteria-shape
+  - stage: blend_keys
+    id: k7.blend_keys.mem.mesh.unverified-vertex-calibers
+    path: memory/网格与形状键.md
+    heading: 未实测：顶点数有两个口径，Blender 拓扑顶点与 Unity 渲染顶点不能互比
+    priority: 25
+    required: false
+    covers:
+      - obs.criteria-shape
+  - stage: blend_keys
+    id: k7.blend_keys.mem.mesh.identify-body-by-weights
+    path: memory/网格与形状键.md
+    heading: 认身体网格：看蒙皮权重覆盖脚骨与躯干骨，不看名字与顶点数
+    priority: 35
+    required: false
+    covers:
+      - obs.identify-body
+  - stage: accessories
+    id: k7.accessories.mem.bone.stripped-parent
+    path: memory/骨骼与动骨.md
+    heading: 场景文本里挂在素体骨上的物体：stripped 父级要回溯源预制体
+    priority: 35
+    required: false
+    covers:
+      - obs.yaml-mount-point
+  - stage: face_tracking
+    id: k7.face_tracking.mem.build.modal-dialog-timeout
+    path: memory/工程与构建.md
+    heading: 进 Play 后编辑器调用全部超时：先看有没有模态对话框
+    priority: 30
+    required: false
+    covers:
+      - build.modal-dialog
+  - stage: accessories
+    id: k7.accessories.mem.build.unverified-idempotency-blind-spots
+    path: memory/工程与构建.md
+    heading: 未实测：幂等重跑的三个盲区——去重守卫、残值与检查的位置
+    priority: 40
+    required: false
+    covers:
+      - build.idempotency
+  - stage: face_edit
+    id: k7.face_edit.mem.build.unverified-idempotency-blind-spots
+    path: memory/工程与构建.md
+    heading: 未实测：幂等重跑的三个盲区——去重守卫、残值与检查的位置
+    priority: 35
+    required: false
+    covers:
+      - build.idempotency
+  - stage: blend_keys
+    id: k7.blend_keys.mem.build.unverified-idempotency-blind-spots
+    path: memory/工程与构建.md
+    heading: 未实测：幂等重跑的三个盲区——去重守卫、残值与检查的位置
+    priority: 30
+    required: false
+    covers:
+      - build.idempotency
+  - stage: blend_keys
+    id: k7.blend_keys.case.scene.sampleanimation-collapse
+    path: cases/common/场景损坏.md
+    heading: 案例：用 SampleAnimation 验曲线绑定，骨架塌成零姿势，还被存了盘
+    priority: 55
+    required: false
+    when:
+      - path: memory.history.failedStageIds
+        includes: blend_keys
+    covers:
+      - case.scene-collapse
+  - stage: blend_keys
+    id: k7.blend_keys.case.scene.sampleanimation-collapse.fallback
+    path: cases/common/场景损坏.md
+    heading: 案例：用 SampleAnimation 验曲线绑定，骨架塌成零姿势，还被存了盘
+    priority: 6
+    required: false
+    unless:
+      - path: memory.history.failedStageIds
+        includes: blend_keys
+    covers:
+      - case.scene-collapse
+  - stage: face_edit
+    id: k7.face_edit.case.scene.sampleanimation-collapse
+    path: cases/common/场景损坏.md
+    heading: 案例：用 SampleAnimation 验曲线绑定，骨架塌成零姿势，还被存了盘
+    priority: 55
+    required: false
+    when:
+      - path: memory.history.failedStageIds
+        includes: face_edit
+    covers:
+      - case.scene-collapse
+  - stage: face_edit
+    id: k7.face_edit.case.scene.sampleanimation-collapse.fallback
+    path: cases/common/场景损坏.md
+    heading: 案例：用 SampleAnimation 验曲线绑定，骨架塌成零姿势，还被存了盘
+    priority: 6
+    required: false
+    unless:
+      - path: memory.history.failedStageIds
+        includes: face_edit
+    covers:
+      - case.scene-collapse
+  - stage: accessories
+    id: k7.accessories.case.scene.sampleanimation-collapse
+    path: cases/common/场景损坏.md
+    heading: 案例：用 SampleAnimation 验曲线绑定，骨架塌成零姿势，还被存了盘
+    priority: 55
+    required: false
+    when:
+      - path: memory.history.failedStageIds
+        includes: accessories
+    covers:
+      - case.scene-collapse
+  - stage: accessories
+    id: k7.accessories.case.scene.sampleanimation-collapse.fallback
+    path: cases/common/场景损坏.md
+    heading: 案例：用 SampleAnimation 验曲线绑定，骨架塌成零姿势，还被存了盘
+    priority: 6
+    required: false
+    unless:
+      - path: memory.history.failedStageIds
+        includes: accessories
+    covers:
+      - case.scene-collapse
+  - stage: face_tracking
+    id: k7.face_tracking.case.scene.sampleanimation-collapse
+    path: cases/common/场景损坏.md
+    heading: 案例：用 SampleAnimation 验曲线绑定，骨架塌成零姿势，还被存了盘
+    priority: 55
+    required: false
+    when:
+      - path: memory.history.failedStageIds
+        includes: face_tracking
+    covers:
+      - case.scene-collapse
+  - stage: face_tracking
+    id: k7.face_tracking.case.scene.sampleanimation-collapse.fallback
+    path: cases/common/场景损坏.md
+    heading: 案例：用 SampleAnimation 验曲线绑定，骨架塌成零姿势，还被存了盘
+    priority: 6
+    required: false
+    unless:
+      - path: memory.history.failedStageIds
+        includes: face_tracking
+    covers:
+      - case.scene-collapse
+  - stage: blend_keys
+    id: k7.blend_keys.case.scene.undo-loop-300
+    path: cases/common/场景损坏.md
+    heading: 案例：撤销循环撤了 300 步，把人还没保存的美甲一起撤没了
+    priority: 50
+    required: false
+    when:
+      - path: memory.history.failedStageIds
+        includes: blend_keys
+    covers:
+      - case.undo-loop
+  - stage: blend_keys
+    id: k7.blend_keys.case.scene.undo-loop-300.fallback
+    path: cases/common/场景损坏.md
+    heading: 案例：撤销循环撤了 300 步，把人还没保存的美甲一起撤没了
+    priority: 5
+    required: false
+    unless:
+      - path: memory.history.failedStageIds
+        includes: blend_keys
+    covers:
+      - case.undo-loop
+  - stage: face_edit
+    id: k7.face_edit.case.scene.undo-loop-300
+    path: cases/common/场景损坏.md
+    heading: 案例：撤销循环撤了 300 步，把人还没保存的美甲一起撤没了
+    priority: 50
+    required: false
+    when:
+      - path: memory.history.failedStageIds
+        includes: face_edit
+    covers:
+      - case.undo-loop
+  - stage: face_edit
+    id: k7.face_edit.case.scene.undo-loop-300.fallback
+    path: cases/common/场景损坏.md
+    heading: 案例：撤销循环撤了 300 步，把人还没保存的美甲一起撤没了
+    priority: 5
+    required: false
+    unless:
+      - path: memory.history.failedStageIds
+        includes: face_edit
+    covers:
+      - case.undo-loop
+  - stage: accessories
+    id: k7.accessories.case.scene.undo-loop-300
+    path: cases/common/场景损坏.md
+    heading: 案例：撤销循环撤了 300 步，把人还没保存的美甲一起撤没了
+    priority: 50
+    required: false
+    when:
+      - path: memory.history.failedStageIds
+        includes: accessories
+    covers:
+      - case.undo-loop
+  - stage: accessories
+    id: k7.accessories.case.scene.undo-loop-300.fallback
+    path: cases/common/场景损坏.md
+    heading: 案例：撤销循环撤了 300 步，把人还没保存的美甲一起撤没了
+    priority: 5
+    required: false
+    unless:
+      - path: memory.history.failedStageIds
+        includes: accessories
+    covers:
+      - case.undo-loop
+  - stage: face_tracking
+    id: k7.face_tracking.case.scene.undo-loop-300
+    path: cases/common/场景损坏.md
+    heading: 案例：撤销循环撤了 300 步，把人还没保存的美甲一起撤没了
+    priority: 50
+    required: false
+    when:
+      - path: memory.history.failedStageIds
+        includes: face_tracking
+    covers:
+      - case.undo-loop
+  - stage: face_tracking
+    id: k7.face_tracking.case.scene.undo-loop-300.fallback
+    path: cases/common/场景损坏.md
+    heading: 案例：撤销循环撤了 300 步，把人还没保存的美甲一起撤没了
+    priority: 5
+    required: false
+    unless:
+      - path: memory.history.failedStageIds
+        includes: face_tracking
+    covers:
+      - case.undo-loop
+  - stage: blend_keys
+    id: k7.blend_keys.case.scene.discard-reload-human-pose
+    path: cases/common/场景损坏.md
+    heading: 案例：自检看到「手臂不在 A-pose」就丢弃重载，冲掉了人正在摆的姿势
+    priority: 40
+    required: false
+    when:
+      - path: memory.history.failedStageIds
+        includes: blend_keys
+    covers:
+      - case.discard-human-work
+  - stage: blend_keys
+    id: k7.blend_keys.case.scene.discard-reload-human-pose.fallback
+    path: cases/common/场景损坏.md
+    heading: 案例：自检看到「手臂不在 A-pose」就丢弃重载，冲掉了人正在摆的姿势
+    priority: 3
+    required: false
+    unless:
+      - path: memory.history.failedStageIds
+        includes: blend_keys
+    covers:
+      - case.discard-human-work
+  - stage: face_edit
+    id: k7.face_edit.case.scene.discard-reload-human-pose
+    path: cases/common/场景损坏.md
+    heading: 案例：自检看到「手臂不在 A-pose」就丢弃重载，冲掉了人正在摆的姿势
+    priority: 40
+    required: false
+    when:
+      - path: memory.history.failedStageIds
+        includes: face_edit
+    covers:
+      - case.discard-human-work
+  - stage: face_edit
+    id: k7.face_edit.case.scene.discard-reload-human-pose.fallback
+    path: cases/common/场景损坏.md
+    heading: 案例：自检看到「手臂不在 A-pose」就丢弃重载，冲掉了人正在摆的姿势
+    priority: 3
+    required: false
+    unless:
+      - path: memory.history.failedStageIds
+        includes: face_edit
+    covers:
+      - case.discard-human-work
+  - stage: accessories
+    id: k7.accessories.case.scene.discard-reload-human-pose
+    path: cases/common/场景损坏.md
+    heading: 案例：自检看到「手臂不在 A-pose」就丢弃重载，冲掉了人正在摆的姿势
+    priority: 40
+    required: false
+    when:
+      - path: memory.history.failedStageIds
+        includes: accessories
+    covers:
+      - case.discard-human-work
+  - stage: accessories
+    id: k7.accessories.case.scene.discard-reload-human-pose.fallback
+    path: cases/common/场景损坏.md
+    heading: 案例：自检看到「手臂不在 A-pose」就丢弃重载，冲掉了人正在摆的姿势
+    priority: 3
+    required: false
+    unless:
+      - path: memory.history.failedStageIds
+        includes: accessories
+    covers:
+      - case.discard-human-work
+  - stage: face_tracking
+    id: k7.face_tracking.case.scene.discard-reload-human-pose
+    path: cases/common/场景损坏.md
+    heading: 案例：自检看到「手臂不在 A-pose」就丢弃重载，冲掉了人正在摆的姿势
+    priority: 40
+    required: false
+    when:
+      - path: memory.history.failedStageIds
+        includes: face_tracking
+    covers:
+      - case.discard-human-work
+  - stage: face_tracking
+    id: k7.face_tracking.case.scene.discard-reload-human-pose.fallback
+    path: cases/common/场景损坏.md
+    heading: 案例：自检看到「手臂不在 A-pose」就丢弃重载，冲掉了人正在摆的姿势
+    priority: 3
+    required: false
+    unless:
+      - path: memory.history.failedStageIds
+        includes: face_tracking
+    covers:
+      - case.discard-human-work
+  - stage: blend_keys
+    id: k7.blend_keys.case.scene.bake-loop-freeze
+    path: cases/common/场景损坏.md
+    heading: 案例：连跑 8 次烘焙做诊断，编辑器卡死，未保存的改动全丢
+    priority: 45
+    required: false
+    when:
+      - path: memory.history.failedStageIds
+        includes: blend_keys
+      - path: memory.project.packageIds
+        includes: nadena.dev.ndmf
+    covers:
+      - case.bake-loop
+  - stage: blend_keys
+    id: k7.blend_keys.case.scene.bake-loop-freeze.fallback
+    path: cases/common/场景损坏.md
+    heading: 案例：连跑 8 次烘焙做诊断，编辑器卡死，未保存的改动全丢
+    priority: 4
+    required: false
+    when:
+      - path: memory.project.packageIds
+        includes: nadena.dev.ndmf
+    unless:
+      - path: memory.history.failedStageIds
+        includes: blend_keys
+    covers:
+      - case.bake-loop
+  - stage: face_edit
+    id: k7.face_edit.case.scene.bake-loop-freeze
+    path: cases/common/场景损坏.md
+    heading: 案例：连跑 8 次烘焙做诊断，编辑器卡死，未保存的改动全丢
+    priority: 45
+    required: false
+    when:
+      - path: memory.history.failedStageIds
+        includes: face_edit
+      - path: memory.project.packageIds
+        includes: nadena.dev.ndmf
+    covers:
+      - case.bake-loop
+  - stage: face_edit
+    id: k7.face_edit.case.scene.bake-loop-freeze.fallback
+    path: cases/common/场景损坏.md
+    heading: 案例：连跑 8 次烘焙做诊断，编辑器卡死，未保存的改动全丢
+    priority: 4
+    required: false
+    when:
+      - path: memory.project.packageIds
+        includes: nadena.dev.ndmf
+    unless:
+      - path: memory.history.failedStageIds
+        includes: face_edit
+    covers:
+      - case.bake-loop
+  - stage: accessories
+    id: k7.accessories.case.scene.bake-loop-freeze
+    path: cases/common/场景损坏.md
+    heading: 案例：连跑 8 次烘焙做诊断，编辑器卡死，未保存的改动全丢
+    priority: 45
+    required: false
+    when:
+      - path: memory.history.failedStageIds
+        includes: accessories
+      - path: memory.project.packageIds
+        includes: nadena.dev.ndmf
+    covers:
+      - case.bake-loop
+  - stage: accessories
+    id: k7.accessories.case.scene.bake-loop-freeze.fallback
+    path: cases/common/场景损坏.md
+    heading: 案例：连跑 8 次烘焙做诊断，编辑器卡死，未保存的改动全丢
+    priority: 4
+    required: false
+    when:
+      - path: memory.project.packageIds
+        includes: nadena.dev.ndmf
+    unless:
+      - path: memory.history.failedStageIds
+        includes: accessories
+    covers:
+      - case.bake-loop
+  - stage: face_tracking
+    id: k7.face_tracking.case.scene.bake-loop-freeze
+    path: cases/common/场景损坏.md
+    heading: 案例：连跑 8 次烘焙做诊断，编辑器卡死，未保存的改动全丢
+    priority: 45
+    required: false
+    when:
+      - path: memory.history.failedStageIds
+        includes: face_tracking
+      - path: memory.project.packageIds
+        includes: nadena.dev.ndmf
+    covers:
+      - case.bake-loop
+  - stage: face_tracking
+    id: k7.face_tracking.case.scene.bake-loop-freeze.fallback
+    path: cases/common/场景损坏.md
+    heading: 案例：连跑 8 次烘焙做诊断，编辑器卡死，未保存的改动全丢
+    priority: 4
+    required: false
+    when:
+      - path: memory.project.packageIds
+        includes: nadena.dev.ndmf
+    unless:
+      - path: memory.history.failedStageIds
+        includes: face_tracking
+    covers:
+      - case.bake-loop
+  - stage: blend_keys
+    id: k7.blend_keys.case.render.blank-candidates
+    path: cases/regression/出图与取图.md
+    heading: 案例：三张候选图全是纯色，日志从头到尾 PASS
+    priority: 50
+    required: false
+    when:
+      - path: memory.history.failedStageIds
+        includes: blend_keys
+    covers:
+      - case.render-blank
+  - stage: blend_keys
+    id: k7.blend_keys.case.render.blank-candidates.fallback
+    path: cases/regression/出图与取图.md
+    heading: 案例：三张候选图全是纯色，日志从头到尾 PASS
+    priority: 5
+    required: false
+    unless:
+      - path: memory.history.failedStageIds
+        includes: blend_keys
+    covers:
+      - case.render-blank
+  - stage: face_edit
+    id: k7.face_edit.case.render.blank-candidates
+    path: cases/regression/出图与取图.md
+    heading: 案例：三张候选图全是纯色，日志从头到尾 PASS
+    priority: 50
+    required: false
+    when:
+      - path: memory.history.failedStageIds
+        includes: face_edit
+    covers:
+      - case.render-blank
+  - stage: face_edit
+    id: k7.face_edit.case.render.blank-candidates.fallback
+    path: cases/regression/出图与取图.md
+    heading: 案例：三张候选图全是纯色，日志从头到尾 PASS
+    priority: 5
+    required: false
+    unless:
+      - path: memory.history.failedStageIds
+        includes: face_edit
+    covers:
+      - case.render-blank
+  - stage: blend_keys
+    id: k7.blend_keys.case.render.duplicate-batches
+    path: cases/regression/出图与取图.md
+    heading: 案例：连拍三组候选，其中两组逐字节相同
+    priority: 45
+    required: false
+    when:
+      - path: memory.history.failedStageIds
+        includes: blend_keys
+    covers:
+      - case.render-duplicate
+  - stage: blend_keys
+    id: k7.blend_keys.case.render.duplicate-batches.fallback
+    path: cases/regression/出图与取图.md
+    heading: 案例：连拍三组候选，其中两组逐字节相同
+    priority: 5
+    required: false
+    unless:
+      - path: memory.history.failedStageIds
+        includes: blend_keys
+    covers:
+      - case.render-duplicate
+  - stage: face_edit
+    id: k7.face_edit.case.render.duplicate-batches
+    path: cases/regression/出图与取图.md
+    heading: 案例：连拍三组候选，其中两组逐字节相同
+    priority: 45
+    required: false
+    when:
+      - path: memory.history.failedStageIds
+        includes: face_edit
+    covers:
+      - case.render-duplicate
+  - stage: face_edit
+    id: k7.face_edit.case.render.duplicate-batches.fallback
+    path: cases/regression/出图与取图.md
+    heading: 案例：连拍三组候选，其中两组逐字节相同
+    priority: 5
+    required: false
+    unless:
+      - path: memory.history.failedStageIds
+        includes: face_edit
+    covers:
+      - case.render-duplicate
+  - stage: blend_keys
+    id: k7.blend_keys.case.render.stale-skinning-md5
+    path: cases/regression/出图与取图.md
+    heading: 案例：五张闭眼类键的验收图，四张 MD5 相同
+    priority: 50
+    required: false
+    when:
+      - path: memory.history.failedStageIds
+        includes: blend_keys
+    covers:
+      - case.render-stale-skinning
+  - stage: blend_keys
+    id: k7.blend_keys.case.render.stale-skinning-md5.fallback
+    path: cases/regression/出图与取图.md
+    heading: 案例：五张闭眼类键的验收图，四张 MD5 相同
+    priority: 5
+    required: false
+    unless:
+      - path: memory.history.failedStageIds
+        includes: blend_keys
+    covers:
+      - case.render-stale-skinning
+  - stage: face_edit
+    id: k7.face_edit.case.render.stale-skinning-md5
+    path: cases/regression/出图与取图.md
+    heading: 案例：五张闭眼类键的验收图，四张 MD5 相同
+    priority: 50
+    required: false
+    when:
+      - path: memory.history.failedStageIds
+        includes: face_edit
+    covers:
+      - case.render-stale-skinning
+  - stage: face_edit
+    id: k7.face_edit.case.render.stale-skinning-md5.fallback
+    path: cases/regression/出图与取图.md
+    heading: 案例：五张闭眼类键的验收图，四张 MD5 相同
+    priority: 5
+    required: false
+    unless:
+      - path: memory.history.failedStageIds
+        includes: face_edit
+    covers:
+      - case.render-stale-skinning
+  - stage: face_tracking
+    id: k7.face_tracking.case.obs.second-avatar-root
+    path: cases/regression/定妆照与观测.md
+    heading: 案例：定妆照上的「双发型穿模」，其实是场景里的第二个头像根
+    priority: 50
+    required: false
+    when:
+      - path: memory.history.failedStageIds
+        includes: face_tracking
+    covers:
+      - case.portrait-second-root
+  - stage: face_tracking
+    id: k7.face_tracking.case.obs.second-avatar-root.fallback
+    path: cases/regression/定妆照与观测.md
+    heading: 案例：定妆照上的「双发型穿模」，其实是场景里的第二个头像根
+    priority: 5
+    required: false
+    unless:
+      - path: memory.history.failedStageIds
+        includes: face_tracking
+    covers:
+      - case.portrait-second-root
+  - stage: accessories
+    id: k7.accessories.case.obs.particles-only-when-selected
+    path: cases/regression/定妆照与观测.md
+    heading: 案例：目元粒子「只有选中才可见」，头像查了一整轮都正常
+    priority: 40
+    required: false
+    when:
+      - path: memory.history.failedStageIds
+        includes: accessories
+    covers:
+      - case.observation-channel
+  - stage: accessories
+    id: k7.accessories.case.obs.particles-only-when-selected.fallback
+    path: cases/regression/定妆照与观测.md
+    heading: 案例：目元粒子「只有选中才可见」，头像查了一整轮都正常
+    priority: 4
+    required: false
+    unless:
+      - path: memory.history.failedStageIds
+        includes: accessories
+    covers:
+      - case.observation-channel
+  - stage: blend_keys
+    id: k7.blend_keys.case.obs.brow-band-wrong-place
+    path: cases/regression/定妆照与观测.md
+    heading: 案例：眉毛键被判「死的」，其实量的是额头
+    priority: 45
+    required: false
+    when:
+      - path: memory.history.failedStageIds
+        includes: blend_keys
+    covers:
+      - case.zero-wrong-place
+  - stage: blend_keys
+    id: k7.blend_keys.case.obs.brow-band-wrong-place.fallback
+    path: cases/regression/定妆照与观测.md
+    heading: 案例：眉毛键被判「死的」，其实量的是额头
+    priority: 5
+    required: false
+    unless:
+      - path: memory.history.failedStageIds
+        includes: blend_keys
+    covers:
+      - case.zero-wrong-place
+  - stage: face_edit
+    id: k7.face_edit.case.obs.brow-band-wrong-place
+    path: cases/regression/定妆照与观测.md
+    heading: 案例：眉毛键被判「死的」，其实量的是额头
+    priority: 45
+    required: false
+    when:
+      - path: memory.history.failedStageIds
+        includes: face_edit
+    covers:
+      - case.zero-wrong-place
+  - stage: face_edit
+    id: k7.face_edit.case.obs.brow-band-wrong-place.fallback
+    path: cases/regression/定妆照与观测.md
+    heading: 案例：眉毛键被判「死的」，其实量的是额头
+    priority: 5
+    required: false
+    unless:
+      - path: memory.history.failedStageIds
+        includes: face_edit
+    covers:
+      - case.zero-wrong-place
+  - stage: face_edit
+    id: k7.face_edit.case.criteria.occlusion-self-hit
+    path: cases/regression/判据失效.md
+    heading: 案例：闭眼露出率判据在睁眼时也报 0%：射线先撞上了角膜卡片
+    priority: 50
+    required: false
+    when:
+      - path: memory.history.failedStageIds
+        includes: face_edit
+    covers:
+      - case.criteria-occlusion
+  - stage: face_edit
+    id: k7.face_edit.case.criteria.occlusion-self-hit.fallback
+    path: cases/regression/判据失效.md
+    heading: 案例：闭眼露出率判据在睁眼时也报 0%：射线先撞上了角膜卡片
+    priority: 5
+    required: false
+    unless:
+      - path: memory.history.failedStageIds
+        includes: face_edit
+    covers:
+      - case.criteria-occlusion
+  - stage: blend_keys
+    id: k7.blend_keys.case.criteria.occlusion-self-hit
+    path: cases/regression/判据失效.md
+    heading: 案例：闭眼露出率判据在睁眼时也报 0%：射线先撞上了角膜卡片
+    priority: 50
+    required: false
+    when:
+      - path: memory.history.failedStageIds
+        includes: blend_keys
+    covers:
+      - case.criteria-occlusion
+  - stage: blend_keys
+    id: k7.blend_keys.case.criteria.occlusion-self-hit.fallback
+    path: cases/regression/判据失效.md
+    heading: 案例：闭眼露出率判据在睁眼时也报 0%：射线先撞上了角膜卡片
+    priority: 5
+    required: false
+    unless:
+      - path: memory.history.failedStageIds
+        includes: blend_keys
+    covers:
+      - case.criteria-occlusion
+  - stage: accessories
+    id: k7.accessories.case.material.self-made-transparent-solid
+    path: cases/recolor/材质与透明.md
+    heading: 案例：照厂商样例自配的透明腿部材质，渲出来是实心肤色
+    priority: 35
+    required: false
+    when:
+      - path: memory.history.failedStageIds
+        includes: accessories
+      - path: memory.project.packageIds
+        includes: jp.lilxyzw.liltoon
+    covers:
+      - case.material-render-state
+  - stage: accessories
+    id: k7.accessories.case.material.self-made-transparent-solid.fallback
+    path: cases/recolor/材质与透明.md
+    heading: 案例：照厂商样例自配的透明腿部材质，渲出来是实心肤色
+    priority: 5
+    required: false
+    when:
+      - path: memory.project.packageIds
+        includes: jp.lilxyzw.liltoon
+    unless:
+      - path: memory.history.failedStageIds
+        includes: accessories
+    covers:
+      - case.material-render-state
+  - stage: face_edit
+    id: k7.face_edit.case.material.color2nd-polarity
+    path: cases/recolor/材质与透明.md
+    heading: 案例：玻璃颜色染到了躯干，猜了两次机制都错，纯红满强一张定案
+    priority: 35
+    required: false
+    when:
+      - path: memory.history.failedStageIds
+        includes: face_edit
+    covers:
+      - case.push-to-extreme
+  - stage: face_edit
+    id: k7.face_edit.case.material.color2nd-polarity.fallback
+    path: cases/recolor/材质与透明.md
+    heading: 案例：玻璃颜色染到了躯干，猜了两次机制都错，纯红满强一张定案
+    priority: 5
+    required: false
+    unless:
+      - path: memory.history.failedStageIds
+        includes: face_edit
+    covers:
+      - case.push-to-extreme
+  - stage: accessories
+    id: k7.accessories.case.material.bounds-fix-made-constant
+    path: cases/recolor/材质与透明.md
+    heading: 案例：发型「罕见视角下透过面板看不见」，按小包围盒去修，偶发变成了常驻
+    priority: 40
+    required: false
+    when:
+      - path: memory.history.failedStageIds
+        includes: accessories
+    covers:
+      - case.transparency-sort
+  - stage: accessories
+    id: k7.accessories.case.material.bounds-fix-made-constant.fallback
+    path: cases/recolor/材质与透明.md
+    heading: 案例：发型「罕见视角下透过面板看不见」，按小包围盒去修，偶发变成了常驻
+    priority: 5
+    required: false
+    unless:
+      - path: memory.history.failedStageIds
+        includes: accessories
+    covers:
+      - case.transparency-sort
+  - stage: accessories
+    id: k7.accessories.case.material.offscreen-grabpass-solid
+    path: cases/recolor/材质与透明.md
+    heading: 案例：离屏验收图里全息面板成了实心色块，换成普通透明着色器又成了实心黑板
+    priority: 40
+    required: false
+    when:
+      - path: memory.history.failedStageIds
+        includes: accessories
+      - path: memory.project.packageIds
+        includes: jp.lilxyzw.liltoon
+    covers:
+      - case.grabpass-offscreen
+  - stage: accessories
+    id: k7.accessories.case.material.offscreen-grabpass-solid.fallback
+    path: cases/recolor/材质与透明.md
+    heading: 案例：离屏验收图里全息面板成了实心色块，换成普通透明着色器又成了实心黑板
+    priority: 5
+    required: false
+    when:
+      - path: memory.project.packageIds
+        includes: jp.lilxyzw.liltoon
+    unless:
+      - path: memory.history.failedStageIds
+        includes: accessories
+    covers:
+      - case.grabpass-offscreen
+  - stage: face_edit
+    id: k7.face_edit.case.effect.brightness-ceiling
+    path: cases/recolor/效果可读性.md
+    heading: 案例：眼内流星解除亮度封顶，像素数与峰值一模一样
+    priority: 45
+    required: false
+    when:
+      - path: memory.history.failedStageIds
+        includes: face_edit
+    covers:
+      - case.effect-readability
+  - stage: face_edit
+    id: k7.face_edit.case.effect.brightness-ceiling.fallback
+    path: cases/recolor/效果可读性.md
+    heading: 案例：眼内流星解除亮度封顶，像素数与峰值一模一样
+    priority: 5
+    required: false
+    unless:
+      - path: memory.history.failedStageIds
+        includes: face_edit
+    covers:
+      - case.effect-readability
+  - stage: accessories
+    id: k7.accessories.case.effect.brightness-ceiling
+    path: cases/recolor/效果可读性.md
+    heading: 案例：眼内流星解除亮度封顶，像素数与峰值一模一样
+    priority: 40
+    required: false
+    when:
+      - path: memory.history.failedStageIds
+        includes: accessories
+    covers:
+      - case.effect-readability
+  - stage: accessories
+    id: k7.accessories.case.effect.brightness-ceiling.fallback
+    path: cases/recolor/效果可读性.md
+    heading: 案例：眼内流星解除亮度封顶，像素数与峰值一模一样
+    priority: 5
+    required: false
+    unless:
+      - path: memory.history.failedStageIds
+        includes: accessories
+    covers:
+      - case.effect-readability
+  - stage: face_edit
+    id: k7.face_edit.case.effect.dark-rim-eyelash
+    path: cases/recolor/效果可读性.md
+    heading: 案例：带暗边的流星更抓眼，盲测却被说成「一根睫毛」
+    priority: 45
+    required: false
+    when:
+      - path: memory.history.failedStageIds
+        includes: face_edit
+    covers:
+      - case.effect-readability
+  - stage: face_edit
+    id: k7.face_edit.case.effect.dark-rim-eyelash.fallback
+    path: cases/recolor/效果可读性.md
+    heading: 案例：带暗边的流星更抓眼，盲测却被说成「一根睫毛」
+    priority: 5
+    required: false
+    unless:
+      - path: memory.history.failedStageIds
+        includes: face_edit
+    covers:
+      - case.effect-readability
+  - stage: accessories
+    id: k7.accessories.case.effect.dark-rim-eyelash
+    path: cases/recolor/效果可读性.md
+    heading: 案例：带暗边的流星更抓眼，盲测却被说成「一根睫毛」
+    priority: 40
+    required: false
+    when:
+      - path: memory.history.failedStageIds
+        includes: accessories
+    covers:
+      - case.effect-readability
+  - stage: accessories
+    id: k7.accessories.case.effect.dark-rim-eyelash.fallback
+    path: cases/recolor/效果可读性.md
+    heading: 案例：带暗边的流星更抓眼，盲测却被说成「一根睫毛」
+    priority: 5
+    required: false
+    unless:
+      - path: memory.history.failedStageIds
+        includes: accessories
+    covers:
+      - case.effect-readability
+  - stage: face_edit
+    id: k7.face_edit.case.effect.macro-pass-ingame-invisible
+    path: cases/recolor/效果可读性.md
+    heading: 案例：眼内效果微距评审通过，上传后游戏里连贴脸都看不见
+    priority: 45
+    required: false
+    when:
+      - path: memory.history.failedStageIds
+        includes: face_edit
+    covers:
+      - case.effect-viewing-distance
+  - stage: face_edit
+    id: k7.face_edit.case.effect.macro-pass-ingame-invisible.fallback
+    path: cases/recolor/效果可读性.md
+    heading: 案例：眼内效果微距评审通过，上传后游戏里连贴脸都看不见
+    priority: 5
+    required: false
+    unless:
+      - path: memory.history.failedStageIds
+        includes: face_edit
+    covers:
+      - case.effect-viewing-distance
+  - stage: accessories
+    id: k7.accessories.case.effect.macro-pass-ingame-invisible
+    path: cases/recolor/效果可读性.md
+    heading: 案例：眼内效果微距评审通过，上传后游戏里连贴脸都看不见
+    priority: 40
+    required: false
+    when:
+      - path: memory.history.failedStageIds
+        includes: accessories
+    covers:
+      - case.effect-viewing-distance
+  - stage: accessories
+    id: k7.accessories.case.effect.macro-pass-ingame-invisible.fallback
+    path: cases/recolor/效果可读性.md
+    heading: 案例：眼内效果微距评审通过，上传后游戏里连贴脸都看不见
+    priority: 5
+    required: false
+    unless:
+      - path: memory.history.failedStageIds
+        includes: accessories
+    covers:
+      - case.effect-viewing-distance
+  - stage: face_edit
+    id: k7.face_edit.case.effect.position-behind-eyelid
+    path: cases/recolor/效果可读性.md
+    heading: 案例：空盘里调好的流星，贴到眼睛上完全看不见：位置在上眼睑后面
+    priority: 45
+    required: false
+    when:
+      - path: memory.history.failedStageIds
+        includes: face_edit
+    covers:
+      - case.effect-visibility-rate
+  - stage: face_edit
+    id: k7.face_edit.case.effect.position-behind-eyelid.fallback
+    path: cases/recolor/效果可读性.md
+    heading: 案例：空盘里调好的流星，贴到眼睛上完全看不见：位置在上眼睑后面
+    priority: 5
+    required: false
+    unless:
+      - path: memory.history.failedStageIds
+        includes: face_edit
+    covers:
+      - case.effect-visibility-rate
+  - stage: accessories
+    id: k7.accessories.case.effect.position-behind-eyelid
+    path: cases/recolor/效果可读性.md
+    heading: 案例：空盘里调好的流星，贴到眼睛上完全看不见：位置在上眼睑后面
+    priority: 40
+    required: false
+    when:
+      - path: memory.history.failedStageIds
+        includes: accessories
+    covers:
+      - case.effect-visibility-rate
+  - stage: accessories
+    id: k7.accessories.case.effect.position-behind-eyelid.fallback
+    path: cases/recolor/效果可读性.md
+    heading: 案例：空盘里调好的流星，贴到眼睛上完全看不见：位置在上眼睑后面
+    priority: 5
+    required: false
+    unless:
+      - path: memory.history.failedStageIds
+        includes: accessories
+    covers:
+      - case.effect-visibility-rate
+  - stage: face_tracking
+    id: k7.face_tracking.case.build.compile-error-plugin-nre.on-build_pre
+    path: cases/build/构建中止.md
+    heading: 案例：两个互不相关的插件在同一次构建里一起抛空引用：工程里有编译错误
+    priority: 45
+    required: false
+    when:
+      - path: memory.history.failedStageIds
+        includes: build_pre
+    covers:
+      - case.build-compile-error
+  - stage: face_tracking
+    id: k7.face_tracking.case.build.compile-error-plugin-nre.on-build
+    path: cases/build/构建中止.md
+    heading: 案例：两个互不相关的插件在同一次构建里一起抛空引用：工程里有编译错误
+    priority: 45
+    required: false
+    when:
+      - path: memory.history.failedStageIds
+        includes: build
+    unless:
+      - path: memory.history.failedStageIds
+        includes: build_pre
+    covers:
+      - case.build-compile-error
+  - stage: face_tracking
+    id: k7.face_tracking.case.build.compile-error-plugin-nre.fallback
+    path: cases/build/构建中止.md
+    heading: 案例：两个互不相关的插件在同一次构建里一起抛空引用：工程里有编译错误
+    priority: 5
+    required: false
+    unless:
+      - path: memory.history.failedStageIds
+        includes: build_pre
+      - path: memory.history.failedStageIds
+        includes: build
+    covers:
+      - case.build-compile-error
+  - stage: face_tracking
+    id: k8a.case.face_tracking.kipfel-ft-eyeclose-topmost-layer
+    path: cases/face_tracking/kipfel-fermata.md
+    heading: 面捕闭眼破面：顶层合并层恒写捏脸 clip，把值挪到分侧键也没用
+    priority: 50
+    required: false
+    when:
+      - &a2
+        path: memory.project.identity.base
+        equals: Kipfel
+      - path: memory.history.failedStageIds
+        includes: face_tracking
+    unless: []
+    covers: &a1
+      - face_tracking.sculpt-conflict
+  - stage: face_tracking
+    id: k8a.case.face_tracking.kipfel-ft-eyeclose-topmost-layer.fallback
+    path: cases/face_tracking/kipfel-fermata.md
+    heading: 面捕闭眼破面：顶层合并层恒写捏脸 clip，把值挪到分侧键也没用
+    priority: 15
+    required: false
+    unless: []
+    covers: *a1
+    when: &a3
+      - *a2
+  - stage: face_edit
+    id: k8a.case.face_edit.kipfel-ft-eyeclose-topmost-layer
+    path: cases/face_tracking/kipfel-fermata.md
+    heading: 面捕闭眼破面：顶层合并层恒写捏脸 clip，把值挪到分侧键也没用
+    priority: 50
+    required: false
+    when:
+      - *a2
+      - path: memory.history.failedStageIds
+        includes: face_edit
+    unless: []
+    covers: *a1
+  - stage: face_edit
+    id: k8a.case.face_edit.kipfel-ft-eyeclose-topmost-layer.fallback
+    path: cases/face_tracking/kipfel-fermata.md
+    heading: 面捕闭眼破面：顶层合并层恒写捏脸 clip，把值挪到分侧键也没用
+    priority: 15
+    required: false
+    unless: []
+    covers: *a1
+    when: *a3
+  - stage: face_tracking
+    id: k8a.case.face_tracking.kipfel-ft-eyelid-blendtree
+    path: cases/face_tracking/kipfel-fermata.md
+    heading: 面捕闭眼破面的修法：捏脸值随眼睑参数淡出的混合树
+    priority: 50
+    required: false
+    when:
+      - &a5
+        path: memory.project.identity.base
+        equals: Kipfel
+      - path: memory.history.failedStageIds
+        includes: face_tracking
+    unless: []
+    covers: &a4
+      - face_tracking.sculpt-conflict
+  - stage: face_tracking
+    id: k8a.case.face_tracking.kipfel-ft-eyelid-blendtree.fallback
+    path: cases/face_tracking/kipfel-fermata.md
+    heading: 面捕闭眼破面的修法：捏脸值随眼睑参数淡出的混合树
+    priority: 15
+    required: false
+    unless: []
+    covers: *a4
+    when: &a6
+      - *a5
+  - stage: face_edit
+    id: k8a.case.face_edit.kipfel-ft-eyelid-blendtree
+    path: cases/face_tracking/kipfel-fermata.md
+    heading: 面捕闭眼破面的修法：捏脸值随眼睑参数淡出的混合树
+    priority: 50
+    required: false
+    when:
+      - *a5
+      - path: memory.history.failedStageIds
+        includes: face_edit
+    unless: []
+    covers: *a4
+  - stage: face_edit
+    id: k8a.case.face_edit.kipfel-ft-eyelid-blendtree.fallback
+    path: cases/face_tracking/kipfel-fermata.md
+    heading: 面捕闭眼破面的修法：捏脸值随眼睑参数淡出的混合树
+    priority: 15
+    required: false
+    unless: []
+    covers: *a4
+    when: *a6
+  - stage: face_tracking
+    id: k8a.case.face_tracking.kipfel-ft-face-material
+    path: cases/face_tracking/kipfel-fermata.md
+    heading: 面捕补丁自动提取的脸部材质：缺二层与 matcap，造成脸颈色差
+    priority: 50
+    required: false
+    when:
+      - &a8
+        path: memory.project.identity.base
+        equals: Kipfel
+      - path: memory.history.failedStageIds
+        includes: face_tracking
+    unless: []
+    covers: &a7
+      - face_tracking.materials
+      - recolor.material-slots
+  - stage: face_tracking
+    id: k8a.case.face_tracking.kipfel-ft-face-material.fallback
+    path: cases/face_tracking/kipfel-fermata.md
+    heading: 面捕补丁自动提取的脸部材质：缺二层与 matcap，造成脸颈色差
+    priority: 15
+    required: false
+    unless: []
+    covers: *a7
+    when:
+      - *a8
+  - stage: face_edit
+    id: k8a.mem.face_edit.trial-before-change
+    path: memory/工作方法.md
+    heading: 改之前先证明原因和方案：只读诊断或可逆小试
+    priority: 30
+    required: false
+    unless: []
+    covers:
+      - outfit.change-safety
+  - stage: accessories
+    id: k8a.case.accessories.mount-reference-vs-parent
+    path: cases/accessories/mount-bone.md
+    heading: 脸上的贴片跟着眼珠滑动：定位参照不是父骨
+    priority: 40
+    required: false
+    when:
+      - path: memory.history.failedStageIds
+        includes: accessories
+    unless: []
+    covers: &a9
+      - accessories.mount
+      - outfit.bone-proxy
+  - stage: accessories
+    id: k8a.case.accessories.mount-reference-vs-parent.fallback
+    path: cases/accessories/mount-bone.md
+    heading: 脸上的贴片跟着眼珠滑动：定位参照不是父骨
+    priority: 5
+    required: false
+    unless: []
+    covers: *a9
+  - stage: accessories
+    id: k8a.case.accessories.uv-seam-split-weld
+    path: cases/accessories/custom-accessory-build.md
+    heading: Unity 导入会按 UV 缝拆点：顶点数与索引类判据要先按位置焊接
+    priority: 40
+    required: false
+    when:
+      - path: memory.history.failedStageIds
+        includes: accessories
+    unless: []
+    covers: &a10
+      - accessories.geometry-checks
+  - stage: accessories
+    id: k8a.case.accessories.uv-seam-split-weld.fallback
+    path: cases/accessories/custom-accessory-build.md
+    heading: Unity 导入会按 UV 缝拆点：顶点数与索引类判据要先按位置焊接
+    priority: 5
+    required: false
+    unless: []
+    covers: *a10
+  - stage: accessories
+    id: k8a.case.accessories.bone-lookup-by-humanoid
+    path: cases/accessories/custom-accessory-build.md
+    heading: 按名字找骨会命中服装骨架里的同名骨：用 Animator 的人形骨定位
+    priority: 40
+    required: false
+    when:
+      - path: memory.history.failedStageIds
+        includes: accessories
+    unless: []
+    covers: &a11
+      - accessories.mount
+  - stage: accessories
+    id: k8a.case.accessories.bone-lookup-by-humanoid.fallback
+    path: cases/accessories/custom-accessory-build.md
+    heading: 按名字找骨会命中服装骨架里的同名骨：用 Animator 的人形骨定位
+    priority: 5
+    required: false
+    unless: []
+    covers: *a11
+  - stage: accessories
+    id: k8a.case.accessories.validator-collect-all
+    path: cases/accessories/custom-accessory-build.md
+    heading: 构建期校验器：一次收集全部问题再报，装配验收要对照方案清单回读
+    priority: 40
+    required: false
+    when:
+      - path: memory.history.failedStageIds
+        includes: accessories
+    unless: []
+    covers: &a12
+      - accessories.verify
+      - regression.check-scripts
+  - stage: accessories
+    id: k8a.case.accessories.validator-collect-all.fallback
+    path: cases/accessories/custom-accessory-build.md
+    heading: 构建期校验器：一次收集全部问题再报，装配验收要对照方案清单回读
+    priority: 5
+    required: false
+    unless: []
+    covers: *a12
+  - stage: accessories
+    id: k8a.case.accessories.aao-exclusions
+    path: cases/accessories/custom-accessory-build.md
+    heading: 构建后还要按名字断言的对象：先加进 AAO 的排除列表
+    priority: 40
+    required: false
+    when:
+      - path: memory.project.packageIds
+        includes: com.anatawa12.avatar-optimizer
+      - path: memory.history.failedStageIds
+        includes: accessories
+    unless: []
+    covers: &a13
+      - optimize.aao
+      - regression.aao-names
+  - stage: accessories
+    id: k8a.case.accessories.aao-exclusions.fallback
+    path: cases/accessories/custom-accessory-build.md
+    heading: 构建后还要按名字断言的对象：先加进 AAO 的排除列表
+    priority: 5
+    required: false
+    unless: []
+    covers: *a13
+    when:
+      - path: memory.project.packageIds
+        includes: com.anatawa12.avatar-optimizer
+  - stage: accessories
+    id: k8a.case.accessories.measure-before-quality-claim
+    path: cases/accessories/custom-accessory-build.md
+    heading: 以画质或性能为由改方案之前先实测：高面数的光滑管面并不更闪
+    priority: 40
+    required: false
+    when:
+      - path: memory.history.failedStageIds
+        includes: accessories
+    unless: []
+    covers: &a14
+      - optimize.claims
+  - stage: accessories
+    id: k8a.case.accessories.measure-before-quality-claim.fallback
+    path: cases/accessories/custom-accessory-build.md
+    heading: 以画质或性能为由改方案之前先实测：高面数的光滑管面并不更闪
+    priority: 5
+    required: false
+    unless: []
+    covers: *a14
+  - stage: accessories
+    id: k8a.case.accessories.toenail-tuck-open-toe
+    path: cases/outfit/foot-key-ownership.md
+    heading: 露趾的单腿丝袜下显示脚甲：给脚甲网格副本加一个只动一侧的内收键
+    priority: 40
+    required: false
+    when:
+      - path: memory.history.failedStageIds
+        includes: accessories
+    unless: []
+    covers: &a15
+      - outfit.shoe-sock
+      - accessories.nails
+  - stage: accessories
+    id: k8a.case.accessories.toenail-tuck-open-toe.fallback
+    path: cases/outfit/foot-key-ownership.md
+    heading: 露趾的单腿丝袜下显示脚甲：给脚甲网格副本加一个只动一侧的内收键
+    priority: 5
+    required: false
+    unless: []
+    covers: *a15
+  - stage: face_edit
+    id: k8a.case.face_edit.eye-close-estimate
+    path: cases/face_edit/eye-close.md
+    heading: 捏脸候选表里的「闭眼穿模 −3.3 mm」是估算：实测后再下结论
+    priority: 40
+    required: false
+    when:
+      - path: memory.history.failedStageIds
+        includes: face_edit
+    unless: []
+    covers: &a16
+      - face_edit.verify
+  - stage: face_edit
+    id: k8a.case.face_edit.eye-close-estimate.fallback
+    path: cases/face_edit/eye-close.md
+    heading: 捏脸候选表里的「闭眼穿模 −3.3 mm」是估算：实测后再下结论
+    priority: 5
+    required: false
+    unless: []
+    covers: *a16
+  - stage: face_tracking
+    id: k8a.case.face_tracking.ft-preset-device
+    path: cases/plan/requirements.md
+    heading: 面捕预设要对上客户的设备：素材里没有设备信息就问
+    priority: 40
+    required: false
+    when:
+      - path: memory.history.failedStageIds
+        includes: face_tracking
+    unless: []
+    covers: &a17
+      - plan.acceptance-items
+      - face_tracking.preset
+  - stage: face_tracking
+    id: k8a.case.face_tracking.ft-preset-device.fallback
+    path: cases/plan/requirements.md
+    heading: 面捕预设要对上客户的设备：素材里没有设备信息就问
+    priority: 5
+    required: false
+    unless: []
+    covers: *a17
+  - stage: ref_images
+    id: k8a.case.ref_images.ref-falsify-claims
+    path: cases/ref_images/reading.md
+    heading: 参考图结论先交独立模型证伪：逐条「支持 / 矛盾 / 看不出」，禁止附和
+    priority: 40
+    required: false
+    when:
+      - path: memory.history.failedStageIds
+        includes: ref_images
+    unless: []
+    covers: &a18
+      - ref_images.falsify
+  - stage: ref_images
+    id: k8a.case.ref_images.ref-falsify-claims.fallback
+    path: cases/ref_images/reading.md
+    heading: 参考图结论先交独立模型证伪：逐条「支持 / 矛盾 / 看不出」，禁止附和
+    priority: 5
+    required: false
+    unless: []
+    covers: *a18
+  - stage: ref_images
+    id: k8a.case.ref_images.ref-count-by-character
+    path: cases/ref_images/reading.md
+    heading: 参考图计数按角色，不按张：同框的第二个角色会把「5/5」算错
+    priority: 40
+    required: false
+    when:
+      - path: memory.history.failedStageIds
+        includes: ref_images
+    unless: []
+    covers: &a19
+      - ref_images.counting
+  - stage: ref_images
+    id: k8a.case.ref_images.ref-count-by-character.fallback
+    path: cases/ref_images/reading.md
+    heading: 参考图计数按角色，不按张：同框的第二个角色会把「5/5」算错
+    priority: 5
+    required: false
+    unless: []
+    covers: *a19
+  - stage: blend_keys
+    id: k8a.case.blend_keys.key-strength-over-name
+    path: cases/blend_keys/key-strength.md
+    heading: 选形态键先量强度，再看名字：同方向的键强度能差一倍，名字也可能与效果相反
+    priority: 40
+    required: false
+    when:
+      - path: memory.history.failedStageIds
+        includes: blend_keys
+    unless: []
+    covers: &a20
+      - blend_keys.measure
+  - stage: blend_keys
+    id: k8a.case.blend_keys.key-strength-over-name.fallback
+    path: cases/blend_keys/key-strength.md
+    heading: 选形态键先量强度，再看名字：同方向的键强度能差一倍，名字也可能与效果相反
+    priority: 5
+    required: false
+    unless: []
+    covers: *a20
+  - stage: face_edit
+    id: k8a.case.face_edit.key-strength-over-name
+    path: cases/blend_keys/key-strength.md
+    heading: 选形态键先量强度，再看名字：同方向的键强度能差一倍，名字也可能与效果相反
+    priority: 40
+    required: false
+    when:
+      - path: memory.history.failedStageIds
+        includes: face_edit
+    unless: []
+    covers: *a20
+  - stage: face_edit
+    id: k8a.case.face_edit.key-strength-over-name.fallback
+    path: cases/blend_keys/key-strength.md
+    heading: 选形态键先量强度，再看名字：同方向的键强度能差一倍，名字也可能与效果相反
+    priority: 5
+    required: false
+    unless: []
+    covers: *a20
+  - stage: blend_keys
+    id: k8a.case.blend_keys.eye-key-split-by-side
+    path: cases/blend_keys/key-strength.md
+    heading: 量眼部形态键：先按 x 正负分左右眼，再在每只眼里取分位
+    priority: 40
+    required: false
+    when:
+      - path: memory.history.failedStageIds
+        includes: blend_keys
+    unless: []
+    covers: &a21
+      - blend_keys.measure
+  - stage: blend_keys
+    id: k8a.case.blend_keys.eye-key-split-by-side.fallback
+    path: cases/blend_keys/key-strength.md
+    heading: 量眼部形态键：先按 x 正负分左右眼，再在每只眼里取分位
+    priority: 5
+    required: false
+    unless: []
+    covers: *a21
+  - stage: face_edit
+    id: k8a.case.face_edit.face-candidates-handoff
+    path: cases/face_edit/eye-close.md
+    heading: 捏脸候选给用户挑之前：差异只在五官区、相邻组拉开到门槛以上、说明口径与依据
+    priority: 40
+    required: false
+    when:
+      - path: memory.history.failedStageIds
+        includes: face_edit
+    unless: []
+    covers: &a22
+      - face_edit.candidates
+  - stage: face_edit
+    id: k8a.case.face_edit.face-candidates-handoff.fallback
+    path: cases/face_edit/eye-close.md
+    heading: 捏脸候选给用户挑之前：差异只在五官区、相邻组拉开到门槛以上、说明口径与依据
+    priority: 5
+    required: false
+    unless: []
+    covers: *a22
+  - stage: face_edit
+    id: k8a.case.face_edit.render-noise-floor
+    path: cases/regression/probe-validity.md
+    heading: 渲图的噪声底：独立进程或重复渲染同一状态并不逐字节相同
+    priority: 40
+    required: false
+    when:
+      - path: memory.history.failedStageIds
+        includes: face_edit
+    unless: []
+    covers: &a23
+      - regression.render-evidence
+  - stage: face_edit
+    id: k8a.case.face_edit.render-noise-floor.fallback
+    path: cases/regression/probe-validity.md
+    heading: 渲图的噪声底：独立进程或重复渲染同一状态并不逐字节相同
+    priority: 5
+    required: false
+    unless: []
+    covers: *a23
+  - stage: accessories
+    id: k8a.case.accessories.same-name-different-base
+    path: cases/plan/asset-selection.md
+    heading: 商品写着支持某素体不等于兼容：用素体骨名逐项比对，警惕同名不同源
+    priority: 40
+    required: false
+    when:
+      - path: memory.history.failedStageIds
+        includes: accessories
+    unless: []
+    covers: &a24
+      - plan.asset-selection
+      - outfit.compat
+  - stage: accessories
+    id: k8a.case.accessories.same-name-different-base.fallback
+    path: cases/plan/asset-selection.md
+    heading: 商品写着支持某素体不等于兼容：用素体骨名逐项比对，警惕同名不同源
+    priority: 5
+    required: false
+    unless: []
+    covers: *a24
+  - stage: accessories
+    id: k8a.case.accessories.ring-inner-radius
+    path: cases/accessories/mount-bone.md
+    heading: 环形配件量内径：孔心不在骨骼原点，用世界坐标顶点交叉验证
+    priority: 40
+    required: false
+    when:
+      - path: memory.history.failedStageIds
+        includes: accessories
+    unless: []
+    covers: &a25
+      - accessories.ring-fit
+  - stage: accessories
+    id: k8a.case.accessories.ring-inner-radius.fallback
+    path: cases/accessories/mount-bone.md
+    heading: 环形配件量内径：孔心不在骨骼原点，用世界坐标顶点交叉验证
+    priority: 5
+    required: false
+    unless: []
+    covers: *a25
+  - stage: accessories
+    id: k8a.case.accessories.nail-installer-manual
+    path: cases/accessories/mount-bone.md
+    heading: 美甲工具只在进 Play 或手点 Execute 时才安装：交付前要有人执行，并按客户习惯排除手指
+    priority: 40
+    required: false
+    when:
+      - path: memory.history.failedStageIds
+        includes: accessories
+    unless: []
+    covers: &a26
+      - accessories.nails
+      - plan.client-conventions
+  - stage: accessories
+    id: k8a.case.accessories.nail-installer-manual.fallback
+    path: cases/accessories/mount-bone.md
+    heading: 美甲工具只在进 Play 或手点 Execute 时才安装：交付前要有人执行，并按客户习惯排除手指
+    priority: 5
+    required: false
+    unless: []
+    covers: *a26
+  - stage: face_edit
+    id: k8a.case.face_edit.face-bake-plan
+    path: cases/face_edit/eye-close.md
+    heading: 捏脸烘焙进基底之前：材质基线、闭眼补偿、包围盒重算都要排进计划
+    priority: 40
+    required: false
+    when:
+      - path: memory.history.failedStageIds
+        includes: face_edit
+    unless: []
+    covers: &a27
+      - face_edit.bake
+  - stage: face_edit
+    id: k8a.case.face_edit.face-bake-plan.fallback
+    path: cases/face_edit/eye-close.md
+    heading: 捏脸烘焙进基底之前：材质基线、闭眼补偿、包围盒重算都要排进计划
+    priority: 5
+    required: false
+    unless: []
+    covers: *a27
+  - stage: blend_keys
+    id: k8a.case.blend_keys.face-bake-plan
+    path: cases/face_edit/eye-close.md
+    heading: 捏脸烘焙进基底之前：材质基线、闭眼补偿、包围盒重算都要排进计划
+    priority: 40
+    required: false
+    when:
+      - path: memory.history.failedStageIds
+        includes: blend_keys
+    unless: []
+    covers: *a27
+  - stage: blend_keys
+    id: k8a.case.blend_keys.face-bake-plan.fallback
+    path: cases/face_edit/eye-close.md
+    heading: 捏脸烘焙进基底之前：材质基线、闭眼补偿、包围盒重算都要排进计划
+    priority: 5
+    required: false
+    unless: []
+    covers: *a27
+  - stage: accessories
+    id: k8b.body.kaguya.structure.accessories
+    path: bodies/Kaguya.md
+    heading: Kaguya 网格、骨架与坐标换算
+    priority: 60
+    required: false
+    when:
+      - path: memory.project.identity.base
+        equals: Kaguya
+    covers:
+      - body.kaguya.structure
+  - stage: blend_keys
+    id: k8b.body.kaguya.structure.blend_keys
+    path: bodies/Kaguya.md
+    heading: Kaguya 网格、骨架与坐标换算
+    priority: 50
+    required: false
+    when:
+      - path: memory.project.identity.base
+        equals: Kaguya
+    covers:
+      - body.kaguya.structure
+  - stage: accessories
+    id: k8b.body.kaguya.mouth.accessories
+    path: bodies/Kaguya.md
+    heading: Kaguya 口腔：舌头和牙是 Body 里的独立连通块
+    priority: 55
+    required: false
+    when:
+      - path: memory.project.identity.base
+        equals: Kaguya
+    covers:
+      - body.kaguya.mouth
+  - stage: accessories
+    id: k8b.body.kaguya.mouth-open-keys.accessories
+    path: bodies/Kaguya.md
+    heading: Kaguya 张嘴键：开口尺寸与有没有动画在写
+    priority: 50
+    required: false
+    when:
+      - path: memory.project.identity.base
+        equals: Kaguya
+    covers:
+      - body.kaguya.mouth
+  - stage: face_tracking
+    id: k8b.body.kaguya.mouth-open-keys.face_tracking
+    path: bodies/Kaguya.md
+    heading: Kaguya 张嘴键：开口尺寸与有没有动画在写
+    priority: 40
+    required: false
+    when:
+      - path: memory.project.identity.base
+        equals: Kaguya
+    covers:
+      - face_tracking.mouth-keys
+  - stage: accessories
+    id: k8b.body.kaguya.tongue-keys.accessories
+    path: bodies/Kaguya.md
+    heading: Kaguya 舌头形态键：能伸多远、往哪个方向
+    priority: 45
+    required: false
+    when:
+      - path: memory.project.identity.base
+        equals: Kaguya
+    covers:
+      - body.kaguya.mouth
+  - stage: blend_keys
+    id: k8b.body.kaguya.tongue-keys.blend_keys
+    path: bodies/Kaguya.md
+    heading: Kaguya 舌头形态键：能伸多远、往哪个方向
+    priority: 30
+    required: false
+    when:
+      - path: memory.project.identity.base
+        equals: Kaguya
+    covers:
+      - body.kaguya.keys
+  - stage: face_tracking
+    id: k8b.body.kaguya.face-tracking.face_tracking
+    path: bodies/Kaguya.md
+    heading: Kaguya 面捕（Triturbo）怎样写舌头和口型
+    priority: 70
+    required: false
+    when:
+      - path: memory.project.identity.base
+        equals: Kaguya
+    covers:
+      - face_tracking.tongue
+      - face_tracking.mesh-override
+  - stage: accessories
+    id: k8b.body.kaguya.face-tracking.accessories
+    path: bodies/Kaguya.md
+    heading: Kaguya 面捕（Triturbo）怎样写舌头和口型
+    priority: 40
+    required: false
+    when:
+      - path: memory.project.identity.base
+        equals: Kaguya
+    covers:
+      - body.kaguya.mouth
+  - stage: accessories
+    id: k8b.body.kaguya.tongue-bones.accessories
+    path: bodies/Kaguya.md
+    heading: Kaguya 给舌头加骨：怎样和口型、面捕共存
+    priority: 45
+    required: false
+    when:
+      - path: memory.project.identity.base
+        equals: Kaguya
+    covers:
+      - accessories.tongue-bones
+  - stage: accessories
+    id: k8b.body.kaguya.attach-points.accessories
+    path: bodies/Kaguya.md
+    heading: Kaguya 饰品挂点：不挂眼骨，嘴角锚点会漂
+    priority: 65
+    required: false
+    when:
+      - path: memory.project.identity.base
+        equals: Kaguya
+    covers:
+      - accessories.attach-point
+  - stage: face_tracking
+    id: k8b.body.kaguya.attach-points.face_tracking
+    path: bodies/Kaguya.md
+    heading: Kaguya 饰品挂点：不挂眼骨，嘴角锚点会漂
+    priority: 30
+    required: false
+    when:
+      - path: memory.project.identity.base
+        equals: Kaguya
+    covers:
+      - accessories.attach-point
+  - stage: blend_keys
+    id: k8b.body.kaguya.key-catalog.blend_keys
+    path: bodies/Kaguya.md
+    heading: Kaguya Body_b 形态键目录与命名陷阱
+    priority: 45
+    required: false
+    when:
+      - path: memory.project.identity.base
+        equals: Kaguya
+    covers:
+      - body.kaguya.keys
+  - stage: face_edit
+    id: k8b.body.kipfel.eyes.face_edit
+    path: bodies/Kipfel.md
+    heading: Kipfel 眼睛：几十张叠层卡片，缩放只能分簇做
+    priority: 70
+    required: false
+    when:
+      - path: memory.project.identity.base
+        equals: Kipfel
+    covers:
+      - face_edit.eye-scale
+  - stage: blend_keys
+    id: k8b.body.kipfel.eyes.blend_keys
+    path: bodies/Kipfel.md
+    heading: Kipfel 眼睛：几十张叠层卡片，缩放只能分簇做
+    priority: 40
+    required: false
+    when:
+      - path: memory.project.identity.base
+        equals: Kipfel
+    covers:
+      - blend_keys.layered-cards
+  - stage: recolor
+    id: k8b.body.kipfel.atlas.recolor
+    path: bodies/Kipfel.md
+    heading: Kipfel 面部图集布局（4096²，不透明）
+    priority: 55
+    required: false
+    when: []
+    covers:
+      - recolor.atlas-layout
+  - stage: face_edit
+    id: k8b.body.kipfel.atlas.face_edit
+    path: bodies/Kipfel.md
+    heading: Kipfel 面部图集布局（4096²，不透明）
+    priority: 40
+    required: false
+    when:
+      - path: memory.project.identity.base
+        equals: Kipfel
+    covers:
+      - recolor.atlas-layout
+  - stage: face_edit
+    id: k8b.body.kipfel.shape-keys.face_edit
+    path: bodies/Kipfel.md
+    heading: Kipfel 常用形态键与谁在写它们
+    priority: 45
+    required: false
+    when:
+      - path: memory.project.identity.base
+        equals: Kipfel
+    covers:
+      - face_edit.expression-keys
+  - stage: recolor
+    id: k8b.body.kipfel.material-slots.recolor
+    path: bodies/Kipfel.md
+    heading: Kipfel 材质槽共用与贴图包的两种装法
+    priority: 65
+    required: false
+    when: []
+    covers:
+      - recolor.shared-material
+      - recolor.overlay-pack
+  - stage: recolor
+    id: k8b.body.kipfel.eye-pack.recolor
+    path: bodies/Kipfel.md
+    heading: Kipfel 眼部贴图包（Berrixy「夜空の夢」）装配与调色
+    priority: 55
+    required: false
+    when: []
+    covers:
+      - recolor.eye-pack
+  - stage: face_edit
+    id: k8b.body.kipfel.eye-pack.face_edit
+    path: bodies/Kipfel.md
+    heading: Kipfel 眼部贴图包（Berrixy「夜空の夢」）装配与调色
+    priority: 35
+    required: false
+    when:
+      - path: memory.project.identity.base
+        equals: Kipfel
+    covers:
+      - recolor.eye-pack
+  - stage: recolor
+    id: k8b.body.kipfel.brow-lash-psd.recolor
+    path: bodies/Kipfel.md
+    heading: Kipfel 眉睫改色与 PSD 抠图层
+    priority: 45
+    required: false
+    when: []
+    covers:
+      - recolor.atlas-recolor
+  - stage: face_edit
+    id: k8b.body.kipfel.brow-lash-psd.face_edit
+    path: bodies/Kipfel.md
+    heading: Kipfel 眉睫改色与 PSD 抠图层
+    priority: 40
+    required: false
+    when:
+      - path: memory.project.identity.base
+        equals: Kipfel
+    covers:
+      - recolor.atlas-recolor
+  - stage: outfit
+    id: k8b.body.kipfel.height-fixes.outfit
+    path: bodies/Kipfel.md
+    heading: Kipfel 鞋床、腿环与赤脚档的高度修正
+    priority: 55
+    required: false
+    when: []
+    covers:
+      - outfit.foot-shoe
+  - stage: face_edit
+    id: k8b.body.kipfel.face-edit-eyelid.face_edit
+    path: bodies/Kipfel.md
+    heading: Kipfel 捏脸后闭眼破面：捏脸值要随眼睑淡出
+    priority: 65
+    required: false
+    when: []
+    covers:
+      - face_edit.eyelid-fade
+  - stage: face_tracking
+    id: k8b.body.kipfel.face-edit-eyelid.face_tracking
+    path: bodies/Kipfel.md
+    heading: Kipfel 捏脸后闭眼破面：捏脸值要随眼睑淡出
+    priority: 45
+    required: false
+    when: []
+    covers:
+      - face_edit.eyelid-fade
+  - stage: recolor
+    id: k8b.body.kipfel.face-edit-eyelid.recolor
+    path: bodies/Kipfel.md
+    heading: Kipfel 捏脸后闭眼破面：捏脸值要随眼睑淡出
+    priority: 30
+    required: false
+    when: []
+    covers:
+      - recolor.slot-semantics
+  - stage: recolor
+    id: k8b.body.kipfel.ft-patch-materials.recolor
+    path: bodies/Kipfel.md
+    heading: Kipfel 面捕补丁改了材质名：脸和身体出现色差
+    priority: 55
+    required: false
+    when: []
+    covers:
+      - recolor.material-remap
+  - stage: face_tracking
+    id: k8b.body.kipfel.ft-patch-materials.face_tracking
+    path: bodies/Kipfel.md
+    heading: Kipfel 面捕补丁改了材质名：脸和身体出现色差
+    priority: 45
+    required: false
+    when: []
+    covers:
+      - face_tracking.patch-side-effects
+  - stage: accessories
+    id: k8b.case.tongue-chain.single-physbone.accessories
+    path: cases/accessories/tongue-chain.md
+    heading: 舌钉链：「拽链拉舌、方向跟随」只能舌骨与链骨同属一条 PhysBone
+    priority: 60
+    required: false
+    covers:
+      - accessories.interactive-physbone
+  - stage: accessories
+    id: k8b.case.tongue-chain.build-time-bones.accessories
+    path: cases/accessories/tongue-chain.md
+    heading: 舌钉链：构建期插骨与重算权重的做法
+    priority: 55
+    required: false
+    covers:
+      - accessories.build-time-skinning
+  - stage: face_tracking
+    id: k8b.case.tongue-chain.build-time-bones.face_tracking
+    path: cases/accessories/tongue-chain.md
+    heading: 舌钉链：构建期插骨与重算权重的做法
+    priority: 30
+    required: false
+    covers:
+      - face_tracking.mesh-override
+  - stage: accessories
+    id: k8b.case.tongue-chain.key-classification.accessories
+    path: cases/accessories/tongue-chain.md
+    heading: 舌钉链：哪些形态键会把舌钉甩离舌面
+    priority: 55
+    required: false
+    covers:
+      - accessories.shape-key-follow
+  - stage: face_tracking
+    id: k8b.case.tongue-chain.key-classification.face_tracking
+    path: cases/accessories/tongue-chain.md
+    heading: 舌钉链：哪些形态键会把舌钉甩离舌面
+    priority: 40
+    required: false
+    covers:
+      - face_tracking.tongue
+  - stage: accessories
+    id: k8b.case.tongue-chain.move-bones-not-points.accessories
+    path: cases/accessories/tongue-chain.md
+    heading: 舌钉链：动骨不动点——跟随曲线的合成与钳制
+    priority: 45
+    required: false
+    covers:
+      - accessories.shape-key-follow
+  - stage: accessories
+    id: k8b.case.tongue-chain.physbone-interaction.accessories
+    path: cases/accessories/tongue-chain.md
+    heading: 舌钉链：PhysBone 设定与互动三项全开的后果
+    priority: 50
+    required: false
+    covers:
+      - accessories.interactive-physbone
+  - stage: accessories
+    id: k8b.case.tongue-chain.physbone-vanish-debug.accessories
+    path: cases/accessories/tongue-chain.md
+    heading: 舌钉链：验证时 PhysBone「消失」的排查过程
+    priority: 35
+    required: false
+    covers:
+      - regression.component-trace
+  - stage: accessories
+    id: k8b.case.tongue-chain.chain-modeling.accessories
+    path: cases/accessories/tongue-chain.md
+    heading: 舌钉链：细链与心形编链的建模经验
+    priority: 40
+    required: false
+    covers:
+      - accessories.modeling
+  - stage: blend_keys
+    id: k8b.case.tongue-chain.chain-modeling.blend_keys
+    path: cases/accessories/tongue-chain.md
+    heading: 舌钉链：细链与心形编链的建模经验
+    priority: 45
+    required: false
+    covers:
+      - blend_keys.bake-lowpoly
+  - stage: blend_keys
+    id: k8b.case.tongue-chain.script-overwrite.blend_keys
+    path: cases/accessories/tongue-chain.md
+    heading: 舌钉链：导出脚本把参照素体 FBX 覆盖了
+    priority: 45
+    required: false
+    covers:
+      - blend_keys.export-safety
+  - stage: blend_keys
+    id: k8b.mem.shape.geometric-key-classes.blend_keys
+    path: memory/shape-key-adaptation.md
+    heading: 按几何给身体形态键分类：姿态键与收缩键
+    priority: 40
+    required: false
+    covers:
+      - blend_keys.key-classes
+  - stage: accessories
+    id: k8b.mem.build.callback-order.accessories
+    path: memory/build-pipeline.md
+    heading: 构建回调顺序：NDMF、VRCFury、AAO 各在哪一步
+    priority: 35
+    required: false
+    covers:
+      - accessories.build-time-skinning
+  - stage: face_edit
+    id: k8b.mem.build.legacy-clamp.face_edit
+    path: memory/build-pipeline.md
+    heading: 编辑器里的形态键外推值，客户端会钳到 0–100
+    priority: 55
+    required: false
+    covers:
+      - face_edit.clamp
+  - stage: blend_keys
+    id: k8b.mem.build.legacy-clamp.blend_keys
+    path: memory/build-pipeline.md
+    heading: 编辑器里的形态键外推值，客户端会钳到 0–100
+    priority: 35
+    required: false
+    covers:
+      - face_edit.clamp
+  - stage: accessories
+    id: k8b.mem.pb.hard-rules.accessories
+    path: memory/physbone.md
+    heading: PhysBone 硬规则：根、约束、动画与嵌套
+    priority: 55
+    required: false
+    covers:
+      - accessories.interactive-physbone
+  - stage: accessories
+    id: k8b.mem.pb.interaction-sync.accessories
+    path: memory/physbone.md
+    heading: PhysBone 互动权限与参数同步
+    priority: 50
+    required: false
+    covers:
+      - accessories.interactive-physbone
+  - stage: outfit
+    id: k8b.body.rurune.bust-sync.outfit
+    path: bodies/Rurune.md
+    heading: Rurune 胸型：服装件与乳贴要同步胸型键
+    priority: 60
+    required: false
+    when: []
+    covers:
+      - outfit.blendshape-sync
+  - stage: menu
+    id: k8b.body.rurune.clothes-radial.menu
+    path: bodies/Rurune.md
+    heading: Rurune 厂商换装轮盘的末档选不到
+    priority: 60
+    required: false
+    when: []
+    covers:
+      - menu.radial-tiers
+  - stage: accessories
+    id: k8b.body.shinano.toenail-stocking.accessories
+    path: bodies/Shinano.md
+    heading: Shinano 工程的脚甲与丝袜
+    priority: 50
+    required: false
+    when:
+      - path: memory.project.identity.base
+        equals: Shinano
+    covers:
+      - accessories.nail
+  - stage: face_tracking
+    id: k8b.body.shinano.roots-budget.face_tracking
+    path: bodies/Shinano.md
+    heading: Shinano 工程的多根、面捕预设与余量
+    priority: 45
+    required: false
+    when:
+      - path: memory.project.identity.base
+        equals: Shinano
+    covers:
+      - face_tracking.presets
+  - stage: ref_images
+    id: k8b.mem.verify.visual-crops.ref_images
+    path: memory/verification.md
+    heading: 视觉核对用原图局部裁切，外观真值先查部件图鉴
+    priority: 50
+    required: false
+    covers:
+      - ref_images.visual-review
+  - stage: ref_images
+    id: k8b.case.portrait.preflight-checks.ref_images
+    path: cases/ref_images/portrait-shoot.md
+    heading: 定妆照脚本：拍前先核实状态、钳制与可见件
+    priority: 60
+    required: false
+    covers:
+      - ref_images.shoot-script
+  - stage: ref_images
+    id: k8b.case.portrait.standing-pose.ref_images
+    path: cases/ref_images/portrait-shoot.md
+    heading: 定妆照站姿：SDK 站姿叠在 FX 之下，拍前断言手脚位置
+    priority: 55
+    required: false
+    covers:
+      - ref_images.pose
+  - stage: ref_images
+    id: k8b.case.portrait.face-framing.ref_images
+    path: cases/ref_images/portrait-shoot.md
+    heading: 面部特写取景：包围盒会被隐形标记件和半高口径带偏
+    priority: 55
+    required: false
+    covers:
+      - ref_images.framing
+  - stage: ref_images
+    id: k8b.case.portrait.views-blind-spots.ref_images
+    path: cases/ref_images/portrait-shoot.md
+    heading: 定妆照要拍到的视角与要避开的盲区
+    priority: 50
+    required: false
+    covers:
+      - ref_images.views
+  - stage: face_edit
+    id: k8b.case.regression.gesture-driven-states.face_edit
+    path: cases/regression/play-automation.md
+    heading: 表情与手势驱动的状态要按转移条件设参数
+    priority: 30
+    required: false
+    covers:
+      - face_edit.expression-keys
+  - stage: face_tracking
+    id: k8b.mem.roots.face-tracking-root.face_tracking
+    path: memory/avatar-roots.md
+    heading: 面捕安装会多出一个头像根
+    priority: 60
+    required: false
+    covers:
+      - face_tracking.roots
+  - stage: accessories
+    id: k8b.case.metal.scale.accessories
+    path: cases/accessories/metal-accessory.md
+    heading: 小饰品尺度：VR 可读性与首饰真实尺度要先和需求方对齐
+    priority: 50
+    required: false
+    covers:
+      - accessories.modeling
+  - stage: recolor
+    id: k8b.case.metal.liltoon-metal.recolor
+    path: cases/accessories/metal-accessory.md
+    heading: lilToon 金银材质：以 MatCap 为主，不依赖世界反射
+    priority: 50
+    required: false
+    when: []
+    covers:
+      - recolor.metal-material
+  - stage: accessories
+    id: k8b.case.metal.liltoon-metal.accessories
+    path: cases/accessories/metal-accessory.md
+    heading: lilToon 金银材质：以 MatCap 为主，不依赖世界反射
+    priority: 40
+    required: false
+    when:
+      - path: memory.project.packageIds
+        includes: jp.lilxyzw.liltoon
+    covers:
+      - recolor.metal-material
+  - stage: menu
+    id: k8b.case.metal.material-swap.menu
+    path: cases/accessories/metal-accessory.md
+    heading: 金银切换用 MA Material Swap
+    priority: 40
+    required: false
+    when: []
+    covers:
+      - menu.material-switch
+  - stage: recolor
+    id: k8b.case.metal.material-swap.recolor
+    path: cases/accessories/metal-accessory.md
+    heading: 金银切换用 MA Material Swap
+    priority: 40
+    required: false
+    when: []
+    covers:
+      - menu.material-switch
+  - stage: blend_keys
+    id: k8b.case.metal.fbx-export-import.blend_keys
+    path: cases/accessories/metal-accessory.md
+    heading: Blender 导出饰品 FBX 与 Unity 导入设置
+    priority: 55
+    required: false
+    covers:
+      - blend_keys.fbx-export
+  - stage: accessories
+    id: k8b.case.metal.fbx-export-import.accessories
+    path: cases/accessories/metal-accessory.md
+    heading: Blender 导出饰品 FBX 与 Unity 导入设置
+    priority: 45
+    required: false
+    covers:
+      - blend_keys.fbx-export
+  - stage: accessories
+    id: k8b.case.eye-overlay.iris-island.accessories
+    path: cases/accessories/eye-overlay-effect.md
+    heading: 眼部叠加效果：先选对「看得见的虹膜岛」
+    priority: 50
+    required: false
+    covers:
+      - accessories.eye-overlay
+  - stage: face_edit
+    id: k8b.case.eye-overlay.iris-island.face_edit
+    path: cases/accessories/eye-overlay-effect.md
+    heading: 眼部叠加效果：先选对「看得见的虹膜岛」
+    priority: 35
+    required: false
+    covers:
+      - accessories.eye-overlay
+  - stage: accessories
+    id: k8b.case.eye-overlay.render-queue.accessories
+    path: cases/accessories/eye-overlay-effect.md
+    heading: 眼部叠加效果：透明叠层被宿主写深度的材质盖掉
+    priority: 50
+    required: false
+    covers:
+      - accessories.eye-overlay
+  - stage: recolor
+    id: k8b.case.eye-overlay.render-queue.recolor
+    path: cases/accessories/eye-overlay-effect.md
+    heading: 眼部叠加效果：透明叠层被宿主写深度的材质盖掉
+    priority: 45
+    required: false
+    when: []
+    covers:
+      - recolor.render-queue
+  - stage: accessories
+    id: k8b.case.eye-overlay.eyelid-occlusion.accessories
+    path: cases/accessories/eye-overlay-effect.md
+    heading: 眼部叠加效果：先确认效果区域不被眼睑挡住
+    priority: 40
+    required: false
+    covers:
+      - accessories.eye-overlay
+  - stage: regression_pre
+    id: k8b.case.eye-overlay.eyelid-occlusion.regression_pre
+    path: cases/accessories/eye-overlay-effect.md
+    heading: 眼部叠加效果：先确认效果区域不被眼睑挡住
+    priority: 30
+    required: false
+    when: []
+    covers:
+      - regression.game-distance
+  - stage: face_edit
+    id: k8b.mem.face.storage.face_edit
+    path: memory/face-edit.md
+    heading: 捏脸值的四种存放方式与各自会被谁覆盖
+    priority: 70
+    required: false
+    covers:
+      - face_edit.storage
+  - stage: face_tracking
+    id: k8b.mem.face.storage.face_tracking
+    path: memory/face-edit.md
+    heading: 捏脸值的四种存放方式与各自会被谁覆盖
+    priority: 45
+    required: false
+    covers:
+      - face_edit.storage

@@ -1,0 +1,5 @@
+# Runtime state, if compose is ever run from this directory: contributions, keys and local settings stay out of Git.
+data/
+config/
+src/
+.env

@@ -1,0 +1,186 @@
+{
+  "version": 1,
+  "scopes": ["src", "builtin/tools", "builtin/knowledge/process"],
+  "reportOnlyScopes": ["builtin/knowledge/context", "builtin/knowledge/bodies", "builtin/knowledge/cases"],
+  "extensions": [".ts", ".tsx", ".mts", ".cts", ".js", ".mjs", ".cjs", ".cs", ".py", ".yaml", ".yml", ".json", ".md", ".sh", ".ps1", ".css", ".html", ".txt"],
+  "knowledgeApplicabilityMarkers": ["适用范围", "适用条件", "适用素体", "标定示例", "依据是", "when:", "covers:"],
+  "patterns": [
+    {
+      "id": "dev-body",
+      "description": "案例 A 与案例 B 的素体名（Milfy、Kaguya）及其日文写法；通用工具与判据里出现即说明规则是按这两具素体写的",
+      "regex": "(?<![A-Za-z0-9])(?:Milfy|Kaguya|ミルフィ|かぐや|カグヤ|輝夜)(?![A-Za-z0-9])",
+      "flags": "gi"
+    },
+    {
+      "id": "dev-product",
+      "description": "开发集里用到的商品名（Snowflake Romance、LUNALICE、GoldenHour、SweetyHair、MMN、ANEMONE、Kitty、Re-Poppin）",
+      "regex": "(?<![A-Za-z0-9])(?:Snowflake ?Romance|LUNALICE|GoldenHour|SweetyHair|Medical Melty Nightmare|MMN|ANEMONE|Re-Poppin'?|RePoppin|Kitty)(?![A-Za-z0-9])",
+      "flags": "gi"
+    },
+    {
+      "id": "dev-vendor",
+      "description": "上述商品的厂商名（KNIVES DESIGN、!Yueby&Mekoko、fumitikishop、てんぱすおおもり）",
+      "regex": "(?<![A-Za-z0-9])(?:KNIVES DESIGN|Yueby|Mekoko|fumitikishop|てんぱすおおもり)(?![A-Za-z0-9])",
+      "flags": "gi"
+    },
+    {
+      "id": "dev-directory",
+      "description": "开发集的目录习惯：Milfy_Eku 共版目录、以 ! 开头的厂商公共目录",
+      "regex": "(?:Milfy_Eku|!Common|!Yueby&Mekoko)",
+      "flags": "g"
+    },
+    {
+      "id": "dev-layer",
+      "description": "作者 PSD 里的层名（如带尾随空格的 eyelash）；判据不得按层名分支",
+      "regex": "(?<![A-Za-z0-9_])eyelash\\b",
+      "flags": "gi"
+    },
+    {
+      "id": "dev-material",
+      "description": "开发集素材上的材质名（如 Mat_Coat_08、GoldenHour 的 Gem_1／Metal_1／Fur_White）",
+      "regex": "(?<![A-Za-z0-9_])(?:Mat_Coat_08|Gem_1|Metal_1|Fur_White)(?![A-Za-z0-9_])",
+      "flags": "g"
+    },
+    {
+      "id": "dev-rig",
+      "description": "开发集素体的网格名与形态键名（Body_b、Body_base、Foot_heels、Foot_highheels、Foot_heel_OFF）；判据不得按这些字面量分支",
+      "regex": "(?<![A-Za-z0-9])(?:Body_b|Body_base|Foot_heels|Foot_highheels|Foot_heel_OFF)(?![A-Za-z0-9])",
+      "flags": "gi"
+    },
+    {
+      "id": "asset-guid",
+      "description": "写死在通用代码里的 32 位十六进制 GUID；开发集素材的 GUID 只能出现在知识正文里",
+      "regex": "(?<![0-9a-fA-F])[0-9a-f]{32}(?![0-9a-fA-F])",
+      "flags": "g"
+    }
+  ],
+  "allow": [
+    {
+      "path": "src/**",
+      "pattern": "dev-body",
+      "text": "^(?://|/\\*|\\*|\"\"\"|#)",
+      "reason": "注释里引用导入记录的实际形状（「最可能：Kaguya（12 次）」），是解析规则的来历，不是判据本身；判据看的是「最可能：」格式，与哪个素体无关"
+    },
+    {
+      "path": "src/**",
+      "pattern": "dev-layer",
+      "text": "^(?://|/\\*|\\*|\"\"\"|#)",
+      "reason": "注释用「层名叫 eyelash 空格」说明为什么层名不能走 trim（D-73、D-82）；此处只是举例，代码按调用方给的层名原样处理"
+    },
+    {
+      "path": "src/project-state.ts",
+      "pattern": "dev-body",
+      "text": "^Kaguya: \\[",
+      "reason": "素体别名表的键：这套表覆盖内建知识针对的六具素体（Kaguya、Milfy、Kipfel、Shinano、Rurune、Manuka），别名是折字达不到的假名/拉丁拼写，属于知识覆盖面数据而非判据；漂移风险与改法见车道报告「待决」"
+    },
+    {
+      "path": "src/assets/avatar-seed.ts",
+      "pattern": "dev-body",
+      "reason": "素体名字典，文件头记了来源（booth-archiver 5a93439），Milfy 与 Kaguya 是其中 90 项里的两项；它是数据不是判据，个人的新增与判定存在各自的状态库里，不进这个文件"
+    },
+    {
+      "path": "builtin/tools/**/*.cs",
+      "pattern": "dev-body",
+      "text": "^(?://|/\\*|\\*|\"\"\"|#)",
+      "reason": "C# 注释里引用开发工程里遇到的实际对象与事件（工程A／工程B 的实例），用来解释一条通用判据为什么长这样；注释不参与执行"
+    },
+    {
+      "path": "builtin/tools/**/*.cs",
+      "pattern": "dev-product",
+      "text": "^(?://|/\\*|\\*|\"\"\"|#)",
+      "reason": "C# 注释里引用触发该判据的实际商品（如 MMN 鞋、ANEMONE 脚），是判据的标定来历；代码按部位与几何判定，不按商品名分支"
+    },
+    {
+      "path": "builtin/tools/**/*.cs",
+      "pattern": "dev-rig",
+      "text": "^(?://|/\\*|\\*|\"\"\"|#)",
+      "reason": "C# 注释用开发集素体的网格名与形态键名举例（如归一化规则 `Body_base`→`Body` 的输入输出）；判据本身按归一词根与人形部位算，例名只帮助读者对上实物"
+    },
+    {
+      "path": "builtin/tools/harness/intake.py",
+      "pattern": "dev-body",
+      "text": "^(?:#|\"\"\")",
+      "reason": "命中只在注释与 docstring 行里：讲清「子串命中会落到兄弟分支」这条教训用了 LUNALICE 的 Milfy／Eku 目录做例子，body_key 的 docstring 用「輝夜」举例；判据本身按整段匹配优先，与素体名无关"
+    },
+    {
+      "path": "builtin/tools/harness/intake.py",
+      "pattern": "dev-product",
+      "text": "^(?:#|\"\"\")",
+      "reason": "同上：LUNALICE 只出现在解释「为什么子串命中不够」的注释行里（以 # 或 \"\"\" 开头）；代码里没有任何商品名分支"
+    },
+    {
+      "path": "builtin/tools/harness/intake.py",
+      "pattern": "dev-directory",
+      "text": "^(?:#|\"\"\")",
+      "reason": "同上：Milfy_Eku 的目录形状是那条注释行用来举的例子；精确段匹配是通用规则，不认任何具体目录名"
+    },
+    {
+      "path": "builtin/tools/unpack_unitypackage.py",
+      "pattern": "dev-product",
+      "reason": "命中全在模块 docstring 与注释里：文件头记录「共用资产的边界是厂商不是商品」这条教训时，举了 GoldenHour 与 SweetyHair 跨商品共用 !Common/ 的实例；解包逻辑按 GUID 判，与商品名无关"
+    },
+    {
+      "path": "builtin/tools/unpack_unitypackage.py",
+      "pattern": "dev-vendor",
+      "reason": "同上：!Yueby&Mekoko 是那条教训里的厂商实例，出现在 docstring 里；代码不读厂商名"
+    },
+    {
+      "path": "builtin/tools/unpack_unitypackage.py",
+      "pattern": "dev-directory",
+      "reason": "同上：!Common/ 是实例路径，写在 docstring 里说明撞号是怎么发生的；工具按 GUID 与新路径判，不认目录名"
+    },
+    {
+      "path": "builtin/tools/unpack_unitypackage.py",
+      "pattern": "dev-material",
+      "reason": "同上：Gem_1.mat 是撞号实例的材质名，出现在 docstring 与注释里；同内容不同 GUID 的判定是通用的"
+    },
+    {
+      "path": "builtin/tools/project_fingerprint.py",
+      "pattern": "dev-vendor",
+      "text": "^['\"]",
+      "reason": "厂商标记表的一行（60 余项，覆盖 BOOTH 生态，开发集厂商只占其中 4 项）；它是「脚本是不是厂商提供的」启发式种子表，另有 package.json 祖先兜底，未知厂商无需改代码也能判；表本身是否该作为数据随知识包分发见车道报告「待决」"
+    },
+    {
+      "path": "builtin/tools/审查/unity/Editor/AuditProbes.cs",
+      "pattern": "dev-product",
+      "text": "^string ns = PokeStr",
+      "reason": "该行的取值由行尾注释记录标定历史（anchor 在 Winter/MMN 上标定失败、parity 通过）；MMN 只说明是拿哪套素材比出来的，代码取的是 parity 这个通用口径"
+    },
+    {
+      "path": "builtin/tools/审查/unity/Editor/AuditStateDriver.cs",
+      "pattern": "dev-rig",
+      "text": "^\\+ \"把 Foot_heel_OFF",
+      "reason": "命中在给操作者看的说明字符串里：讲清「平脚键与非平脚键的排序」这条教训时点了具体键名；排序判据本身按键的语义分类，不按字面量分支"
+    },
+    {
+      "path": "builtin/tools/审查/unity/Editor/AuditStateDriver.cs",
+      "pattern": "dev-product",
+      "text": "^nimpl\\.Set\\(\"stringing_definition\"",
+      "reason": "命中在判据的说明字符串（`stringing_definition`）里：举 MMN 的收缩键过量当例子说明什么叫「尖锥拖丝」；判定按几何量算，不看商品名"
+    },
+    {
+      "path": "builtin/tools/审查/unity/Editor/T3RpSyncSim.cs",
+      "pattern": "dev-product",
+      "text": "^l\\.Add\\(\"手工版",
+      "reason": "命中在给操作者的提示字符串里：说明手工版要先摆好哪一档再执行；脚本按请求里的 reference_overrides 工作，与商品名无关"
+    },
+    {
+      "path": "builtin/knowledge/process/*.yaml",
+      "pattern": "dev-body",
+      "text": "^- \\{id: ",
+      "reason": "知识包索引条目：每条 `when: [{path: memory.project.identity.base, equals: X}]` 就是该条知识的适用条件，素体名在这里正是被要求写明的路由数据；通用机制是 equals 比较，换素体只加数据不加代码"
+    },
+    {
+      "path": "builtin/knowledge/process/*.yaml",
+      "pattern": "dev-rig",
+      "text": "^- \\{id: ",
+      "reason": "知识条目的 heading 是要点标题（如「Milfy 脚型键的两类，Foot_heels 与 Foot_highheels 互斥」），标题点名它讲的是哪具素体的哪些键；条目内容在 bodies/*.md，判据不看这些字面量"
+    },
+    {
+      "path": "builtin/knowledge/process/*.yaml",
+      "pattern": "dev-layer",
+      "text": "^- \\{id: ",
+      "reason": "命中是条目 id 里的 `eyelash`（案例标题「一根睫毛」的英文 id），不是 PSD 层名判据；层名相关的判据在 recolor 工具里按调用方给的层名数组处理"
+    }
+  ]
+}

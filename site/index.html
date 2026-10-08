@@ -1,0 +1,296 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Harness · 让自我，更简单 — VRChat 头像改模 AI 工作台</title>
+<meta name="description" content="改模不该是一门专业课。挑好素材、说出你想要的样子，Harness 带着 AI 把它做成属于你的 VRChat 角色。首个公开测试版 dev.0.1 仅 Windows，尚未开放下载。">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#f5f6f7">
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#101214">
+<link rel="icon" href="assets/img/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
+<link rel="canonical" href="https://harness.nymiro.moe/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Harness">
+<meta property="og:title" content="Harness — 让自我，更简单">
+<meta property="og:description" content="改模不该是一门专业课。挑好素材、说出你想要的样子，Harness 带着 AI 把它做成属于你的 VRChat 角色。开发中，尚未发布。">
+<meta property="og:url" content="https://harness.nymiro.moe/">
+<meta property="og:image" content="https://harness.nymiro.moe/assets/img/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="stylesheet" href="assets/css/site.css">
+</head>
+<body>
+<a class="skip" href="#main">跳到正文</a>
+
+<header class="site-header">
+  <div class="container container-wide header-inner">
+    <a class="brand" href="index.html" aria-label="Harness 首页">
+      <img src="assets/img/logo-96.png" width="32" height="32" alt="">
+      <span class="brand-text">Harness<span class="brand-sub">VRChat 头像改模 AI 工作台</span></span>
+    </a>
+    <nav class="site-nav" aria-label="站点导航">
+      <a href="index.html" aria-current="page">首页</a>
+      <a href="product.html">产品</a>
+      <a href="download.html">下载</a>
+      <a href="articles/demo.html">开发日志</a>
+    </nav>
+    <span class="pill header-status"><span class="dot run" aria-hidden="true"></span>开发中 · 尚未发布</span>
+  </div>
+</header>
+
+<main id="main">
+
+  <section class="hero hero-split hero-home" aria-labelledby="hero-title">
+    <div class="container container-wide hero-inner">
+      <div>
+        <p class="eyebrow"><span class="dot run" aria-hidden="true"></span>Harness · 开发中</p>
+        <h1 id="hero-title" class="display">让自我，<br>更简单。</h1>
+        <p class="lede">改模不该是一门专业课。挑好素材、说出你想要的样子，Harness 带着 AI 把它做成属于你的 VRChat 角色。</p>
+        <p class="hero-availability">首个公开测试版 dev.0.1（<code>0.1.0-dev.1</code>）仅提供 Windows，下载即将开放。</p>
+        <div class="cta">
+          <a class="btn btn-primary" href="#how">看看怎么用
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+          <a class="btn" href="articles/demo.html">阅读开发日志</a>
+        </div>
+        <ul class="compat" aria-label="适用范围">
+          <li>VRChat 头像</li>
+          <li>VCC/VPM 工程</li>
+          <li>BOOTH 已购素材</li>
+          <li>仅 Windows</li>
+        </ul>
+      </div>
+      <figure class="device-wrap hero-preview">
+        <div class="device">
+          <div class="device-bar" aria-hidden="true"><i></i><i></i><i></i><span class="title">Harness · 项目</span></div>
+          <div class="device-screen"><img src="assets/renders/home.png" width="1440" height="900" alt="Harness 首页演示界面：项目、待处理的决定和继续制作入口" decoding="async"></div>
+        </div>
+        <figcaption class="device-caption">开发中的界面 · 演示数据</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="section bordered" id="problems" aria-labelledby="problems-title">
+    <div class="container">
+      <div class="section-head">
+        <p class="eyebrow">我想解决的问题</p>
+        <h2 id="problems-title">改模的门槛，不该由你一个人扛</h2>
+        <p>把角色改成自己想要的样子，本来要跨过好几道坎。</p>
+      </div>
+      <div class="cards">
+        <article class="card">
+          <span class="num" aria-hidden="true">01</span>
+          <h3>要学的东西太多</h3>
+          <p>给自己的角色换衣服、换发型、改脸，通常要学 Unity、学 Blender，还要搞懂一堆插件。真正的门槛不是不会点按钮，而是不知道哪一步会出错。</p>
+        </article>
+        <article class="card">
+          <span class="num" aria-hidden="true">02</span>
+          <h3>AI 省下的是注意力，不是专业知识</h3>
+          <p>AI 已经能帮你操作这些工具，但你仍然得知道该让它做什么、做得对不对。省下来的是动手的注意力，专业知识还得你自己补。</p>
+        </article>
+        <article class="card">
+          <span class="num" aria-hidden="true">03</span>
+          <h3>Harness 把专业知识装进产品</h3>
+          <p>怎么挑素材、怎么装配、哪里容易出错、做完怎么检查——这些规则由 Harness 管理。你只需要说出想要的样子。</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="how" aria-labelledby="how-title">
+    <div class="container">
+      <div class="section-head">
+        <p class="eyebrow">怎么用</p>
+        <h2 id="how-title">四步，从素材到你的角色</h2>
+        <p>制作由 Harness 驱动 Unity 与 Blender 完成，你不需要自己改工程。</p>
+      </div>
+      <ol class="flow">
+        <li>
+          <span class="who">第 1 步</span>
+          <h3>准备 AI</h3>
+          <p>注册一个 DeepSeek API 账号，把密钥填进 Harness。模型按实际用量计费，花销记在你自己的账号上。</p>
+        </li>
+        <li>
+          <span class="who">第 2 步</span>
+          <h3>安装 Harness</h3>
+          <p>下载 Windows 版并安装。有 BOOTH 账号就登录一次，Harness 能找到你买过的素材；本地整理好的素材也可以直接登记。</p>
+        </li>
+        <li>
+          <span class="who">第 3 步</span>
+          <h3>新建项目，说明想要的样子</h3>
+          <p>从你拥有的素材里挑，或直接导入整理好的素材文件夹 / 压缩包；再用一句话或几张参考图说明想要的效果。</p>
+        </li>
+        <li class="gate">
+          <span class="who">第 4 步</span>
+          <h3>等 AI 做完，关键处由你确认</h3>
+          <p>Harness 自动装配、逐项检查；需要你决定的地方会停下来等你确认，完成后引导你上传到 VRChat。</p>
+        </li>
+      </ol>
+
+      <div class="board" style="margin-top: var(--s-7)">
+        <div class="board-row">
+          <div><b>DeepSeek（API）</b><p>本版接入的模型，用自己的 API 密钥驱动，按实际用量计费</p></div>
+          <span class="pill"><span class="dot ok" aria-hidden="true"></span>本版可用</span>
+        </div>
+        <div class="board-row">
+          <div><b>OpenAI、Anthropic、Google 的 API 密钥</b><p>按量付费的 API 接入，仍在开发，尚未开放</p></div>
+          <span class="pill"><span class="dot plan" aria-hidden="true"></span>即将支持</span>
+        </div>
+        <div class="board-row">
+          <div><b>订阅制 AI 客户端</b><p>本版不支持订阅制 AI 客户端的接入，只用 API 密钥</p></div>
+          <span class="pill"><span class="dot plan" aria-hidden="true"></span>不在本版范围</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section bordered" id="built" aria-labelledby="built-title">
+    <div class="container">
+      <div class="section-head">
+        <p class="eyebrow">我做了什么</p>
+        <h2 id="built-title">不是 AI 说做完了，而是有判定说做完了</h2>
+        <p>把「AI 能动手」变成「结果可以被检查」，是 Harness 真正做的事。</p>
+      </div>
+
+      <div class="banner">
+        <div>
+          <p class="eyebrow">核心口径</p>
+          <h3>AI 负责执行，判定不由它自己下</h3>
+          <p>每一步做完，都由独立的观测给出判定：通过了什么、哪里没过、失败了几次、返工后变成什么样，都留下记录。AI 不能自己宣布完成，你也不需要凭它的说法判断对错。</p>
+        </div>
+      </div>
+
+      <div class="cards" style="margin-top: var(--s-6)">
+        <article class="card">
+          <span class="num" aria-hidden="true">01</span>
+          <h3>独立判定</h3>
+          <p>每一步由独立观测给出判定，而不是由执行方自称完成。没通过时记录问题和返工结果，方便继续处理。</p>
+        </article>
+        <article class="card">
+          <span class="num" aria-hidden="true">02</span>
+          <h3>开工后沿用同一套规则</h3>
+          <p>开始制作时会固定使用的流程、工具和知识版本。中途更新不会悄悄改变这个项目。</p>
+        </article>
+        <article class="card">
+          <span class="num" aria-hidden="true">03</span>
+          <h3>关键改动由你决定</h3>
+          <p>需要批准的地方会暂停制作，等你确认后再继续。</p>
+        </article>
+        <article class="card">
+          <span class="num" aria-hidden="true">04</span>
+          <h3>执行方在受限环境里工作</h3>
+          <p>制作在受控环境里进行；Windows 上执行方在 Low 完整性下运行时，Harness 的控制接口、配置与素材会话对执行方不可见，它也无法替你批准。部分 Unity 步骤会回退为不做额外隔离（见<a href="known-limitations.html">已知限制</a>），那种情况下这条不成立。</p>
+        </article>
+        <article class="card">
+          <span class="num" aria-hidden="true">05</span>
+          <h3>进度属于项目，不属于对话</h3>
+          <p>换模型、重启、开新对话，项目进度和已确认的事项都还在——它们存在本地的数据目录里，不在某一次对话里。</p>
+        </article>
+        <article class="card">
+          <span class="num" aria-hidden="true">06</span>
+          <h3>知识与工具也管版本</h3>
+          <p>内置能力包由 Harness 统一管理：更新由服务端签名发布，客户端验签后在安全点生效。</p>
+        </article>
+      </div>
+
+      <p style="margin-top: var(--s-5)">这些机制的逐项说明和界面截图在<a href="product.html">产品介绍</a>里。</p>
+    </div>
+  </section>
+
+  <section class="section bordered" id="status" aria-labelledby="status-title">
+    <div class="container">
+      <div class="section-head">
+        <p class="eyebrow">开发状态</p>
+        <h2 id="status-title">开发中，尚未发布</h2>
+        <p>这里不预告具体日期，进度以本页更新为准。</p>
+      </div>
+
+      <div class="banner">
+        <div>
+          <p class="eyebrow">当前进度</p>
+          <h3>首个公开测试版待公开</h3>
+          <p>dev.0.1 正在收口。完整改模交付仍在验证：原图到交付包的端到端产出、两套真实头像的完整交付尚未完成，所以还不能宣称可以稳定自动改模。下载在最终授权前保持关闭，<a href="download.html">下载页与已知限制</a>列了本版还不能保证的部分。</p>
+        </div>
+      </div>
+
+      <div class="board" style="margin-top: var(--s-6)">
+        <div class="board-row">
+          <div><b>Windows 测试版</b><p>本版唯一提供的平台，安装包尚未公开</p></div>
+          <span class="pill"><span class="dot run" aria-hidden="true"></span>待公开</span>
+        </div>
+        <div class="board-row">
+          <div><b>Linux 版</b><p>稍后提供，不在 dev.0.1 的范围内</p></div>
+          <span class="pill"><span class="dot plan" aria-hidden="true"></span>之后</span>
+        </div>
+        <div class="board-row">
+          <div><b>双界面</b><p>GUI（桌面窗口）与 TUI（终端），共用同一个本地 Runtime</p></div>
+          <span class="pill"><span class="dot ok" aria-hidden="true"></span>开发版已实现</span>
+        </div>
+        <div class="board-row">
+          <div><b>代码仓库</b><p>发布前保持私有</p></div>
+          <span class="pill"><span class="dot plan" aria-hidden="true"></span>暂时私有</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section bordered" id="contact" aria-labelledby="contact-title">
+    <div class="container">
+      <div class="section-head">
+        <p class="eyebrow">联系方式</p>
+        <h2 id="contact-title">有问题，直接写信</h2>
+        <p>测试版反馈、安装问题、想提的功能都可以发邮件。请不要在邮件里附密钥、私人路径、完整对话或未获许可的素材。</p>
+      </div>
+      <div class="cards pairs">
+        <article class="card">
+          <h3>项目咨询</h3>
+          <p>关于 Harness 本身的问题、反馈与合作：<a href="mailto:harness@nymiro.moe">harness@nymiro.moe</a></p>
+        </article>
+        <article class="card">
+          <h3>个人联系</h3>
+          <p>其他事情：<a href="mailto:nymiro@nymiro.moe">nymiro@nymiro.moe</a></p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div>
+      <div class="footer-brand"><img src="assets/img/logo-48.png" width="28" height="28" alt="">Harness</div>
+      <p>个人使用的 VRChat 头像改模 AI 工作台。开发中，尚未发布；首个测试版仅提供 Windows。</p>
+      <p class="muted">harness.nymiro.moe · 项目咨询 harness@nymiro.moe · 个人 nymiro@nymiro.moe</p>
+    </div>
+    <nav aria-label="页脚导航">
+      <h2>站点</h2>
+      <ul>
+        <li><a href="index.html">首页</a></li>
+        <li><a href="product.html">产品介绍</a></li>
+        <li><a href="download.html">下载与安装说明</a></li>
+        <li><a href="known-limitations.html">已知限制</a></li>
+        <li><a href="articles/demo.html">开发日志</a></li>
+      </ul>
+    </nav>
+    <div>
+      <h2>兼容</h2>
+      <ul>
+        <li>适用于 VRChat 头像</li>
+        <li>兼容 VCC/VPM 工程</li>
+        <li>支持 BOOTH 素材</li>
+        <li>Windows 10 / 11 64 位</li>
+      </ul>
+    </div>
+  </div>
+  <div class="container disclaimer">
+    <p>Harness 与 VRChat Inc. 及 pixiv 株式会社（BOOTH 的运营方）没有隶属关系，也未获其背书。VRChat、VCC、VPM、BOOTH 等名称仅用于说明兼容性，相关商标归其各自所有者所有；本站不使用上述商标图形。</p>
+    <p>页面中的界面图为开发中的版本，项目与素材均为演示数据，最终发布版本可能不同。</p>
+    <p>产品改进数据默认关闭。删除或撤回后，数据在运营者的备份中最多再保留 90 天。</p>
+  </div>
+</footer>
+</body>
+</html>

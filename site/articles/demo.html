@@ -1,0 +1,345 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>让 AI 改模可以被验证：冻结流程、独立判定与人工闸门 · Harness 开发日志</title>
+<meta name="description" content="为什么 Harness 不让 AI 自己宣布「做完了」：流程按哈希冻结、每一步由独立观测判定、关键节点请你批准。开发日志示例文章，同时是文章模板。">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#f5f6f7">
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#101214">
+<link rel="icon" href="../assets/img/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="../assets/img/apple-touch-icon.png">
+<link rel="canonical" href="https://harness.nymiro.moe/articles/demo.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Harness">
+<meta property="og:title" content="让 AI 改模可以被验证：冻结流程、独立判定与人工闸门">
+<meta property="og:description" content="为什么 Harness 不让 AI 自己宣布「做完了」。">
+<meta property="og:url" content="https://harness.nymiro.moe/articles/demo.html">
+<meta property="og:image" content="https://harness.nymiro.moe/assets/img/og.png">
+<meta property="article:published_time" content="2026-09-28">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="stylesheet" href="../assets/css/site.css">
+<link rel="stylesheet" href="../assets/css/article.css">
+</head>
+<body>
+<a class="skip" href="#main">跳到正文</a>
+
+<header class="site-header">
+  <div class="container container-wide header-inner">
+    <a class="brand" href="../index.html" aria-label="Harness 首页">
+      <img src="../assets/img/logo-96.png" width="32" height="32" alt="">
+      <span class="brand-text">Harness<span class="brand-sub">VRChat 头像改模 AI 工作台</span></span>
+    </a>
+    <nav class="site-nav" aria-label="站点导航">
+      <a href="../index.html">首页</a>
+      <a href="../product.html">产品</a>
+      <a href="../download.html">下载</a>
+      <a href="demo.html" aria-current="page">开发日志</a>
+    </nav>
+    <span class="pill header-status"><span class="dot run" aria-hidden="true"></span>开发中 · 尚未发布</span>
+  </div>
+</header>
+
+<main id="main">
+<article class="article">
+
+  <header class="article-head">
+    <div class="container">
+      <p class="eyebrow">Dev log · 开发日志 <span class="tag">示例文章 · 模板</span></p>
+      <h1 class="article-title">让 AI 改模可以被验证：<span class="nb">冻结流程、</span><span class="nb">独立判定</span>与<span class="nb">人工闸门</span></h1>
+      <p class="article-lede">为什么 Harness 不让 AI 自己宣布「做完了」——以及我们用哪三个机制来代替它。</p>
+      <ul class="article-meta" aria-label="文章信息">
+        <li>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15" rx="2.5"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg>
+          <time datetime="2026-09-28">2026 年 9 月 28 日</time>
+        </li>
+        <li>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg>
+          约 8 分钟
+        </li>
+        <li>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h7l9 9-7 7-9-9V4z"/><circle cx="8.5" cy="8.5" r="1.2"/></svg>
+          设计 · 流程 · 判定
+        </li>
+        <li>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="9" r="3.5"/><path d="M5 20a7 7 0 0 1 14 0"/></svg>
+          Harness 开发日志
+        </li>
+      </ul>
+    </div>
+  </header>
+
+  <div class="container article-layout">
+    <div class="article-body">
+
+      <details class="toc-mobile">
+        <summary>目录</summary>
+        <nav class="toc" aria-label="目录（移动端）">
+          <ol>
+            <li><a href="#problem">问题：AI 说「做完了」，意味着什么</a></li>
+            <li><a href="#mechanisms">三个机制</a></li>
+            <li class="depth-3"><a href="#freeze">冻结流程</a></li>
+            <li class="depth-3"><a href="#verdict">独立判定</a></li>
+            <li class="depth-3"><a href="#gate">人工闸门</a></li>
+            <li><a href="#rework">一次返工长什么样</a></li>
+            <li><a href="#tradeoffs">取舍</a></li>
+            <li><a href="#planned">还没做的事</a></li>
+            <li><a href="#about">关于本文</a></li>
+          </ol>
+        </nav>
+      </details>
+
+      <div class="prose">
+
+        <figure>
+          <div class="device">
+            <div class="device-bar" aria-hidden="true"><i></i><i></i><i></i><span class="title">Harness · 核心管理</span></div>
+            <div class="device-screen">
+              <img src="../assets/renders/core.png" width="1440" height="900" alt="Harness 核心管理页（演示数据）：状态库版本 33、证据事件 9、服务重启 0；调度运行中；「AI 与执行」列出当前接入的执行方 pi · deepseek；「知识与核心」注明制作规则、阶段上下文和执行工具作为一个版本由 Harness 管理，新的制作流程会固定当前版本、已在运行的项目不会被更新悄悄改变，当前使用 0.1.0-dev.3；下方候选能力包为空" decoding="async">
+            </div>
+          </div>
+          <figcaption><b>图 1</b> · 核心管理：知识与工具由 Harness 管理版本，新流程固定当前版本，已在运行的项目不会被悄悄改变。界面为开发中版本，数据为演示数据。</figcaption>
+        </figure>
+
+        <h2 id="problem">问题：AI 说「做完了」，意味着什么 <a class="anchor" href="#problem" aria-label="本节链接">#</a></h2>
+        <p>让 AI 改一个 VRChat 头像，最常见的失败不是它做不出来，而是它说做完了、看起来也像做完了，但装到工程里一测就不对：菜单少了一档，参数位数超了，材质换错了槽。执行者的自述和结果之间隔着一层，谁来填这层？</p>
+        <p>通常的答案是「用户自己检查」。这在一次两次可以，在十六个阶段、每个阶段几十个检查点的正式流程里不可能。Harness 的答案是把三件事从执行者手里拿走：<strong>规则</strong>、<strong>判定</strong>和<strong>放行</strong>。</p>
+
+        <blockquote>
+          <p>「完成」不该是执行者的自述，而应是观测者的结论。</p>
+          <footer>—— Harness 的设计出发点</footer>
+        </blockquote>
+
+        <h2 id="mechanisms">三个机制 <a class="anchor" href="#mechanisms" aria-label="本节链接">#</a></h2>
+        <p>三个机制按顺序作用在同一条流程上：开工时冻结规则，每一步由独立观测判定，关键节点由你放行。</p>
+
+        <figure>
+          <div class="diagram" role="img" aria-label="三个机制的示意：冻结、判定、闸门依次作用；判定未通过时带证据返工，有限次数">
+            <svg viewBox="0 0 720 200" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <defs>
+                <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0L10 5 0 10z" class="head"/></marker>
+                <marker id="ahb" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0L10 5 0 10z" class="head-bad"/></marker>
+              </defs>
+              <rect class="box" x="16" y="44" width="196" height="92" rx="12"/>
+              <text class="t" x="32" y="76">① 冻结</text>
+              <text class="m" x="32" y="98">流程定义、工具与知识</text>
+              <text class="m" x="32" y="116">开工时按哈希冻结</text>
+
+              <path class="arrow" d="M212 90h40" marker-end="url(#ah)"/>
+
+              <rect class="box" x="262" y="44" width="196" height="92" rx="12"/>
+              <text class="t" x="278" y="76">② 判定</text>
+              <text class="m" x="278" y="98">每一步由独立观测给出</text>
+              <text class="m" x="278" y="116">判定，而不是 AI 自称完成</text>
+
+              <path class="arrow" d="M458 90h40" marker-end="url(#ah)"/>
+
+              <rect class="box gate" x="508" y="44" width="196" height="92" rx="12"/>
+              <text class="t" x="524" y="76">③ 闸门</text>
+              <text class="m" x="524" y="98">关键节点请你批准，</text>
+              <text class="m" x="524" y="116">批准后再继续</text>
+
+              <path class="loop" d="M360 136v28H140v-28" marker-end="url(#ahb)"/>
+              <text class="loop-t" x="250" y="184" text-anchor="middle">未通过：带着证据返工（有限次数）</text>
+            </svg>
+          </div>
+          <figcaption><b>图 2</b> · 三个机制的关系。返工回到执行方，但规则不变、判定不变。</figcaption>
+        </figure>
+
+        <h3 id="freeze">1. 冻结流程 <a class="anchor" href="#freeze" aria-label="本节链接">#</a></h3>
+        <p>开工的那一刻，这次任务用到的<strong>流程定义、工具与知识</strong>按哈希冻结。之后即使能力包更新了，正在进行的流程也继续用开工时的那一套。这样做的原因很朴素：如果规则会在中途变化，那么「判定通过」就没有稳定的含义。</p>
+        <ul>
+          <li>冻结的对象是三样：流程定义（有哪些阶段、每个阶段检查什么）、工具（用什么来做和来看）、知识（做法与约束）。</li>
+          <li>冻结的凭据是哈希。判定记录里带着它，事后可以回答「当时是按哪一版规则判的」。</li>
+          <li>冻结不阻止更新：能力包由服务端签名发布，客户端验签后在<em>安全点</em>更新，旧流程保持冻结。</li>
+        </ul>
+
+        <div class="note note-info" role="note">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M12 11v5M12 8v.3"/></svg>
+          <div>
+            <span class="note-title">「冻结」不等于「不能更新」</span>
+            <p>更新发生在安全点，作用于之后开工的流程。正在进行的流程不会被半路换掉规则。</p>
+          </div>
+        </div>
+
+        <h3 id="verdict">2. 独立判定 <a class="anchor" href="#verdict" aria-label="本节链接">#</a></h3>
+        <p>每一步完成后，由<strong>独立观测</strong>给出判定：去看工程里真实的状态，和阶段定义里的期望比对，而不是读取执行方的汇报。执行方可以在汇报里写「已完成」，但这个字段不参与判定。</p>
+        <p>判定失败时，流程不会直接停下，也不会无限重试：执行方<strong>带着证据</strong>返工，次数有限。证据是判定时留下的观测结果——截图、日志、数值——返工时它们是输入，而不是从头再猜。</p>
+
+        <h4>判定记录里有什么</h4>
+        <p>下面是一条判定记录的<strong>示意</strong>。字段是为了说明用途而写的，不代表实际存储格式。</p>
+
+        <div class="code-block">
+          <div class="code-head"><span>yaml · 示意</span></div>
+<pre><code><span class="c"># 示意：一步的判定记录。字段用于说明，不代表实际格式。</span>
+<span class="k">stage</span>: 06-menu                 <span class="c"># 阶段：菜单</span>
+<span class="k">attempt</span>: 2 / 3                 <span class="c"># 有限次数返工</span>
+<span class="k">frozen</span>:
+  <span class="k">workflow</span>:  sha256:9f3a…      <span class="c"># 开工时冻结的流程定义</span>
+  <span class="k">tools</span>:     sha256:41c0…
+  <span class="k">knowledge</span>: sha256:b7d2…
+<span class="k">observations</span>:
+  - <span class="k">check</span>: menu.controls_count
+    <span class="k">expected</span>: 8
+    <span class="k">actual</span>: 8
+  - <span class="k">check</span>: expression_parameters.bits
+    <span class="k">expected</span>: <span class="s">"&lt;= 256"</span>
+    <span class="k">actual</span>: 214
+<span class="k">verdict</span>: <span class="ok">pass</span>
+<span class="k">evidence</span>: [renders/menu-01.png, logs/menu-check.txt]
+<span class="k">gate</span>: user_approval_required   <span class="c"># 关键节点：等待批准</span></code></pre>
+        </div>
+
+        <p>三个字段值得注意：<code>frozen</code> 让判定可以追溯到规则版本；<code>observations</code> 是观测到的事实，不是执行方的说法；<code>evidence</code> 是返工时要带上的东西。</p>
+
+        <div class="note note-tip" role="note">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3.5 10.9c.7.5 1 1.3 1 2.1h5c0-.8.3-1.6 1-2.1A6 6 0 0 0 12 3z"/></svg>
+          <div>
+            <span class="note-title">判定的输入是观测，不是自述</span>
+            <p>这也是为什么执行方在沙箱里运行、工作区以外的写入被阻止：观测对象必须只在工作区里，判定才有意义。</p>
+          </div>
+        </div>
+
+        <h3 id="gate">3. 人工闸门 <a class="anchor" href="#gate" aria-label="本节链接">#</a></h3>
+        <p>有些决定不该由判定规则替你做：方案要不要这样走，配色是不是你要的，交付包能不能发出去。这些是<strong>关键节点</strong>，流程会停下来请你批准，批准之后再继续。</p>
+        <ol>
+          <li>流程到达关键节点，Harness 把当前状态和判定结果摆在你面前。</li>
+          <li>你批准，或者要求改。</li>
+          <li>批准后流程继续；要求改则回到执行方，带着你的意见。</li>
+        </ol>
+
+        <figure>
+          <div class="device">
+            <div class="device-bar" aria-hidden="true"><i></i><i></i><i></i><span class="title">Harness · 首页</span></div>
+            <div class="device-screen">
+              <img src="../assets/renders/home.png" width="1440" height="900" alt="Harness 首页（演示数据）：顶部提示有 1 项需要你处理；「需要你处理」区域是「确认配色效果」决定卡，可批准当前版本、修改要求或暂不执行；下方是进行中的项目与快速开始入口" loading="lazy" decoding="async">
+            </div>
+          </div>
+          <figcaption><b>图 3</b> · 首页最上面是等你决定的事：「确认配色效果」——批准当前版本、修改要求或暂不执行。演示数据。</figcaption>
+        </figure>
+
+        <div class="note note-warn" role="note">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3.5l9 16h-18l9-16z"/><path d="M12 10v4M12 17.2v.3"/></svg>
+          <div>
+            <span class="note-title">闸门设在关键节点</span>
+            <p>批准之前，流程停在那里。Harness 的控制接口、配置与 BOOTH 会话对执行方不可见，所以执行方无法替你按下批准。</p>
+          </div>
+        </div>
+
+        <h2 id="rework">一次返工长什么样 <a class="anchor" href="#rework" aria-label="本节链接">#</a></h2>
+        <p>用菜单阶段举一个<strong>示意</strong>的例子：第一次尝试超出了参数位数预算，判定未通过；执行方拿着参数表截图和检查日志返工，第二次通过，进入闸门等待批准。</p>
+
+        <div class="table-wrap">
+          <table>
+            <caption class="sr-only">菜单阶段两次尝试的判定与处理（示意）</caption>
+            <thead>
+              <tr><th scope="col">尝试</th><th scope="col">判定</th><th scope="col">证据</th><th scope="col">处理</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>1 / 3</td><td><span class="tag">未通过</span> 参数位数超出预算</td><td>参数表截图、检查日志</td><td>带证据返工</td></tr>
+              <tr><td>2 / 3</td><td><span class="tag done">通过</span> 8 个控件，214 位</td><td>参数表截图</td><td>进入闸门，等待批准</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p>整个过程里，规则没有变（哈希相同），判定方式没有变（同一组观测），变的只有执行方交出来的工程状态。这就是「可以被验证」的含义：任何一步都能回答<em>按什么规则</em>、<em>看到了什么</em>、<em>谁放行的</em>。</p>
+
+        <h2 id="tradeoffs">取舍 <a class="anchor" href="#tradeoffs" aria-label="本节链接">#</a></h2>
+        <p>这套做法不是免费的，几处取舍写在这里：</p>
+        <ul>
+          <li><strong>更慢。</strong>每一步多一次观测，关键节点要等你。换来的是不用在交付后返工。</li>
+          <li><strong>返工有限。</strong>次数用完就停下来找你，而不是无限重试。无限重试掩盖问题，还烧额度。</li>
+          <li><strong>规则会过时。</strong>冻结意味着正在进行的流程用不上刚发布的改进。所以更新只在安全点生效，下一次开工就能用上。</li>
+        </ul>
+
+        <h2 id="planned">还没做的事 <a class="anchor" href="#planned" aria-label="本节链接">#</a></h2>
+        <p>以下内容<strong>规划中，尚未实现</strong>，不属于当前提供 Windows 的开发版：</p>
+        <ul>
+          <li><span class="tag plan">规划中</span> Windows GUI（将成为主入口）</li>
+          <li><span class="tag plan">规划中</span> 实时预览</li>
+          <li><span class="tag plan">规划中</span> 游戏轮盘菜单编排</li>
+          <li><span class="tag plan">规划中</span> 交互捏脸</li>
+          <li><span class="tag plan">规划中</span> 服务端检索与推荐</li>
+        </ul>
+        <p>协作学习目前是自愿加入、按类别回传最小候选、可随时退出；接收端尚未开放。</p>
+
+        <hr>
+
+        <h2 id="about">关于本文 <a class="anchor" href="#about" aria-label="本节链接">#</a></h2>
+        <p>这是一篇示例文章，同时是本站博客与开发日志的模板：标题层级（h1–h4）、正文、引用、代码块、图注、提示框、表格与目录都在这一页里出现过一次。产品事实以<a href="../product.html">产品页</a>为准；文中标注「示意」的内容用于说明机制，不代表实际数据格式。</p>
+      </div>
+
+      <footer class="article-foot">
+        <ul class="tags" aria-label="标签">
+          <li><span class="tag">设计</span></li>
+          <li><span class="tag">流程</span></li>
+          <li><span class="tag">判定</span></li>
+          <li><span class="tag">开发日志</span></li>
+        </ul>
+        <nav class="pager" aria-label="相邻文章">
+          <span class="prev"><small>上一篇</small>暂无更早的文章</span>
+          <span class="next"><small>下一篇</small>发布后在此更新</span>
+        </nav>
+      </footer>
+    </div>
+
+    <aside class="article-aside" aria-label="侧栏">
+      <div class="toc-box">
+        <nav class="toc" aria-label="目录">
+          <p class="toc-title">目录</p>
+          <ol>
+            <li><a href="#problem">问题：AI 说「做完了」</a></li>
+            <li><a href="#mechanisms">三个机制</a></li>
+            <li class="depth-3"><a href="#freeze">冻结流程</a></li>
+            <li class="depth-3"><a href="#verdict">独立判定</a></li>
+            <li class="depth-3"><a href="#gate">人工闸门</a></li>
+            <li><a href="#rework">一次返工长什么样</a></li>
+            <li><a href="#tradeoffs">取舍</a></li>
+            <li><a href="#planned">还没做的事</a></li>
+            <li><a href="#about">关于本文</a></li>
+          </ol>
+        </nav>
+        <div class="related">
+          <p>想看功能逐项说明？</p>
+          <a href="../product.html">产品介绍 →</a>
+        </div>
+      </div>
+    </aside>
+  </div>
+
+</article>
+</main>
+
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div>
+      <div class="footer-brand"><img src="../assets/img/logo-48.png" width="28" height="28" alt="">Harness</div>
+      <p>个人使用的 VRChat 头像改模 AI 工作台。开发中，尚未发布。</p>
+      <p class="muted">harness.nymiro.moe</p>
+    </div>
+    <nav aria-label="页脚导航">
+      <h2>站点</h2>
+      <ul>
+        <li><a href="../index.html">首页</a></li>
+        <li><a href="../product.html">产品介绍</a></li>
+        <li><a href="demo.html">开发日志</a></li>
+      </ul>
+    </nav>
+    <div>
+      <h2>兼容</h2>
+      <ul>
+        <li>适用于 VRChat 头像</li>
+        <li>兼容 VCC/VPM 工程</li>
+        <li>支持 BOOTH 素材</li>
+      </ul>
+    </div>
+  </div>
+  <div class="container disclaimer">
+    <p>Harness 与 VRChat Inc. 及 pixiv 株式会社（BOOTH 的运营方）没有隶属关系，也未获其背书。VRChat、VCC、VPM、BOOTH 等名称仅用于说明兼容性，相关商标归其各自所有者所有；本站不使用上述商标图形。</p>
+    <p>页面中的界面图为开发中的版本，最终发布版本可能不同。</p>
+  </div>
+</footer>
+<script src="../assets/js/article.js" defer></script>
+</body>
+</html>

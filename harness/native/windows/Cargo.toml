@@ -1,0 +1,39 @@
+[package]
+name = "avh-win"
+version = "0.1.0"
+edition = "2021"
+description = "Harness on Windows: supervised Run jobs, the Low integrity write boundary, integrity labels and autostart"
+publish = false
+
+[lib]
+path = "src/lib.rs"
+
+[[bin]]
+name = "avh-win"
+path = "src/main.rs"
+
+[[bin]]
+name = "avh-win-launch"
+path = "src/bin/avh-win-launch.rs"
+
+[target.'cfg(windows)'.dependencies]
+windows-sys = { version = "0.61.2", features = [
+  "Wdk_System_Threading",
+  "Win32_Foundation",
+  "Win32_Security",
+  "Win32_Security_Authorization",
+  "Win32_Storage_FileSystem",
+  "Win32_System_Console",
+  "Win32_System_Diagnostics_ToolHelp",
+  "Win32_System_IO",
+  "Win32_System_JobObjects",
+  "Win32_System_Kernel",
+  "Win32_System_Registry",
+  "Win32_System_Threading",
+] }
+
+[profile.release]
+opt-level = 3
+lto = true
+codegen-units = 1
+strip = true

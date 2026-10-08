@@ -1,0 +1,22 @@
+# 本机配置（从 kit.env.example 复制后填写），含本机路径，不提交
+kit.env
+# Local privacy vocabulary and rehearsal rules must never be committed.
+privacy.local.json
+harness/tools/privacy.local.json
+# 凭据
+.credentials*
+*.key
+# 本机 Claude Code 配置（样例见 .claude/settings.example.json、.mcp.example.json）
+.claude/settings.local.json
+# Python / Node 缓存
+__pycache__/
+*.pyc
+.pytest_cache/
+node_modules/
+# 试用反馈截图（docs/zh/dev0.1问题简述.md 引用）：含商品图、购买与订单信息，只留本地
+docs/zh/image*.png
+
+# Claude Code 的 agent worktree：每个都是整份仓库的副本，实测 3.6 GB。未忽略时无范围的
+# git add -A 会试图全部加入，且按文件搜索会命中其中的陈旧副本（.claude/ 本身不整体忽略，
+# 因为 .claude/settings.example.json 之类的样例是打算跟踪的）。
+.claude/worktrees/

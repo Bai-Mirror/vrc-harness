@@ -1,0 +1,353 @@
+# 阈值表：pc-recolor-outfit 与 full-custom 流程定义引用的 t.* 条目（知识层）
+# 结构：t.<name> -> {value, unit, maturity, applies_to, source}
+# maturity：candidate（未标定，只出 advisory）/ tested / accepted / deprecated
+# applies_to：适用平台、插件与插件版本；空白表示与具体素体/插件无关。
+schema: thresholds/0.1
+version: "efe2e193"
+t:
+  liltoon_material_min_lines:
+    value: 700
+    unit: lines
+    maturity: candidate
+    applies_to: {plugin: lilToon, plugin_version: "2.3.4"}
+    source: "开发工具/SOP/20_素材清点导入.md:127@f6721fea"
+  recolor_tier_min:
+    value: 3
+    unit: tiers
+    maturity: accepted
+    applies_to: {}
+    source: "开发工具/SOP/40_贴图配色.md:98@f6721fea"
+    source_id: d41bcd2c3658
+    verification:
+      - kind: sop-editorial
+        ref: d41bcd2c3658
+    kind: spec
+    asserted_by: compile:legacy
+  recolor_tier_max:
+    value: 5
+    unit: tiers
+    maturity: accepted
+    applies_to: {}
+    source: "开发工具/SOP/40_贴图配色.md:98@f6721fea"
+    source_id: d41bcd2c3658
+    verification:
+      - kind: sop-editorial
+        ref: d41bcd2c3658
+    kind: spec
+    asserted_by: compile:legacy
+  skeleton_height_max_delta_mm:
+    value: 1.0
+    unit: mm
+    maturity: accepted
+    applies_to: {}
+    source: "开发工具/SOP/80_性能优化.md:72@f6721fea"
+    source_id: 8c493a58364e
+    verification:
+      - kind: sop-editorial
+        ref: 8c493a58364e
+    kind: spec
+    asserted_by: compile:legacy
+  eye_height_delta_max:
+    value: 0.02
+    unit: unity_units
+    maturity: accepted
+    applies_to: {}
+    source: "开发工具/SOP/60_菜单与动画层.md:140@f6721fea"
+    source_id: 199cbf28fd5c
+    verification:
+      - kind: sop-editorial
+        ref: 199cbf28fd5c
+    kind: spec
+    asserted_by: compile:legacy
+  menu_controls_max:
+    value: 8
+    unit: controls_per_menu
+    maturity: accepted
+    applies_to: {plugin: com.vrchat.avatars, plugin_version: "3.10.4"}
+    source: "开发工具/SOP/60_菜单与动画层.md:90@f6721fea"
+    source_id: 2b3e458b64f6
+    verification:
+      - kind: sop-editorial
+        ref: 2b3e458b64f6
+    kind: spec
+    asserted_by: compile:legacy
+  param_bits_max:
+    value: 256
+    unit: bit
+    maturity: accepted
+    applies_to: {plugin: com.vrchat.avatars, plugin_version: "3.10.4"}
+    source: "开发工具/SOP/10_接单建档.md:45@f6721fea"
+    source_id: 98cdc8c87d23
+    verification:
+      - kind: sop-editorial
+        ref: 98cdc8c87d23
+    kind: spec
+    asserted_by: compile:legacy
+  menu_asset_min_bytes:
+    value: 330
+    unit: bytes
+    maturity: candidate
+    applies_to: {plugin: com.vrchat.avatars, plugin_version: "3.10.4"}
+    source: "开发工具/SOP/60_菜单与动画层.md:139@f6721fea"
+  physbone_max:
+    value: 256
+    unit: count
+    maturity: accepted
+    applies_to: {plugin: com.vrchat.avatars, plugin_version: "3.10.4"}
+    source: "开发工具/SOP/80_性能优化.md:127@f6721fea"
+    source_id: 704f42190bcc
+    verification:
+      - kind: sop-editorial
+        ref: 704f42190bcc
+    kind: spec
+    asserted_by: compile:legacy
+  aabb_max_x:
+    value: 5
+    unit: m
+    maturity: accepted
+    applies_to: {}
+    source: "开发工具/SOP/80_性能优化.md:127@f6721fea"
+    source_id: 704f42190bcc
+    verification:
+      - kind: sop-editorial
+        ref: 704f42190bcc
+    kind: spec
+    asserted_by: compile:legacy
+  aabb_max_y:
+    value: 6
+    unit: m
+    maturity: accepted
+    applies_to: {}
+    source: "开发工具/SOP/80_性能优化.md:127@f6721fea"
+    source_id: 704f42190bcc
+    verification:
+      - kind: sop-editorial
+        ref: 704f42190bcc
+    kind: spec
+    asserted_by: compile:legacy
+  aabb_max_z:
+    value: 6
+    unit: m
+    maturity: accepted
+    applies_to: {}
+    source: "开发工具/SOP/80_性能优化.md:127@f6721fea"
+    source_id: 704f42190bcc
+    verification:
+      - kind: sop-editorial
+        ref: 704f42190bcc
+    kind: spec
+    asserted_by: compile:legacy
+  key_follow_mismatch:
+    value: 5
+    unit: blendshape_value_delta
+    maturity: accepted
+    applies_to: {}
+    source: "开发工具/SOP/70_回归测试.md:31@f6721fea"
+    source_id: 0d6f063330f4
+    verification:
+      - kind: sop-editorial
+        ref: 0d6f063330f4
+    kind: spec
+    asserted_by: compile:legacy
+  key_follow_p95_mm:
+    value: 1.0
+    unit: mm
+    maturity: accepted
+    applies_to: {}
+    source: "开发工具/SOP/70_回归测试.md:32@f6721fea"
+    source_id: 021ac642b6a7
+    verification:
+      - kind: sop-editorial
+        ref: 021ac642b6a7
+    kind: spec
+    asserted_by: compile:legacy
+  package_top_entries:
+    value: 5
+    unit: entries
+    maturity: accepted
+    applies_to: {}
+    source: "开发工具/SOP/90_交付打包.md:46@f6721fea"
+    source_id: b9bd8c44b9ec
+    verification:
+      - kind: sop-editorial
+        ref: b9bd8c44b9ec
+    kind: spec
+    asserted_by: compile:legacy
+  package_header_slack_bytes:
+    value: 2048
+    unit: bytes
+    maturity: candidate
+    applies_to: {}
+    source: "开发工具/SOP/90_交付打包.md:116@f6721fea"
+  main_texture_min:
+    value: 2048
+    unit: px
+    maturity: accepted
+    applies_to: {}
+    source: "开发工具/SOP/80_性能优化.md:100@f6721fea"
+    source_id: 4e96e6d0c982
+    verification:
+      - kind: sop-editorial
+        ref: 4e96e6d0c982
+    kind: spec
+    asserted_by: compile:legacy
+  # ---- full-custom（完整定制）新增：捏脸 30 / 面捕 35 / 配饰 55 ----
+  face_seam_gap_max_mm:
+    value: 0.3
+    unit: mm
+    maturity: accepted
+    applies_to: {}
+    source: "开发工具/SOP/30_捏脸/烘焙与补偿.md:76@efe2e193"
+    source_id: 0aaff0fc9372
+    verification:
+      - kind: sop-editorial
+        ref: 0aaff0fc9372
+    kind: spec
+    asserted_by: compile:legacy
+  face_depth_delta_max_mm:
+    value: 2.0
+    unit: mm
+    maturity: accepted
+    applies_to: {}
+    source: "开发工具/SOP/30_捏脸/烘焙与补偿.md:77@efe2e193"
+    source_id: acea8b23a7c2
+    verification:
+      - kind: sop-editorial
+        ref: acea8b23a7c2
+    kind: spec
+    asserted_by: compile:legacy
+  face_candidate_tier_min:
+    value: 2
+    unit: tiers
+    maturity: accepted
+    applies_to: {}
+    source: "开发工具/SOP/30_捏脸.md:7@efe2e193"
+    source_id: 3390b475ff16
+    verification:
+      - kind: sop-editorial
+        ref: 3390b475ff16
+    kind: spec
+    asserted_by: compile:legacy
+  face_candidate_tier_max:
+    value: 3
+    unit: tiers
+    maturity: accepted
+    applies_to: {}
+    source: "开发工具/SOP/30_捏脸.md:7@efe2e193"
+    source_id: 3390b475ff16
+    verification:
+      - kind: sop-editorial
+        ref: 3390b475ff16
+    kind: spec
+    asserted_by: compile:legacy
+  blendshare_large_file_mb:
+    value: 30
+    unit: MB
+    maturity: accepted
+    applies_to: {}
+    source: "开发工具/SOP/30_捏脸/面部追踪.md:27@efe2e193"
+    source_id: 6a948e7d4d77
+    verification:
+      - kind: sop-editorial
+        ref: 6a948e7d4d77
+    kind: spec
+    asserted_by: compile:legacy
+  accessory_ring_angle_max_deg:
+    value: 12
+    unit: degrees
+    maturity: accepted
+    applies_to: {}
+    source: "开发工具/SOP/55_配饰装位.md:25@efe2e193"
+    source_id: 801722dfca32
+    verification:
+      - kind: sop-editorial
+        ref: 801722dfca32
+    kind: spec
+    asserted_by: compile:legacy
+  accessory_bone_segment_max_cm:
+    value: 30
+    unit: cm
+    maturity: accepted
+    applies_to: {}
+    source: "开发工具/SOP/55_配饰装位.md:120@efe2e193"
+    source_id: fef856ba4e20
+    verification:
+      - kind: sop-editorial
+        ref: fef856ba4e20
+    kind: spec
+    asserted_by: compile:legacy
+  accessory_ring_radius_ratio:
+    value: 0.6
+    unit: ratio
+    maturity: candidate
+    applies_to: {}
+    source: "开发工具/SOP/55_配饰装位.md:99@efe2e193"
+  # ---- 装配后的可见重叠（D-138）：量法见 harness/unity/Editor/OutfitVisibility.cs ----
+  # 标定数据：车道 OV1 在头像 A 的装配产物上扫全部 987 对（77 个可见渲染器），
+  # 0.1 mm 带 + 1 cm² 阈值触发 20 对，全部是真实同位叠放（丝袜四副本 6 对 + 腿部四层 14 对），误报 0；
+  # 阈值降到 0.1 cm² 会多出 22 对贴身正常穿着。对照见 OV1 报告 §4「阈值扫描」。
+  overlap_contact_epsilon_mm:
+    value: 0.1
+    unit: mm
+    maturity: tested
+    applies_to: {}
+    source: "车道报告 lanes/reports/OV1-stacked-meshes.md:318@OV1（A 上 987 对扫描）"
+    kind: spec
+    asserted_by: compile:harness-core
+    verification: [{kind: harness-regression, ref: test/outfit-visibility-unity.test.ts}]
+  overlap_contact_min_cm2:
+    value: 1.0
+    unit: cm2
+    maturity: tested
+    applies_to: {}
+    source: "车道报告 lanes/reports/OV1-stacked-meshes.md:331@OV1（≥1 cm² 触发 20 对、误报 0）"
+    kind: spec
+    asserted_by: compile:harness-core
+    verification: [{kind: harness-regression, ref: test/outfit-visibility-unity.test.ts}]
+  # ---- 衣物之间看得见的互穿（D-143，GI1）：量法见 harness/unity/Editor/OutfitVisibility.cs ----
+  # 最小量＝一对里层件被渲图确认的顶点数下限。标定在头像 A 的装配产物上做（GI1 车道报告）：
+  # 目标对 Dress_Skirt↔Coat 确认数远高于此；缝线/边缘零星接触的对确认数为个位数。
+  visible_interpenetration_min_vertices:
+    value: 8
+    unit: vertices
+    maturity: tested
+    applies_to: {}
+    source: "车道报告 lanes/reports/GI1-visible-interpenetration.md（A 上各对校准读数）"
+    kind: spec
+    asserted_by: compile:harness-core
+    verification: [{kind: harness-regression, ref: test/outfit-visibility-unity.test.ts}]
+  # 护栏（不是过滤）：订单方把「算不算穿模」交给 AI 按准则判断，Runtime 只挡明显越界。两个界都取宽松值，
+  # 故意不按某个头像调到刚好通过——白裙成片翻出的那一对越界（确认顶点数远超 128），
+  # 全身丝袜与靴子／外套那种薄相交在界内（十几个确认点、真实深度在 2 mm 以内）。
+  visible_interpenetration_guard_vertices:
+    value: 128
+    unit: vertices
+    maturity: tested
+    applies_to: {}
+    source: "车道报告 lanes/reports/GI1-visible-interpenetration.md（护栏取值与 A 上的逐对读数）"
+    kind: spec
+    asserted_by: compile:harness-core
+    verification: [{kind: harness-regression, ref: test/outfit-visibility-unity.test.ts}]
+  # 穿出深度的量程（GI2）：depth_max_mm 是「确认顶点到外层最近三角面的带符号距离」，是局部表面间距，不是
+  # 「穿过了面料」的证明。把量程放宽到 3 mm 曾在 A 上实测：外套下摆以下的袜腿、靴筒内壁都读成 2.7–3.0 mm 的
+  # 「穿出」，阻断对数从 0 涨到 23；所以量程保持在与层序普查同宽的 1 mm。最深只到量程上界的对记
+  # depth_at_least=true，证据写「至少 X mm」，不当实测值；这种对不能 accept（深度没被量到护栏以内）。真正的
+  # 深度护栏需要新的「面料穿越＋表面归属」观测，仍是未完成项（见车道报告 GI2 的待决）。不得按某个头像调到刚好通过。
+  visible_interpenetration_poke_reach_mm:
+    value: 1.0
+    unit: mm
+    maturity: tested
+    applies_to: {}
+    source: "车道报告 lanes/reports/GI2-depth-and-regression.md（A 上逐对的真实深度分布）"
+    kind: spec
+    asserted_by: compile:harness-core
+    verification: [{kind: harness-regression, ref: test/outfit-visibility-unity.test.ts}]
+  visible_interpenetration_guard_depth_mm:
+    value: 2.0
+    unit: mm
+    maturity: tested
+    applies_to: {}
+    source: "车道报告 lanes/reports/GI1-visible-interpenetration.md（护栏取值与 A 上的逐对深度分布）"
+    kind: spec
+    asserted_by: compile:harness-core
+    verification: [{kind: harness-regression, ref: test/outfit-visibility-unity.test.ts}]

@@ -1,0 +1,29 @@
+{
+  "$schema": "https://schema.tauri.app/config/2",
+  "productName": "Harness",
+  "version": "0.1.0-dev.1",
+  "identifier": "app.avatar-harness.desktop",
+  "build": {
+    "beforeBuildCommand": "npm run desktop:prepare",
+    "frontendDist": "../dist/gui-app"
+  },
+  "app": {
+    "windows": [],
+    "withGlobalTauri": true,
+    "security": { "csp": null }
+  },
+  "bundle": {
+    "active": true,
+    "targets": ["deb", "appimage"],
+    "icon": [
+      "icons/32x32.png",
+      "icons/128x128.png",
+      "icons/128x128@2x.png",
+      "icons/icon.icns",
+      "icons/icon.ico"
+    ],
+    "category": "GraphicsAndDesign",
+    "shortDescription": "VRChat Avatar workspace",
+    "resources": { "../desktop-resources/": "" }
+  }
+}

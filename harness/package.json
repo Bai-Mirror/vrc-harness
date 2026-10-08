@@ -1,0 +1,74 @@
+{
+  "name": "avatar-harness",
+  "version": "0.1.0-dev.1",
+  "private": true,
+  "description": "Harness runtime for the VRChat avatar workflow (release candidate in progress; see docs/)",
+  "type": "module",
+  "bin": {
+    "avh": "bin/avh.js"
+  },
+  "files": [
+    "bin/",
+    "dist/",
+    "builtin/pack.json",
+    "builtin/knowledge/process/",
+    "builtin/knowledge/context/",
+    "builtin/knowledge/memory/",
+    "builtin/knowledge/cases/",
+    "builtin/knowledge/bodies/",
+    "builtin/knowledge/context-refs.pending.yaml",
+    "builtin/evaluation/",
+    "builtin/tools/harness/",
+    "builtin/tools/project_fingerprint.py",
+    "builtin/tools/vpm_baseline_check.py",
+    "builtin/tools/审查/perception/strip_audit.py",
+    "builtin/tools/unpack_unitypackage.py",
+    "builtin/tools/构建/",
+    "builtin/tools/审查/unity/",
+    "docs/",
+    "README.md",
+    "LICENSE",
+    "LICENSE-docs.md",
+    "NOTICE.md"
+  ],
+  "engines": {
+    "node": ">=24"
+  },
+  "scripts": {
+    "test": "node scripts/run-unit-suite.mjs",
+    "typecheck": "tsc --noEmit",
+    "build": "node scripts/build.mjs",
+    "native:build": "node scripts/build-native.mjs",
+    "gui:dev": "vite --config gui/vite.config.ts",
+    "gui:demo": "node scripts/gui-demo.mjs",
+    "desktop:prepare": "npm run build && node scripts/prepare-desktop.mjs",
+    "tauri": "tauri",
+    "tauri:build": "node scripts/build-desktop.mjs",
+    "prepack": "node scripts/build.mjs",
+    "check": "node scripts/check.mjs",
+    "release:check": "node scripts/check-release.mjs",
+    "check:release-artifacts": "node scripts/check-release-artifacts.mjs",
+    "check:installer-location": "node scripts/check-installer-location.mjs",
+    "check:nginx-boundary": "node scripts/nginx-boundary.mjs",
+    "check:online-report": "node scripts/online-report-validation.mjs"
+  },
+  "dependencies": {
+    "ink": "^7.1.1",
+    "node-html-parser": "^7.0.1",
+    "react": "^19.3.0",
+    "string-width": "^8.3.0",
+    "yaml": "^2.9.1"
+  },
+  "devDependencies": {
+    "@tauri-apps/cli": "^2.12.0",
+    "@tauri-apps/plugin-dialog": "2.8.0",
+    "@types/node": "^24.19.0",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "@vitejs/plugin-react": "^5.1.4",
+    "ink-testing-library": "^4.0.0",
+    "react-dom": "^19.3.0",
+    "typescript": "^5.9.3",
+    "vite": "^7.3.6"
+  }
+}

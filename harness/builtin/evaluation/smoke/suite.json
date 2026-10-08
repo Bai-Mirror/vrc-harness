@@ -1,0 +1,42 @@
+{
+  "schema": "harness-pack-evaluation/0.1",
+  "id": "managed-pack-smoke",
+  "version": "3",
+  "cases": [
+    {
+      "id": "pack-layout",
+      "modelFamily": "deterministic",
+      "attempts": 1,
+      "timeoutMs": 30000,
+      "command": ["node", "{suite}/verify-pack.mjs", "{pack}"]
+    },
+    {
+      "id": "process-definitions",
+      "modelFamily": "deterministic",
+      "attempts": 1,
+      "timeoutMs": 30000,
+      "command": ["node", "{suite}/verify-pack-contract.mjs", "{pack}", "process-definitions"]
+    },
+    {
+      "id": "capability-commands",
+      "modelFamily": "deterministic",
+      "attempts": 1,
+      "timeoutMs": 30000,
+      "command": ["node", "{suite}/verify-pack-contract.mjs", "{pack}", "capability-commands"]
+    },
+    {
+      "id": "thresholds",
+      "modelFamily": "deterministic",
+      "attempts": 1,
+      "timeoutMs": 30000,
+      "command": ["node", "{suite}/verify-pack-contract.mjs", "{pack}", "thresholds"]
+    },
+    {
+      "id": "recolor-targets",
+      "modelFamily": "deterministic",
+      "attempts": 1,
+      "timeoutMs": 60000,
+      "command": ["node", "{suite}/verify-pack-contract.mjs", "{pack}", "recolor-targets"]
+    }
+  ]
+}

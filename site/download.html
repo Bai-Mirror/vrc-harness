@@ -1,0 +1,236 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Harness · 下载与安装说明（Windows）</title>
+<meta name="description" content="Harness dev.0.1（0.1.0-dev.1）Windows 下载与安装说明：安装前准备、SmartScreen 与火绒等安全软件的信任设置、模型连接与已知限制。下载尚未开放。">
+<meta name="color-scheme" content="light dark">
+<link rel="icon" href="assets/img/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="canonical" href="https://harness.nymiro.moe/download.html">
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#f5f6f7">
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#101214">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Harness">
+<meta property="og:title" content="Harness — 下载与安装说明（Windows）">
+<meta property="og:description" content="Harness dev.0.1（0.1.0-dev.1）Windows 安装说明：安装前准备、SmartScreen 与安全软件信任设置、已知限制。下载尚未开放。">
+<meta property="og:url" content="https://harness.nymiro.moe/download.html">
+<meta property="og:image" content="https://harness.nymiro.moe/assets/img/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="stylesheet" href="assets/css/site.css">
+<style>
+.download-checksum { overflow-wrap: anywhere; font-size: var(--fs-1); }
+.download-details { margin-top: var(--s-4); }
+.download-details summary { cursor: pointer; }
+.download-details dl { margin: var(--s-3) 0 0; }
+.download-details dd { margin: 0 0 var(--s-3); }
+</style>
+</head>
+<body>
+<!-- PRELAUNCH: no installer is published. Keep every download control disabled and without a URL until the release is signed off and an actual HTTPS download has been verified. -->
+<a class="skip" href="#main">跳到正文</a>
+<header class="site-header">
+  <div class="container container-wide header-inner">
+    <a class="brand" href="index.html" aria-label="Harness 首页">
+      <img src="assets/img/logo-96.png" width="32" height="32" alt="">
+      <span class="brand-text">Harness<span class="brand-sub">VRChat 头像改模 AI 工作台</span></span>
+    </a>
+    <nav class="site-nav" aria-label="站点导航">
+      <a href="index.html">首页</a><a href="product.html">产品</a><a href="download.html" aria-current="page">下载</a><a href="articles/demo.html">开发日志</a>
+    </nav>
+    <span class="pill header-status"><span class="dot run" aria-hidden="true"></span>开发中 · 尚未发布</span>
+  </div>
+</header>
+<main id="main">
+
+  <section class="section" aria-labelledby="download-title">
+    <div class="container">
+      <div class="section-head">
+        <p class="eyebrow">Harness dev.0.1（<code>0.1.0-dev.1</code>）</p>
+        <h1 id="download-title">下载与安装（Windows）</h1>
+        <p>本版只提供 Windows 版，Linux 版稍后提供。下面是安装前要准备的东西、安装步骤，以及未签名安装包会遇到的系统提示怎么处理。</p>
+      </div>
+
+      <div class="banner">
+        <div>
+          <h2 id="release-state-title">下载尚未开放</h2>
+          <p>安装包仍在收口与验证，按钮保持不可用。开放下载前会先通过最终授权，届时一并公布文件名、大小与 SHA-256 校验值。可先阅读<a href="known-limitations.html">已知限制</a>了解本版还不能保证的部分。</p>
+          <!-- 开放下载时改这一段：删掉上一行的 h2 与 p，改用下面这段（同时删掉 <head> 里的 PRELAUNCH 注释与本页正文的 disabled 按钮）。 -->
+          <!--
+          <h2 id="release-state-title">下载已开放</h2>
+          <p>只从 <code>harness.nymiro.moe</code> 下载，下载后先按本页「文件校验信息」核对 SHA-256。安装包没有代码签名证书，第一次运行会被 Windows SmartScreen 与部分安全软件拦一下，处理办法见下面的<a href="#install">安装步骤</a>。</p>
+          -->
+        </div>
+      </div>
+
+      <div class="cards pairs" style="margin-top: var(--s-6)">
+        <article class="card">
+          <h2>Windows 安装包</h2>
+          <p>64 位安装程序，文件名 <code>Harness_0.1.0-dev.1_x64-setup.exe</code>。</p>
+          <button class="btn btn-primary" type="button" disabled aria-disabled="true">Windows 安装包（即将开放）</button>
+          <p>安装包没有系统发布者签名，因此 Windows SmartScreen 与部分安全软件会先拦一下；处理办法见下面的<a href="#install">安装步骤</a>。</p>
+          <details class="download-details"><summary>文件校验信息</summary>
+            <!-- RELEASE-DATA：下面三个值必须与当次发行清单（app-release.mjs 生成的 JSON）逐字一致，不能照抄本页旧值。
+                 冻结版本构建后，用 <details> 上面那段「版本」与清单里的 files[] 逐项核对：
+                   node server/scripts/app-release.mjs --version <冻结版本号> --channel dev --file win32-x64:nsis:<安装包路径> ...
+                 清单里的 size 与 sha256 就是这里要写的大小与校验值；页面改动后再提交、再部署。 -->
+            <dl>
+              <dt>文件名</dt><dd class="download-checksum"><code>Harness_0.1.0-dev.1_x64-setup.exe</code></dd>
+              <dt>文件大小</dt><dd class="download-checksum"><code>33,773,142</code> 字节（32.2 MiB）</dd>
+              <dt>SHA-256</dt><dd class="download-checksum"><code>20B380CC03C651FE25A93EC8DA2467E8244CEEDFE0B99C2EAA15693B8F7F5B5F</code></dd>
+            </dl>
+            <p>上面三个值取自本机干跑构建的读数，用于确认页面的填写方式；正式发布前会按冻结版本重新构建、重新取值，以发行清单为准。请只从 <code>harness.nymiro.moe</code> 获取安装包。</p>
+          </details>
+        </article>
+        <article class="card">
+          <h2>Linux 版</h2>
+          <p>稍后提供，不在 dev.0.1 的范围内。本页只写 Windows 的安装步骤。</p>
+          <button class="btn" type="button" disabled aria-disabled="true">Linux 版（稍后提供）</button>
+          <p>Linux 上的开发与回归测试照常进行，只是本版不提供安装包。</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section bordered" id="install" aria-labelledby="install-title">
+    <div class="container">
+      <div class="section-head">
+        <p class="eyebrow">安装步骤</p>
+        <h2 id="install-title">未签名的安装包，怎么装下去</h2>
+        <p>安装包没有购买代码签名证书，Windows 和国内安全软件都会把它当成「未知发布者」。这不是文件损坏，按下面的步骤明确放行即可。</p>
+      </div>
+
+      <div class="cards pairs">
+        <article class="card">
+          <span class="num" aria-hidden="true">01</span>
+          <h3>先对一下来源</h3>
+          <p>只从 <code>harness.nymiro.moe</code> 下载，并核对公布的文件大小与 SHA-256。来源对不上就不要运行。</p>
+        </article>
+        <article class="card">
+          <span class="num" aria-hidden="true">02</span>
+          <h3>通过 SmartScreen 提示</h3>
+          <p>双击安装包后，如果出现「Windows 已保护你的电脑」，点<b>更多信息</b>，确认应用是 <b>Harness</b>、发布者为「未知发布者」，再点<b>仍要运行</b>。</p>
+        </article>
+        <article class="card">
+          <span class="num" aria-hidden="true">03</span>
+          <h3>给安全软件放行</h3>
+          <p>火绒、360、腾讯电脑管家等可能拦截或隔离未签名的安装包。先在安全软件的<b>信任区 / 白名单</b>里加入安装包，安装后再把 Harness 的安装目录一起加入，然后重新运行安装包。</p>
+        </article>
+        <article class="card">
+          <span class="num" aria-hidden="true">04</span>
+          <h3>按向导装完</h3>
+          <p>按向导完成安装，装完后启动 Harness，第一次打开会进入首次配置。</p>
+        </article>
+      </div>
+
+      <div class="note-line" role="note" style="margin-top: var(--s-6)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3.5l9 16h-18l9-16z"/><path d="M12 10v4M12 17.2v.3"/></svg>
+        <p>不同版本的安全软件提示文字不一样，本页写的是处理原则。安装程序本身还没有用真人双击的方式装过，也没有开着安全软件实测过；已经自动验证的是静默安装：新装、同版本重装、卸载、安装位置回退与静默卸载后清理位置记录。没有实测的部分一并记在<a href="known-limitations.html">已知限制</a>里。</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="requirements" aria-labelledby="requirements-title">
+    <div class="container">
+      <div class="section-head">
+        <p class="eyebrow">安装前准备</p>
+        <h2 id="requirements-title">系统与组件</h2>
+        <p>桌面包自带 Node 运行时；其余组件在首次配置的「环境依赖」里逐项检查，缺少的会列出安装方式。</p>
+      </div>
+      <div class="cards pairs">
+        <article class="card">
+          <h3>Windows</h3>
+          <p>Windows 10 / 11 64 位。首次安装依赖需要 winget（随 Windows 自带的应用安装程序）。系统过旧或没有 winget 时，首次配置会把缺的软件列出来，并提示先更新 Windows 或安装「应用安装程序」；设置类项目照常进行。</p>
+        </article>
+        <article class="card">
+          <h3>Unity</h3>
+          <p>制作工程与构建需要 Unity 编辑器。推荐用 Unity Hub 安装，并登录一个 Unity 账号激活免费的 Personal 许可证。</p>
+        </article>
+        <article class="card">
+          <h3>随包组件</h3>
+          <p>Harness 的 Windows 辅助程序随桌面版提供，负责监管执行单元并划定写边界，不需要单独安装。</p>
+        </article>
+        <article class="card">
+          <h3>通用工具</h3>
+          <p>git（工程追溯）、Python 3（内置阶段工具）、7-Zip（交付打包与校验）。缺哪一项，首次配置会给出安装方式，在 winget 可用时可以自动完成。</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section bordered" id="data" aria-labelledby="data-title">
+    <div class="container">
+      <div class="section-head">
+        <p class="eyebrow">开始前</p>
+        <h2 id="data-title">连接 AI、素材与数据</h2>
+      </div>
+      <div class="cards">
+        <article class="card">
+          <h3>连接 AI（只用 API）</h3>
+          <p>本版接入 <b>DeepSeek API</b>：注册后把 API 密钥填进 Harness，按实际用量在你自己的账号上计费。OpenAI、Anthropic、Google 的 API 密钥仍在开发，尚未开放。本版不支持订阅制 AI 客户端的接入。</p>
+        </article>
+        <article class="card">
+          <h3>授权素材，保留原件</h3>
+          <p>使用你有权使用的头像和素材，授权对应目录。制作使用副本，请保留原件和已接受的产物。有 BOOTH 账号就登录一次，Harness 会为你买过的素材建索引；本地整理好的素材也可以登记。</p>
+        </article>
+        <article class="card">
+          <h3>决定是否贡献数据</h3>
+          <p>产品改进数据默认关闭。你可以在设置中明确加入或退出；不加入也能使用本地制作。加入后按授权类别回传结构化报告，可随时退出。服务器保存 90 天后自动删除；删除或撤回后，数据在运营者的备份中最多再保留 90 天。</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section bordered" aria-labelledby="limits-title">
+    <div class="container">
+      <div class="section-head">
+        <p class="eyebrow">早期测试边界</p>
+        <h2 id="limits-title">下载之前先看这个</h2>
+        <p>这是首个公开技术预览版，功能与质量都还没到最终形态。</p>
+      </div>
+      <ul>
+        <li>完整改模交付仍在验证：原图到交付包的端到端产出、两套真实头像的完整交付尚未完成，本版不能保证稳定自动改模。</li>
+        <li>本版只提供 Windows，且安装包未签名；Linux 版稍后提供。</li>
+        <li>产品内的 3D 实时预览、形态键滑杆面板、圈画改脸、菜单预览与编辑都还没有实现。</li>
+      </ul>
+      <p><a href="known-limitations.html">查看完整的已知限制</a>，其中逐条列出本版未做的功能、能力边界与已知质量项。</p>
+    </div>
+  </section>
+
+</main>
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div>
+      <div class="footer-brand"><img src="assets/img/logo-48.png" width="28" height="28" alt="">Harness</div>
+      <p>个人使用的 VRChat 头像改模 AI 工作台。首个测试版仅提供 Windows，尚未开放下载。</p>
+      <p class="muted">harness.nymiro.moe · 项目咨询 harness@nymiro.moe</p>
+    </div>
+    <nav aria-label="页脚导航">
+      <h2>站点</h2>
+      <ul>
+        <li><a href="index.html">首页</a></li>
+        <li><a href="product.html">产品介绍</a></li>
+        <li><a href="download.html">下载与安装说明</a></li>
+        <li><a href="known-limitations.html">已知限制</a></li>
+        <li><a href="articles/demo.html">开发日志</a></li>
+      </ul>
+    </nav>
+    <div>
+      <h2>兼容</h2>
+      <ul>
+        <li>适用于 VRChat 头像</li>
+        <li>兼容 VCC/VPM 工程</li>
+        <li>支持 BOOTH 素材</li>
+        <li>Windows 10 / 11 64 位</li>
+      </ul>
+    </div>
+  </div>
+  <div class="container disclaimer">
+    <p>Harness 与 VRChat Inc. 及 pixiv 株式会社没有隶属关系，也未获其背书。VRChat、VCC、VPM、BOOTH 等名称仅用于说明兼容性，相关商标归其各自所有者所有。</p>
+    <p>本页写的是安装方式，不代表安装包已经发布或已经通过完整验证。</p>
+  </div>
+</footer>
+</body>
+</html>

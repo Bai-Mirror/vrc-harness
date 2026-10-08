@@ -1,0 +1,40 @@
+{
+    "name": "AvatarAudit.Editor",
+    "rootNamespace": "",
+    "references": [
+        "nadena.dev.ndmf",
+        "nadena.dev.modular-avatar.core",
+        "nadena.dev.modular-avatar.core.editor",
+        "com.anatawa12.avatar-optimizer.api.editor",
+        "VRC.SDK3A",
+        "AvatarAudit.Runtime"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": true,
+    "precompiledReferences": [
+        "0Harmony.dll",
+        "VRCSDKBase.dll",
+        "VRCSDKBase-Editor.dll",
+        "VRCSDK3A.dll",
+        "System.Collections.Immutable.dll"
+    ],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [
+        {
+            "name": "nadena.dev.modular-avatar",
+            "expression": "[1.18.1]",
+            "define": "AUDIT_MA_1_18_1"
+        },
+        {
+            "name": "com.anatawa12.avatar-optimizer",
+            "expression": "[1.9.16]",
+            "define": "AUDIT_AAO_1_9_16"
+        }
+    ],
+    "noEngineReferences": false
+}

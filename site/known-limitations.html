@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Harness · 已知限制（dev.0.1）</title>
+<meta name="description" content="Harness dev.0.1（0.1.0-dev.1）的已知限制：本版未做的功能、能力边界、已知质量项，以及尚未验证的部分。逐条对应真实能力。">
+<meta name="color-scheme" content="light dark">
+<link rel="icon" href="assets/img/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="canonical" href="https://harness.nymiro.moe/known-limitations.html">
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#f5f6f7">
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#101214">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Harness">
+<meta property="og:title" content="Harness — 已知限制（dev.0.1）">
+<meta property="og:description" content="Harness dev.0.1（0.1.0-dev.1）的已知限制：本版未做的功能、能力边界、已知质量项与尚未验证的部分。">
+<meta property="og:url" content="https://harness.nymiro.moe/known-limitations.html">
+<meta property="og:image" content="https://harness.nymiro.moe/assets/img/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="stylesheet" href="assets/css/site.css">
+<style>
+.limits-list { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--s-3); }
+.limits-list li { display: flex; gap: var(--s-3); align-items: flex-start; padding: var(--s-4); background: var(--panel); border: 1px solid var(--line); border-radius: var(--r-2); }
+.limits-list .tag { flex: none; margin-top: 2px; }
+.limits-list b { display: block; font-weight: 600; }
+.limits-list p { margin: .25em 0 0; color: var(--text-2); font-size: var(--fs-1); }
+</style>
+</head>
+<body>
+<!-- PRELAUNCH: publish with the reviewed app release. Every line here must stay true of the shipped build; do not turn a planned feature into an available one. -->
+<a class="skip" href="#main">跳到正文</a>
+<header class="site-header">
+  <div class="container container-wide header-inner">
+    <a class="brand" href="index.html" aria-label="Harness 首页">
+      <img src="assets/img/logo-96.png" width="32" height="32" alt="">
+      <span class="brand-text">Harness<span class="brand-sub">VRChat 头像改模 AI 工作台</span></span>
+    </a>
+    <nav class="site-nav" aria-label="站点导航">
+      <a href="index.html">首页</a><a href="product.html">产品</a><a href="download.html" aria-current="page">下载</a><a href="articles/demo.html">开发日志</a>
+    </nav>
+    <span class="pill header-status"><span class="dot run" aria-hidden="true"></span>开发中 · 尚未发布</span>
+  </div>
+</header>
+<main id="main">
+
+  <section class="section" aria-labelledby="limits-title">
+    <div class="container">
+      <div class="section-head">
+        <p class="eyebrow">Harness dev.0.1（<code>0.1.0-dev.1</code>）</p>
+        <h1 id="limits-title">已知限制</h1>
+        <p>这是首个公开技术预览版。下面是它现在做不到的事、还没做好的地方，以及还没验证过的部分——写在这里的每一条都对应产品的真实状态，不写没有核实过的承诺。</p>
+      </div>
+      <div class="banner">
+        <div>
+          <h2>本版是技术预览，不是成品</h2>
+          <p>完整改模交付仍在验证：原图到交付包的端到端产出、两套结构不同的真实头像的完整交付都还没有完成。开发版里的流程能跑，但不能据此认为任意头像都能自动做完。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section bordered" aria-labelledby="todo-title">
+    <div class="container">
+      <div class="section-head">
+        <p class="eyebrow">本版未做的功能</p>
+        <h2 id="todo-title">这些功能还没有实现</h2>
+        <p>以下能力规划在后续版本，dev.0.1 里不能使用。</p>
+      </div>
+      <ul class="limits-list">
+        <li><span class="tag plan">未实现</span><div><b>3D 实时预览</b><p>制作过程中没有实时的三维查看，改动的效果要等构建后才能看到。</p></div></li>
+        <li><span class="tag plan">未实现</span><div><b>形态键滑杆面板</b><p>产品内没有直接拖动形态键（blend shape）调整脸型的面板；本版的脸型相关操作仍要经 Blender 步骤完成。</p></div></li>
+        <li><span class="tag plan">未实现</span><div><b>圈画改脸</b><p>不支持在预览图上圈出区域、由产品换算成形态键候选。</p></div></li>
+        <li><span class="tag plan">未实现</span><div><b>菜单预览与编辑</b><p>产品内没有游戏轮盘菜单的预览，也不能在产品里编排或修改菜单。</p></div></li>
+        <li><span class="tag plan">未实现</span><div><b>产品内的菜单自定义</b><p>换装菜单由流程制作，不能在产品界面里自定义套装切换、颜色预设或饰品位置。</p></div></li>
+        <li><span class="tag plan">未实现</span><div><b>多语言界面</b><p>界面目前只有简体中文，没有 i18n 框架，也没有日文或英文界面。</p></div></li>
+        <li><span class="tag plan">未实现</span><div><b>Linux 安装包</b><p>dev.0.1 只提供 Windows 版。Linux 版稍后提供，本版没有可安装的 Linux 包。</p></div></li>
+        <li><span class="tag plan">未实现</span><div><b>订阅制 AI 接入</b><p>本版不支持订阅制 AI 客户端的接入，只用你自己的 API 密钥驱动模型。OpenAI、Anthropic、Google 的 API 密钥仍在开发，尚未开放。</p></div></li>
+        <li><span class="tag plan">未实现</span><div><b>统一素材库与分步选材向导</b><p>BOOTH 云端素材与本地素材仍是两个分开的入口，没有合成一个图库，也没有分步骤的选材向导、按素体或分类筛选、整包素材的逐项评估。</p></div></li>
+        <li><span class="tag plan">未实现</span><div><b>已购素材的缓存管理界面</b><p>产品界面里没有已购素材的缓存管理：不能在产品内做全量缓存、增量 / 全量 / 深度更新检查，也没有本地空间占用与存储路径迁移的设置。</p></div></li>
+        <li><span class="tag plan">未实现</span><div><b>状态与素材缓存的迁移</b><p>素材缓存与制作状态放在 <code>%LOCALAPPDATA%\avh</code>（Linux 为 <code>~/.avatar-harness</code>，可用 <code>AVH_HOME</code> 指定）；本版不能在界面里迁移它们，也不设总量上限。</p></div></li>
+        <li><span class="tag plan">未实现</span><div><b>五个功能插件</b><p>PoLKA、RealKiss、Catchable ERP、Penetration Contact System、AvatarPoseSystem 本版不安装，也不核对它们装进工程后的效果。需要它们的效果时，请等后续版本，或按厂商说明自行安装并在 VRChat 客户端自测。</p></div></li>
+        <li><span class="tag plan">未实现</span><div><b>美甲类商品由你自行安装</b><p>美甲这类商品（例如 HoroNail）需要厂商自己的安装工具，而且许可不允许我们代改或转发它的数据，所以本版由你自行安装，交付物里不含它的数据。请保留厂商原件，按厂商随附的工具和说明装好后在客户端自测。</p></div></li>
+        <li><span class="tag plan">未实现</span><div><b>Quest 版制作</b><p>本版只做 PC 版，没有 Quest 制作线，交付的工程与成品都是 PC 版。需要用 Quest 版时请等后续版本。</p></div></li>
+        <li><span class="tag plan">未实现</span><div><b>运行中自动发现并修复缺陷</b><p>本版不会在产品运行中自动发现自身缺陷、自行修复，也没有把这类发现回传服务器的能力；这三件事规划在后续版本。遇到问题时请按本页末尾的方式反馈。</p></div></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="section bordered" aria-labelledby="boundary-title">
+    <div class="container">
+      <div class="section-head">
+        <p class="eyebrow">本版的能力边界</p>
+        <h2 id="boundary-title">这些情况，本版是这样处理的</h2>
+        <p>每条先说结论，再说遇到时该怎么办。</p>
+      </div>
+      <ul>
+        <li><b>SPS（接触互动）</b>：本版会核对 SPS 是否按要求装进工程、装配后的 VRCFury 组件配置是否与厂商原件一致、挂点骨骼对不对、VRCFury 能否成功构建，以及每个接触点的接触组件及其类型；VRCFury 在构建时自动生成的菜单项与参数只做记录、写进交付说明。SPS 的实际互动效果需要你在 VRChat 里确认。</li>
+        <li><b>中途换用新版工具</b>：已经开始的制作流程会一直使用开工时冻结的那套工具，不能中途换成新版。遇到必须用新工具才能处理的情况，产品会提示你为这个订单新开一个制作流程，新流程会从头再跑一遍。</li>
+        <li><b>同一个项目里新开制作流程</b>：如果新方案不再使用旧方案已经导入工程的某个素材包，准备工程这一步会停下并说明是哪个包——旧方案导入的数据可能与你放进工程的自己的文件混在一起，产品不会自动删。请在新方案里保留对这个素材的使用，或者为这个订单新建一个项目；调整颜色时由产品自己生成的旧副本会自动清理。</li>
+        <li><b>厂商素材自身缺件</b>：厂商素材引用了厂商没有提供的材质或贴图时，Harness 会记录下来并在交付说明里列出；多出来的空材质槽会在装配时从头像实例上去掉，不改厂商原文件；缺的是某块网格自己的材质、位置又不能安全判断时，装配会停下请你决定用哪个材质；厂商材质里缺的贴图会改用着色器默认贴图，并在交付说明里提醒。</li>
+        <li><b>只改一件衣服的一部分颜色</b>：本版只支持按厂商提供的图层源文件改，或按指定部位（例如眼睛）从网格上取区域改；没有分层源文件的服装局部改色，本版做不了。这种情况下产品会提出整件近似改色的方案，并请你确认。</li>
+        <li><b>留出集泛化检查</b>：本版用开发中没有用过的素体与服装组合，按正式流程跑到装配与调整颜色阶段。检查确认产品能对这些素材建立项目、取回素材并走到方案与装配的判定；暴露出的通用问题按机制修复，不针对某一套素材。这项检查用来发现通用缺陷，不等于任意头像与服装组合都能自动做完。</li>
+        <li><b>个别素体的兼容结论</b>：素体的商品名里如果取不出能与服装包内路径对上的名字（例如纯日文名，或以版本后缀结尾），检查素材这一步会把明明指名了这个素体的服装记成「需要进一步比对骨骼」，理由里会写出它实际拿去匹配的名字。这不代表不兼容——装配阶段仍会比对骨骼，请以装配结果为准。</li>
+        <li><b>软件更新</b>：本版不会自动提醒，也不会自动下载新版本。可以在「设置 → 数据与协作」里点「检查软件更新」查看有没有新版本；有的话从给出的链接下载安装包，手动安装。</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="quality-title">
+    <div class="container">
+      <div class="section-head">
+        <p class="eyebrow">已知质量项</p>
+        <h2 id="quality-title">已经知道做得不够好的地方</h2>
+        <p>这些是开发版实际跑出来、已经记录在案的问题，不是猜测。</p>
+      </div>
+      <ul>
+        <li>换装后，个别服装与眼睛的颜色会偏粉，需要人工再调。</li>
+        <li>部分贴图在渲染中会出现洋红色，属于已知的渲染问题。</li>
+        <li>素体服装叠穿时仍有问题，这是被反复指出的重复问题。本版不自动检测衣物之间的穿插或压制，叠穿效果需要你在 VRChat 里确认。</li>
+        <li>个别头像在眼睛附近的肤色贴图边缘对不齐，本版不处理。</li>
+        <li>本版不设消费上限，也不代管额度；返工、改脸后的整链重跑会再次计费。</li>
+        <li>在部分 Unity 制作场景里，执行隔离会回退为不做额外隔离；不要把它当作完整的执行沙箱。</li>
+        <li>执行方（AI）运行时能读取你电脑上的文件，也能联网；Harness 只阻止它写工作区以外的位置。请不要把与制作无关的敏感文件放进会被处理的素材里。</li>
+        <li>制作期间尽量不要自己打开 Unity。如果你先开着 Unity 编辑器，Harness 的 Unity 步骤会先等它关闭（每轮最多约 2 分钟、最多两轮），仍被占用就停下，并提示你关闭那个 Unity。如果在 Harness 的 Unity 步骤运行期间你再打开 Unity，你那边的工程首次编译可能报权限错误（CS2012）：等 Harness 的步骤结束后，关闭并重新打开该工程。目前在 Unity 2022.3.22f1 上复现，原因是两边共用了同一个后台编译服务。</li>
+      </ul>
+      <div class="note-line" role="note" style="margin-top: var(--s-6)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3.5l9 16h-18l9-16z"/><path d="M12 10v4M12 17.2v.3"/></svg>
+        <p>换装后的实际效果仍需你在 VRChat 里确认。检查通过表示流程内的判定通过，不等于视觉上已经满意。</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section bordered" aria-labelledby="untested-title">
+    <div class="container">
+      <div class="section-head">
+        <p class="eyebrow">尚未验证</p>
+        <h2 id="untested-title">还没测过的部分</h2>
+        <p>没有测过的事情不写成已通过。</p>
+      </div>
+      <div class="cards pairs">
+        <article class="card">
+          <h3>交互式安装与正常关窗</h3>
+          <p>安装包没有系统发布者签名。已经自动验证的是静默安装：新装、同版本重装、卸载、安装位置回退、静默卸载后清理位置记录。用真人双击走完向导（安装位置页、桌面快捷方式、卸载时是否删除应用数据）以及点窗口 × 正常关窗，都还没有做过真人验证。</p>
+        </article>
+        <article class="card">
+          <h3>真实上传</h3>
+          <p>还没有用真实账号把成品上传到 VRChat 走一遍，也没有在游戏客户端里确认过效果。</p>
+        </article>
+        <article class="card">
+          <h3>真人使用</h3>
+          <p>还没有测量过真人使用时的注意力占用，也没有做过完整的真人桌面视觉检查。</p>
+        </article>
+        <article class="card">
+          <h3>安全软件实测</h3>
+          <p>火绒等安全软件的实际拦截项目还没有逐项记录；下载页写的是处理原则。</p>
+        </article>
+      </div>
+      <p style="margin-top: var(--s-5)">此前候选版本有过 Windows 与 Linux 的源码检查与构建记录，但那些记录属于当时的候选，不能用来认定现在这版已经通过同样的验证。安装步骤见<a href="download.html">下载页</a>。</p>
+    </div>
+  </section>
+
+  <section class="section bordered" aria-labelledby="feedback-title">
+    <div class="container">
+      <div class="section-head">
+        <p class="eyebrow">反馈</p>
+        <h2 id="feedback-title">发现问题请写信</h2>
+        <p>请说明版本（dev.0.1 / <code>0.1.0-dev.1</code>）、系统版本、重现步骤和预期 / 实际结果。公开反馈不要附密钥、私人路径、完整对话、头像原件或未获许可的素材。</p>
+      </div>
+      <div class="cards pairs">
+        <article class="card">
+          <h3>项目咨询</h3>
+          <p><a href="mailto:harness@nymiro.moe">harness@nymiro.moe</a></p>
+        </article>
+        <article class="card">
+          <h3>个人联系</h3>
+          <p><a href="mailto:nymiro@nymiro.moe">nymiro@nymiro.moe</a></p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+</main>
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div>
+      <div class="footer-brand"><img src="assets/img/logo-48.png" width="28" height="28" alt="">Harness</div>
+      <p>个人使用的 VRChat 头像改模 AI 工作台。首个测试版仅提供 Windows，尚未开放下载。</p>
+      <p class="muted">harness.nymiro.moe · 项目咨询 harness@nymiro.moe</p>
+    </div>
+    <nav aria-label="页脚导航">
+      <h2>站点</h2>
+      <ul>
+        <li><a href="index.html">首页</a></li>
+        <li><a href="product.html">产品介绍</a></li>
+        <li><a href="download.html">下载与安装说明</a></li>
+        <li><a href="known-limitations.html">已知限制</a></li>
+        <li><a href="articles/demo.html">开发日志</a></li>
+      </ul>
+    </nav>
+    <div>
+      <h2>兼容</h2>
+      <ul>
+        <li>适用于 VRChat 头像</li>
+        <li>兼容 VCC/VPM 工程</li>
+        <li>支持 BOOTH 素材</li>
+        <li>Windows 10 / 11 64 位</li>
+      </ul>
+    </div>
+  </div>
+  <div class="container disclaimer">
+    <p>Harness 与 VRChat Inc. 及 pixiv 株式会社没有隶属关系，也未获其背书。相关名称仅用于说明兼容性，相关商标归其各自所有者所有。</p>
+    <p>本页随版本更新；未实现的项不会出现在产品页的「已实现」里。</p>
+    <p>产品改进数据默认关闭。删除或撤回后，数据在运营者的备份中最多再保留 90 天。</p>
+  </div>
+</footer>
+</body>
+</html>

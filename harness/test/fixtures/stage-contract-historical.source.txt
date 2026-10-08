@@ -1,0 +1,6 @@
+Source: read-only historical managed-pack snapshot
+Workflow prefix: 280ac289
+Pack: builtin-vrc+a83887f1f1ec
+Extraction: workflow_definition.definition_json from that frozen row; no object keys or values changed.
+Crop: retain the complete stage dependency closure rooted at face, every required check and gate, and every referenced artifact; remove unrelated stages, checks, gates, and milestones as whole entries.
+Candidate YAML: same crop from the matching installed pack process YAML.

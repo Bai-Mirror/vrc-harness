@@ -1,0 +1,3288 @@
+# 流程定义：PC 改色 + 换衣（一类订单，与具体素体/服装/配色无关）
+# 格式：合同/流程定义格式_v0.1.md（冻结稿 + v0.1.1 补遗）。字段只用该页列出的。
+# 阈值数值不写在这里，全部以 t.* 引用 thresholds.yaml。
+# source 的提交号＝编译当时的 git rev-parse --short HEAD。
+# 优化与回归两轮：build_pre/regression_pre（未优化基线）→ optimize → build/regression（优化后）；
+# performance 读 build_pre 报告（基线）与 build 报告（优化后）做前后对比，不另取基线。
+# v0.1.3（2026-09-27 用户拍板）：方案阶段 8 条选型图鉴检查加 when: plan.client_gallery——方案声明用客户图鉴挑件时才适用，否则记不适用（绑定方案哈希）。
+schema: process/0.1
+id: pc-recolor-outfit
+version: "988b9847"
+applies_to: {platform: pc}
+artifacts: [assets, plan, face_input, environment, fbx, face_candidates, face, outfits, materials, menu, build_pre, optimization, build, delivery_package]
+
+stages:
+  - id: intake
+    needs: []
+    produces: [assets]
+    requires:
+      - requirement_files_present
+      - inventory_count_match
+      - compat_conclusion_complete
+      - budget_reserves_recorded
+      - plan_inputs_ready
+    gates: [material_gap_confirm]
+    invalidated_by: []
+    source: "开发工具/SOP/10_接单建档.md:1@f6721fea"
+
+  - id: plan
+    needs: [intake]
+    produces: [plan]
+    requires:
+      - plan_source_contract
+      - plan_group_contract_valid
+      - plan_layer_paths_resolvable
+      - gallery_no_external_links
+      - gallery_each_item_has_image
+      - gallery_entry_count_match
+      - gallery_excludes_unsupported
+      - gallery_source_labels_valid
+      - gallery_pdf_controls_match
+      - gallery_pdf_no_copy_claim
+      - gallery_selection_mapped
+    gates: [plan_approval]
+    invalidated_by: [assets]
+    source: "开发工具/SOP/14_选型图鉴.md:1@f6721fea"
+
+  - id: environment
+    needs: [plan]
+    produces: [environment]
+    requires: [environment_lock_consistent]
+    gates: []
+    invalidated_by: []
+    source: "docs/zh/设计/1-整体架构/目标架构与联通合同.md:C"
+
+  - id: setup
+    needs: [environment]
+    produces: [fbx]
+    requires:
+      - project_version_present
+      - vpm_locked_match
+      - editor_dll_present
+      - console_no_cs_errors
+      - unpack_conflicts_resolved
+      - unpacked_archives_zero
+      - common_material_packs_present
+      - material_inheritance_ok
+      - guid_unique
+      - guid_refs_resolved
+      - usage_table_rows_match
+      - dependency_reproducible
+    gates: []
+    invalidated_by: [plan, environment]
+    source: "开发工具/SOP/20_素材清点导入.md:1@988b9847"
+
+  - id: face_design
+    needs: [setup]
+    when: 'plan.face.mode == "design"'
+    produces: [face_candidates]
+    requires: [face_candidates_integrity]
+    gates: [face_choice]
+    invalidated_by: [fbx, plan, face_input]
+    source: "docs/zh/设计/2-功能模块/09_交互捏脸与后台制作.md"
+
+  - id: face
+    needs: [face_design]
+    produces: [face]
+    requires: [face_output_integrity, face_runtime_integrity, face_production_qualification, face_input_integrity]
+    gates: [face_appearance]
+    invalidated_by: [fbx, plan, face_candidates, face_input]
+    source: "docs/zh/设计/2-功能模块/09_交互捏脸与后台制作.md"
+
+  - id: outfit
+    needs: [face]
+    produces: [outfits]
+    requires:
+      - outfit_group_defaults_match
+      - outfit_probe_classified
+      - skeleton_missing_zero
+      - assembly_compatibility_verified
+      - mergearmature_mapped
+      - group_members_installed
+      - outfit_parts_grouped
+      - shrinkkey_decision_recorded
+      - shrinkkey_set_delete_conflicts_zero
+      - shrinkkey_writer_reviewed
+      - blendshape_sync_keys_exist
+      - vendor_blendshape_curves_zeroed
+      - outfit_external_refs
+      - assembly_guid_refs_resolved
+      - local_operations_verified
+      - registered_inputs_disposed
+      - obligations_fulfilled
+      - fixed_outfits_installed
+      - outfit_visible_overlaps
+      - outfit_visible_interpenetration
+    gates: []
+    invalidated_by: [fbx, face, face_input]
+    source: "开发工具/SOP/50_服装发型装配.md:1@988b9847"
+
+  - id: recolor
+    needs: [outfit]
+    produces: [materials]
+    requires:
+      - recolor_group_defaults_match
+      - recolor_material_axis_presets_verified
+      - fixed_outfits_recolored
+      - recolor_source_mapped
+      - recolor_material_plan_executable
+      - recolor_material_bound
+      - recolor_layer_verified
+      - recolor_layer_alpha_preserved
+      - recolor_layer_local
+      - recolor_layer_semantics
+      - recolor_layer_bound
+      - recolor_region_verified
+      - recolor_region_mask_from_mesh
+      - recolor_region_local
+      - recolor_region_disjoint
+      - recolor_region_ambiguity_reported
+      - recolor_region_alpha_preserved
+      - recolor_region_semantics
+      - recolor_region_bound
+      - recolor_region_record_matches
+      - recolor_region_transparent_untouched
+      - recolor_region_write_isolated
+      - recolor_shared_material_isolated
+      - recolor_recipe_idempotent
+      - recolor_recipe_tracked
+      - recolor_candidate_tiers
+      - recolor_camera_specs_identical
+      - recolor_ledger_matches
+      - recolor_empty_slots_zero
+      - recolor_skeleton_height_stable
+      - recolor_decision_recorded
+      - recolor_materials_owned
+      - recolor_menu_curves_repointed
+    gates: [recolor_approval]
+    invalidated_by: [fbx, outfits, face_input]
+    source: "开发工具/SOP/40_贴图配色.md:1@988b9847"
+
+  - id: menu
+    needs: [recolor]
+    produces: [menu]
+    requires:
+      - menu_property_owners_resolved
+      - menu_menu_coverage_complete
+      - menu_menu_parameter_limits
+      - menu_menu_parameter_contract
+      - menu_group_members_reachable
+      - menu_group_defaults_match
+      - menu_route_decided
+      - menu_controls_per_menu
+      - menu_param_budget
+      - menu_priority_conflicts_zero
+      - menu_priority_chain_complete
+      - menu_default_single_source
+      - menu_readback_curves
+      - menu_selector_owned_paths
+      - menu_parameter_driver_single_owner
+      - menu_motion_time_reachable
+      - menu_asset_nonempty
+      - menu_skeleton_height_stable
+    gates: []
+    invalidated_by: [materials, outfits, face_input]
+    source: "开发工具/SOP/60_菜单与动画层.md:1@988b9847"
+
+  - id: build_pre
+    needs: [menu]
+    produces: [build_pre]
+    requires:
+      - build_pre_property_owners_resolved
+      - build_pre_menu_coverage_complete
+      - build_pre_menu_parameter_limits
+      - build_pre_menu_parameter_contract
+      - build_pre_group_members_reachable
+      - build_pre_group_defaults_match
+      - fixed_outfits_built_pre
+      - build_param_budget_pre
+      - build_orphan_params_zero_pre
+      - build_deadlock_zero_pre
+      - build_layer_control_resolved_pre
+      - build_selector_owned_paths_pre
+      - build_parameter_driver_single_owner_pre
+      - build_motion_time_reachable_pre
+      - build_descriptor_single_pre
+      - build_eye_height_stable_pre
+    gates: []
+    invalidated_by: [fbx, outfits, materials, menu, face_input]
+    source: "开发工具/SOP/70_回归测试.md:12@988b9847"
+
+  - id: regression_pre
+    needs: [build_pre]
+    produces: []
+    requires:
+      - regression_pre_menu_coverage_complete
+      - regression_pre_shared_state_preserved
+      - regression_pre_group_state_assertions
+      - regression_pre_source_shape_state
+      - fixed_outfits_regression_pre
+      - regression_t1_states_pre
+      - regression_real_sequence_pre
+      - regression_key_follow_pre
+      - regression_outfit_photo_pre
+      - regression_fit_probe_pre
+      - regression_body_piercing_pre
+      - regression_footwear_coverage_pre
+      - regression_sole_piercing_pre
+      - regression_toe_piercing_pre
+      - regression_coverage_recorded_pre
+      - perception_declaration_reconciled_pre
+    gates: []
+    invalidated_by: [build_pre, face_input]
+    source: "开发工具/SOP/70_回归测试.md:1@988b9847"
+
+  - id: optimize
+    needs: [regression_pre]
+    produces: [optimization]
+    requires:
+      - optimization_intent_preserved
+      - perf_clones_cleaned
+      - perf_dead_objects_valid
+      - perf_merge_physbones_valid
+      - perf_physbone_core_safe
+      - perf_empty_slots_zero
+      - perf_skeleton_height_stable
+    gates: []
+    invalidated_by: [menu, materials, outfits, face_input]
+    source: "开发工具/SOP/80_性能优化.md:1@988b9847"
+
+  - id: build
+    needs: [optimize]
+    produces: [build]
+    requires:
+      - build_property_owners_resolved
+      - build_menu_coverage_complete
+      - build_menu_parameter_limits
+      - build_menu_parameter_contract
+      - build_group_members_reachable
+      - build_group_defaults_match
+      - fixed_outfits_built
+      - build_param_budget
+      - build_orphan_params_zero
+      - build_deadlock_zero
+      - build_layer_control_resolved
+      - build_selector_owned_paths
+      - build_parameter_driver_single_owner
+      - build_motion_time_reachable
+      - build_descriptor_single
+      - build_eye_height_stable
+    gates: []
+    invalidated_by: [fbx, outfits, materials, menu, optimization, face_input]
+    source: "开发工具/SOP/70_回归测试.md:12@988b9847"
+
+  - id: regression
+    needs: [build]
+    produces: []
+    requires:
+      - regression_menu_coverage_complete
+      - regression_shared_state_preserved
+      - regression_group_state_assertions
+      - regression_source_shape_state
+      - fixed_outfits_regression
+      - regression_t1_states
+      - regression_real_sequence
+      - regression_key_follow
+      - regression_outfit_photo
+      - regression_fit_probe
+      - regression_body_piercing
+      - regression_footwear_coverage
+      - regression_sole_piercing
+      - regression_toe_piercing
+      - regression_coverage_recorded
+      - perception_declaration_reconciled
+    gates: []
+    invalidated_by: [build, face_input]
+    source: "开发工具/SOP/70_回归测试.md:1@988b9847"
+
+  - id: performance
+    needs: [regression]
+    produces: []
+    requires:
+      - perf_measured_on_clone
+      - perf_texture_format
+      - perf_mipstreaming
+      - perf_texture_tier_audit
+      - perf_texture_size
+      - perf_ndmf_no_errors
+      - perf_geometry_below_baseline
+      - perf_physbone_limit
+      - perf_merge_physbones_valid_final
+      - perf_physbone_core_safe_final
+      - perf_aabb_limit
+      - perf_texture_memory_down
+    gates: []
+    invalidated_by: [build, build_pre, face_input]
+    source: "开发工具/SOP/80_性能优化.md:1@988b9847"
+
+  - id: package
+    needs: [performance]
+    produces: [delivery_package]
+    requires:
+      - package_menu_coverage_complete
+      - package_shared_state_preserved
+      - package_group_state_assertions
+      - package_generator_removed
+      - package_no_dev_deps
+      - package_single_build_root
+      - package_usage_table_no_blank
+      - package_usage_refs_closed
+      - delivery_zip_top_entries
+      - delivery_zip_excludes_root_dirs
+      - delivery_zip_keeps_plugin_dirs
+      - delivery_cold_import_dll
+      - delivery_cold_import_compile
+      - delivery_menu_assertion
+      - delivery_missing_refs_zero
+      - delivery_note_encoding
+      - delivery_diagnosis_present
+      - delivery_added_assets_documented
+      - delivery_no_loose_files
+      - delivery_total_size_match
+      - delivery_7z_test
+    gates: []
+    invalidated_by: [build, face_input]
+    source: "开发工具/SOP/90_交付打包.md:1@988b9847"
+
+checks:
+  - id: face_input_integrity
+    observe: face.input
+    on: face
+    scope: edit
+    rule: "face_input_bound == true"
+    severity: blocking
+    maturity: accepted
+    kind: spec
+    asserted_by: compile:managed-face
+    verification: [{kind: harness-regression, ref: test/workflow/input-runtime.test.ts}]
+  - id: plan_inputs_ready
+    observe: plan.inputs
+    on: assets
+    scope: edit
+    rule: "plan_input_catalog_ready == true"
+    severity: blocking
+    maturity: accepted
+    kind: spec
+    asserted_by: compile:managed-plan
+    verification: [{kind: harness-regression, ref: test/plan-tool.test.ts}]
+  - id: plan_source_contract
+    observe: plan.source
+    on: plan
+    scope: edit
+    rule: "plan_source_contract_valid == true"
+    severity: blocking
+    maturity: accepted
+    kind: spec
+    asserted_by: compile:managed-plan
+    verification: [{kind: harness-regression, ref: test/plan-tool.test.ts}]
+  - id: plan_layer_paths_resolvable
+    observe: plan.source
+    "on": plan
+    scope: edit
+    # A layered target names a region inside the vendor's own file, and one plan named five such paths that
+    # were all invented and still passed its gate. The metric is emitted only when the layer tables could
+    # actually be read; when they could not, the engine sees no data and no data does not pass. That is the
+    # line between drafting on a machine without the library and presenting the plan as checked (D-100).
+    rule: "plan_layer_paths_unresolved == 0"
+    severity: blocking
+    maturity: accepted
+    source: "决定记录/D-100"
+    kind: spec
+    asserted_by: compile:managed-plan
+    verification: [{kind: harness-regression, ref: test/plan-layer-targets.test.ts}]
+  - id: face_candidates_integrity
+    observe: face.candidates
+    on: face_candidates
+    scope: edit
+    rule: "face_candidates_valid == true and face_candidate_preview_integrity == true"
+    severity: blocking
+    maturity: accepted
+    kind: spec
+    asserted_by: compile:managed-face
+    verification: [{kind: harness-regression, ref: test/face-preview.test.ts}]
+  - id: face_output_integrity
+    observe: face.apply
+    on: face
+    scope: edit
+    rule: "face_source_preserved_valid == true or face_geometry_valid == true"
+    severity: blocking
+    maturity: accepted
+    kind: spec
+    asserted_by: compile:managed-face
+    verification: [{kind: harness-regression, ref: test/face-stage.test.ts}]
+  - id: face_runtime_integrity
+    observe: face.apply
+    on: face
+    scope: edit
+    rule: "face_source_preserved_valid == true or face_runtime_bindings_valid == true"
+    severity: blocking
+    maturity: accepted
+    kind: spec
+    asserted_by: compile:managed-face
+    verification: [{kind: harness-regression, ref: test/face-stage.test.ts}]
+  - id: face_production_qualification
+    observe: face.apply
+    on: face
+    scope: edit
+    rule: "face_source_preserved_valid == true or (face_expression_compensation_valid == true and face_damage_smoothness_measured == true and face_eye_exposure_measured == true)"
+    severity: blocking
+    maturity: accepted
+    kind: spec
+    asserted_by: compile:managed-face
+    verification: [{kind: harness-regression, ref: test/face-stage.test.ts}]
+  - id: environment_lock_consistent
+    observe: environment.verify
+    on: environment
+    scope: edit
+    rule: "environment_consistent == true"
+    severity: blocking
+    maturity: accepted
+    source: "docs/zh/设计/1-整体架构/目标架构与联通合同.md:C"
+    kind: spec
+    asserted_by: compile:design-reachability-20260930
+    verification:
+      - kind: harness-regression
+        ref: test/managed-environment.test.ts
+  # ---------- intake：素材检查（10/20） ----------
+  - id: requirement_files_present
+    observe: assets.validate
+    "on": assets
+    scope: edit
+    rule: "missing_requirement_files == 0"
+    severity: blocking
+    maturity: accepted
+    source: "开发工具/SOP/10_接单建档.md:11@f6721fea"
+    source_id: 18acaf0a750a
+    verification:
+      - kind: sop-editorial
+        ref: 18acaf0a750a
+    kind: spec
+    asserted_by: compile:legacy
+  - id: inventory_count_match
+    observe: assets.inventory
+    "on": assets
+    scope: edit
+    rule: "inventory_entries == product_directory_count"
+    severity: blocking
+    maturity: accepted
+    source: "开发工具/SOP/10_接单建档.md:13@f6721fea"
+    source_id: b7702f4cc6b6
+    verification:
+      - kind: sop-editorial
+        ref: b7702f4cc6b6
+    kind: spec
+    asserted_by: compile:legacy
+  - id: compat_conclusion_complete
+    observe: assets.validate
+    "on": assets
+    scope: edit
+    rule: "items_without_valid_compat_conclusion == 0"
+    severity: blocking
+    maturity: accepted
+    source: "开发工具/SOP/10_接单建档.md:15@f6721fea"
+    source_id: eb52703f06fb
+    verification:
+      - kind: sop-editorial
+        ref: eb52703f06fb
+    kind: spec
+    asserted_by: compile:legacy
+  - id: budget_reserves_recorded
+    observe: assets.validate
+    "on": assets
+    scope: edit
+    rule: "budget_reserve_fields_recorded == true"
+    severity: blocking
+    maturity: accepted
+    source: "开发工具/SOP/10_接单建档.md:47@f6721fea"
+    source_id: 94da1fdef51a
+    verification:
+      - kind: sop-editorial
+        ref: 94da1fdef51a
+    kind: spec
+    asserted_by: compile:legacy
+
+  # ---------- plan：组装方案（14/15），配色方案在此提出并随 plan_approval 批准 ----------
+  - id: gallery_no_external_links
+    when: plan.client_gallery
+    observe: assets.validate
+    "on": plan
+    scope: edit
+    rule: "html_external_refs == 0"
+    severity: blocking
+    maturity: accepted
+    source: "开发工具/SOP/14_选型图鉴.md:79@f6721fea"
+    source_id: 000bd975fda3
+    verification:
+      - kind: sop-editorial
+        ref: 000bd975fda3
+    kind: spec
+    asserted_by: compile:legacy
+  - id: gallery_each_item_has_image
+    when: plan.client_gallery
+    observe: assets.validate
+    "on": plan
+    scope: edit
+    rule: "items_without_image == 0"
+    severity: blocking
+    maturity: accepted
+    source: "开发工具/SOP/14_选型图鉴.md:67@f6721fea"
+    source_id: 2220ac2d49b4
+    verification:
+      - kind: sop-editorial
+        ref: 2220ac2d49b4
+    kind: spec
+    asserted_by: compile:legacy
+  - id: gallery_entry_count_match
+    when: plan.client_gallery
+    observe: assets.inventory
+    "on": plan
+    scope: edit
+    rule: "gallery_entry_count == client_compatible_count + library_hit_count"
+    severity: blocking
+    maturity: accepted
+    source: "开发工具/SOP/14_选型图鉴.md:50@f6721fea"
+    source_id: 4aed103fdd8e
+    verification:
+      - kind: sop-editorial
+        ref: 4aed103fdd8e
+    kind: spec
+    asserted_by: compile:legacy
+  - id: gallery_excludes_unsupported
+    when: plan.client_gallery
+    observe: assets.validate
+    "on": plan
+    scope: edit
+    rule: "unsupported_items_in_gallery == 0"
+    severity: blocking
+    maturity: accepted
+    source: "开发工具/SOP/14_选型图鉴.md:52@f6721fea"
+    source_id: f4cc1ee82cd8
+    verification:
+      - kind: sop-editorial
+        ref: f4cc1ee82cd8
+    kind: spec
+    asserted_by: compile:legacy
+  - id: gallery_source_labels_valid
+    when: plan.client_gallery
+    observe: assets.validate
+    "on": plan
+    scope: edit
+    rule: "invalid_source_labels == 0"
+    severity: blocking
+    maturity: accepted
+    source: "开发工具/SOP/14_选型图鉴.md:51@f6721fea"
+    source_id: ddadfd832f5a
+    verification:
+      - kind: sop-editorial
+        ref: ddadfd832f5a
+    kind: spec
+    asserted_by: compile:legacy
+  - id: gallery_pdf_controls_match
+    when: plan.client_gallery
+    observe: assets.validate
+    "on": plan
+    scope: edit
+    rule: "pdf_button_count == gallery_entry_count and pdf_text_field_count == 1 and pdf_stale_pick_links == 0"
+    severity: blocking
+    maturity: accepted
+    source: "开发工具/SOP/14_选型图鉴.md:99@f6721fea"
+    source_id: a252410f408c
+    verification:
+      - kind: sop-editorial
+        ref: a252410f408c
+    kind: spec
+    asserted_by: compile:legacy
+  - id: gallery_pdf_no_copy_claim
+    when: plan.client_gallery
+    observe: assets.validate
+    "on": plan
+    scope: edit
+    rule: "pdf_copy_list_mentions == 0"
+    severity: blocking
+    maturity: accepted
+    source: "开发工具/SOP/14_选型图鉴.md:101@f6721fea"
+    source_id: 4bcc502f0a31
+    verification:
+      - kind: sop-editorial
+        ref: 4bcc502f0a31
+    kind: spec
+    asserted_by: compile:legacy
+  - id: gallery_selection_mapped
+    when: plan.client_gallery
+    observe: assets.validate
+    "on": plan
+    scope: edit
+    rule: "unmatched_selection_ids == 0"
+    severity: blocking
+    maturity: accepted
+    source: "开发工具/SOP/14_选型图鉴.md:116@f6721fea"
+    source_id: 86015a73dc55
+    verification:
+      - kind: sop-editorial
+        ref: 86015a73dc55
+    kind: spec
+    asserted_by: compile:legacy
+
+  # ---------- setup：建工程与导入（02/20） ----------
+  - id: project_version_present
+    observe: project.initialize
+    "on": fbx
+    scope: edit
+    rule: "project_version_file_present == true"
+    severity: blocking
+    maturity: accepted
+    source: "开发工具/SOP/02_环境准备与人工介入.md:127@988b9847"
+    source_id: d0ec2864028b
+    verification:
+      - kind: sop-editorial
+        ref: d0ec2864028b
+    kind: spec
+    asserted_by: compile:legacy
+  - id: vpm_locked_match
+    observe: project.initialize
+    "on": fbx
+    scope: edit
+    rule: "package_resolution_consistent == true"
+    severity: blocking
+    maturity: accepted
+    source: "开发工具/SOP/20_素材清点导入.md:33@988b9847"
+    source_id: 528543c32f33
+    verification:
+      - kind: sop-editorial
+        ref: 528543c32f33
+    kind: spec
+    asserted_by: compile:legacy
+  - id: editor_dll_present
+    observe: project.initialize
+    "on": fbx
+    scope: edit
+    rule: "editor_dll_present == true"
+    severity: blocking
+    maturity: accepted
+    source: "开发工具/SOP/20_素材清点导入.md:34@988b9847"
+    source_id: dac43a8ef436
+    verification:
+      - kind: sop-editorial
+        ref: dac43a8ef436
+    kind: spec
+    asserted_by: compile:legacy
+  - id: console_no_cs_errors
+    observe: project.initialize
+    "on": fbx
+    scope: edit
+    rule: "console_cs_errors == 0"
+    severity: blocking
+    maturity: accepted
+    source: "开发工具/SOP/02_环境准备与人工介入.md:192@988b9847"
+    source_id: b9367efe5361
+    verification:
+      - kind: sop-editorial
+        ref: b9367efe5361
+    kind: spec
+    asserted_by: compile:legacy
+  - id: unpack_conflicts_resolved
+    observe: assets.import
+    "on": fbx
+    scope: edit
+    rule: "unresolved_unpack_conflicts == 0"
+    severity: blocking
+    maturity: accepted
+    source: "开发工具/SOP/20_素材清点导入.md:91@988b9847"
+    source_id: d7ef79a2d71f
+    verification:
+      - kind: sop-editorial
+        ref: d7ef79a2d71f
+    kind: spec
+    asserted_by: compile:legacy
+  - id: unpacked_archives_zero
+    observe: assets.import
+    "on": fbx
+    scope: edit
+    rule: "remaining_unopened_archives == 0"
+    severity: blocking
+    maturity: accepted
+    source: "开发工具/SOP/20_素材清点导入.md:92@988b9847"
+    source_id: 0f23161f923a
+    verification:
+      - kind: sop-editorial
+        ref: 0f23161f923a
+    kind: spec
+    asserted_by: compile:legacy
+  - id: common_material_packs_present
+    observe: assets.validate
+    "on": fbx
+    scope: edit
+    rule: "missing_common_material_packs == 0"
+    severity: blocking
+    maturity: accepted
+    source: "开发工具/SOP/20_素材清点导入.md:117@988b9847"
+    source_id: ca78ffa48e02
+    verification:
+      - kind: sop-editorial
+        ref: ca78ffa48e02
+    kind: spec
+    asserted_by: compile:legacy
+  - id: material_inheritance_ok
+    observe: assets.validate
+    "on": fbx
+    scope: edit
+    rule: "min_liltoon_material_lines >= t.liltoon_material_min_lines"
+    severity: advisory
+    maturity: candidate
+    source: "开发工具/SOP/20_素材清点导入.md:127@988b9847"
+  - id: guid_unique
+    observe: assets.validate
+    "on": fbx
+    scope: edit
+    rule: "duplicate_guid_paths == 0"
+    severity: blocking
+    maturity: accepted
+    source: "开发工具/SOP/20_素材清点导入.md:128@988b9847"
+    source_id: 9e310db76be5
+    verification:
+      - kind: sop-editorial
+        ref: 9e310db76be5
+    kind: spec
+    asserted_by: compile:legacy
+  - id: guid_refs_resolved
+    observe: assets.validate
+    "on": fbx
+    scope: edit
+    rule: "broken_guid_refs == 0"
+    severity: blocking
+    maturity: accepted
+    source: "开发工具/SOP/20_素材清点导入.md:129@988b9847"
+    source_id: 292982e6d51d
+    verification:
+      - kind: sop-editorial
+        ref: 292982e6d51d
+    kind: spec
+    asserted_by: compile:legacy
+  - id: usage_table_rows_match
+    observe: assets.inventory
+    "on": fbx
+    scope: edit
+    rule: "usage_table_rows == product_count"
+    severity: blocking
+    maturity: accepted
+    source: "开发工具/SOP/20_素材清点导入.md:155@988b9847"
+    source_id: 1eb06d19a243
+    verification:
+      - kind: sop-editorial
+        ref: 1eb06d19a243
+    kind: spec
+    asserted_by: compile:legacy
+  - id: dependency_reproducible
+    observe: project.initialize
+    "on": fbx
+    scope: edit
+    rule: "file_or_git_dependencies == 0"
+    severity: blocking
+    maturity: accepted
+    source: "开发工具/SOP/20_素材清点导入.md:190@988b9847"
+    source_id: 2e8127eee230
+    verification:
+      - kind: sop-editorial
+        ref: 2e8127eee230
+    kind: spec
+    asserted_by: compile:legacy
+
+  # ---------- outfit：换衣（50） ----------
+  - id: local_operations_verified
+    observe: clothing.install
+    "on": outfits
+    scope: edit
+    rule: "local_operations_valid == true"
+    severity: blocking
+    maturity: accepted
+    source: "builtin/tools/harness/unity/Editor/LocalOperations.cs:1"
+    verification:
+      - kind: harness-regression
+        ref: test/local-operations.test.ts
+
+  - id: optimization_intent_preserved
+    observe: performance.check
+    "on": optimization
+    scope: edit
+    rule: "optimization_mode_valid == true"
+    severity: blocking
+    maturity: accepted
+    source: "docs/zh/设计/1-整体架构/目标架构与联通合同.md"
+    kind: spec
+    asserted_by: compile:design-reachability-20260930
+    verification:
+      - kind: harness-regression
+        ref: test/builtin-tools.test.ts
+
+  - id: outfit_probe_classified
+    observe: clothing.install
+    "on": outfits
+    scope: edit
+    rule: "unclassified_prefabs == 0"
+    severity: blocking
+    maturity: accepted
+    source: "开发工具/SOP/50_服装发型装配.md:39@988b9847"
+    source_id: ac6c442ff2ec
+    verification:
+      - kind: sop-editorial
+        ref: ac6c442ff2ec
+    kind: spec
+    asserted_by: compile:legacy
+  - id: skeleton_missing_zero
+    observe: clothing.install
+    "on": outfits
+    scope: edit
+    rule: "humanoid_missing_bones == 0"
+    severity: blocking
+    maturity: accepted
+    source: "开发工具/SOP/50_服装发型装配.md:59@988b9847"
+    source_id: d2e450b43afa
+    verification:
+      - kind: sop-editorial
+        ref: d2e450b43afa
+    kind: spec
+    asserted_by: compile:legacy
+  - id: assembly_compatibility_verified
+    observe: clothing.install
+    "on": outfits
+    scope: edit
+    rule: "assembly_compatibility_failures == 0"
+    severity: blocking
+    maturity: accepted
+    kind: spec
+    asserted_by: compile:managed-assembly
+    verification: [{kind: harness-regression, ref: test/assembly-loop.test.ts}]
+  # A prop whose BoneProxy names no mount point is not a body bone that failed to map: NDMF reparents a
+  # proxy to its resolved target bone, so a prop left where it is was never configured. Configured means
+  # boneReference or subPath is set (MA 1.18.1 Runtime/ModularAvatarBoneProxy.cs:182-208); `target` is a
+  # derived property that stays null in batch mode, so reading it misnamed the measurement and let one
+  # correctly mounted prop block all of assembly, which happened three times on a real project. Measured on
+  # its own, advisory until a delivered avatar is known to need it.
+  - id: unmounted_bone_proxies
+    observe: clothing.install
+    "on": outfits
+    scope: edit
+    rule: "unmounted_bone_proxies == 0"
+    severity: advisory
+    maturity: candidate
+  # Every registered product reaches a disposition: mounted, carried inside another package, or declared
+  # unused with a reason. The other install checks only ask whether what the plan names was assembled
+  # correctly, so a plan that names less passes all of them; on a real project four products were
+  # registered, the plan mounted one, and its own notes promised this stage would attach the rest. This is
+  # the same rule the manual workflow already states, that every asset row needs a use or a stated reason.
+  - id: registered_inputs_disposed
+    observe: clothing.install
+    "on": outfits
+    scope: edit
+    rule: "registered_inputs_without_disposition == 0"
+    severity: blocking
+    maturity: accepted
+    source: "builtin/tools/harness/unity/Editor/OutfitStage.cs:423"
+    verification:
+      - kind: harness-regression
+        ref: test/outfit-coverage.test.ts
+  # Disposal is not the same as fulfilment. A plan can name a product, promise in its notes to attach it,
+  # attach nothing, and satisfy every check above; two independent reviews of the coverage question raised
+  # that case. This one asks whether the artifact holds the result each obligation due here promised, read
+  # from the assembled prefab rather than from the assembler's own record, which is what makes it evidence
+  # instead of a restatement.
+  - id: obligations_fulfilled
+    observe: clothing.install
+    "on": outfits
+    scope: edit
+    rule: "unmet_obligations == 0"
+    severity: blocking
+    maturity: accepted
+    source: "builtin/tools/harness/unity/Editor/OutfitStage.cs:517"
+    verification:
+      - kind: harness-regression
+        ref: test/outfit-obligations.test.ts
+  - id: mergearmature_mapped
+    observe: clothing.install
+    "on": outfits
+    scope: edit
+    rule: "mergearmature_mapped_bones > 0 or preserved_outfit_unmodified == true or authorized_local_variant_valid == true"
+    severity: blocking
+    maturity: accepted
+    source: "开发工具/SOP/50_服装发型装配.md:79@988b9847"
+    source_id: 32a273583e6b
+    verification:
+      - kind: sop-editorial
+        ref: 32a273583e6b
+    kind: spec
+    asserted_by: compile:legacy
+  - id: outfit_parts_grouped
+    observe: clothing.install
+    "on": outfits
+    scope: edit
+    rule: "ungrouped_skeleton_parts == 0"
+    severity: blocking
+    maturity: accepted
+    source: "开发工具/SOP/50_服装发型装配.md:81@988b9847"
+    source_id: 71916ae7d678
+    verification:
+      - kind: sop-editorial
+        ref: 71916ae7d678
+    kind: spec
+    asserted_by: compile:legacy
+  - id: shrinkkey_decision_recorded
+    observe: clothing.install
+    "on": outfits
+    scope: edit
+    rule: "outfits_without_shrinkkey_decision == 0"
+    severity: blocking
+    maturity: accepted
+    source: "开发工具/SOP/50_服装发型装配.md:97@988b9847"
+    source_id: 68aaaddf7b35
+    verification:
+      - kind: sop-editorial
+        ref: 68aaaddf7b35
+    kind: spec
+    asserted_by: compile:legacy
+  - id: shrinkkey_set_delete_conflicts_zero
+    observe: clothing.install
+    "on": outfits
+    scope: edit
+    rule: "shapechanger_set_delete_conflicts == 0"
+    severity: blocking
+    maturity: accepted
+    source: "开发工具/SOP/50_服装发型装配/收缩键流程与两族.md:121@5bbc8dfd"
+    source_id: 89b893790188
+    verification:
+      - kind: sop-editorial
+        ref: 89b893790188
+    kind: spec
+    asserted_by: compile:harness-core
+  - id: shrinkkey_writer_reviewed
+    observe: clothing.install
+    "on": outfits
+    scope: edit
+    rule: "unreviewed_shrinkkey_writers == 0"
+    severity: blocking
+    maturity: accepted
+    source: "开发工具/SOP/50_服装发型装配/脚型与收缩键归属/两类键与写者.md:114@5bbc8dfd"
+    source_id: 4aa6d873fa99
+    verification:
+      - kind: sop-editorial
+        ref: 4aa6d873fa99
+    kind: spec
+    asserted_by: compile:harness-core
+  - id: blendshape_sync_keys_exist
+    observe: clothing.install
+    "on": outfits
+    scope: edit
+    rule: "blendshape_sync_missing_keys == 0"
+    severity: blocking
+    maturity: accepted
+    source: "开发工具/SOP/50_服装发型装配/兼容性判定.md:54@5bbc8dfd"
+    source_id: 3f6aeccd4c9d
+    verification:
+      - kind: sop-editorial
+        ref: 3f6aeccd4c9d
+    kind: spec
+    asserted_by: compile:harness-core
+  - id: vendor_blendshape_curves_zeroed
+    observe: clothing.install
+    "on": outfits
+    scope: edit
+    rule: "nonzero_body_blendshape_curves == 0"
+    severity: blocking
+    maturity: accepted
+    source: "开发工具/SOP/50_服装发型装配.md:98@988b9847"
+    source_id: 2d2350e6f58d
+    verification:
+      - kind: sop-editorial
+        ref: 2d2350e6f58d
+    kind: spec
+    asserted_by: compile:legacy
+  - id: outfit_external_refs
+    observe: assets.validate
+    "on": outfits
+    scope: edit
+    rule: "outfits_without_external_refs == 0"
+    severity: blocking
+    maturity: accepted
+    source: "开发工具/SOP/50_服装发型装配.md:118@988b9847"
+    source_id: 1a226a970b11
+    verification:
+      - kind: sop-editorial
+        ref: 1a226a970b11
+    kind: spec
+    asserted_by: compile:legacy
+  - id: assembly_guid_refs_resolved
+    observe: avatar.dependencies
+    "on": outfits
+    scope: edit
+    rule: "broken_guid_refs == 0"
+    severity: blocking
+    maturity: accepted
+    source: "决定记录/D-110；F44"
+    kind: spec
+    asserted_by: compile:harness-core
+    verification: [{kind: harness-regression, ref: test/vendor-missing-material-unity.test.ts}]
+
+  # ---------- recolor：改色（40），落实方案里已批准的配色并回读 ----------
+  - id: recolor_material_plan_executable
+    observe: material.recolor
+    "on": materials
+    scope: edit
+    # Each material target must resolve nonempty slots without conflicting writers;
+    # the independent reload must match the current plan and all dependency bytes.
+    rule: "material_plan_unverified == 0 and material_write_conflicts == 0"
+    severity: blocking
+    maturity: accepted
+    source: "决定记录/D-102"
+    kind: spec
+    asserted_by: compile:harness-core
+    verification: [{kind: harness-regression, ref: test/recolor-material-target.test.ts}]
+  - id: recolor_material_bound
+    observe: material.recolor
+    "on": materials
+    scope: edit
+    rule: "material_bindings_missing == 0"
+    severity: blocking
+    maturity: accepted
+    source: "决定记录/D-102"
+    kind: spec
+    asserted_by: compile:harness-core
+    verification: [{kind: harness-regression, ref: test/recolor-material-target.test.ts}]
+  - id: recolor_source_mapped
+    observe: material.recolor
+    "on": materials
+    scope: edit
+    rule: "unmapped_color_requirements == 0"
+    severity: blocking
+    maturity: accepted
+    source: "开发工具/SOP/40_贴图配色.md:51@988b9847"
+    source_id: a0428387b465
+    verification:
+      - kind: sop-editorial
+        ref: a0428387b465
+    kind: spec
+    asserted_by: compile:legacy
+  - id: recolor_shared_material_isolated
+    observe: material.recolor
+    "on": materials
+    scope: edit
+    rule: "recolor_materials_shared_by_multiple_meshes == 0"
+    severity: blocking
+    maturity: accepted
+    source: "开发工具/SOP/40_贴图配色.md:50@988b9847"
+    source_id: cbbbe45902a0
+    verification:
+      - kind: sop-editorial
+        ref: cbbbe45902a0
+    kind: spec
+    asserted_by: compile:legacy
+  - id: recolor_recipe_idempotent
+    observe: material.recolor
+    "on": materials
+    scope: edit
+    rule: "rerun_recipe_hash_equal == true"
+    severity: blocking
+    maturity: accepted
+    source: "开发工具/SOP/40_贴图配色.md:73@988b9847"
+    source_id: 5619eebd3985
+    verification:
+      - kind: sop-editorial
+        ref: 5619eebd3985
+    kind: spec
+    asserted_by: compile:legacy
+  - id: recolor_recipe_tracked
+    observe: material.recolor
+    "on": materials
+    scope: edit
+    rule: "recipe_script_tracked == true"
+    severity: blocking
+    maturity: accepted
+    source: "开发工具/SOP/40_贴图配色.md:76@988b9847"
+    source_id: 104302511f72
+    verification:
+      - kind: sop-editorial
+        ref: 104302511f72
+    kind: spec
+    asserted_by: compile:legacy
+  - id: recolor_candidate_tiers
+    observe: material.recolor
+    "on": materials
+    scope: edit
+    # 相对目标才有「挑一档」这件事，档数下限仍由 t.recolor_tier_min 把关；全部是固定色时配方只出一档，
+    # 那时的下限由方案侧校验负责（固定色不得参与档位偏移，只允许一档），不再拿同一个下限卡它。
+    rule: "candidate_tier_shortfall == 0 and (relative_target_count == 0 or candidate_tier_count >= t.recolor_tier_min)"
+    severity: blocking
+    maturity: accepted
+    source: "开发工具/SOP/40_贴图配色.md:98@988b9847"
+    source_id: d41bcd2c3658
+    verification:
+      - kind: sop-editorial
+        ref: d41bcd2c3658
+    kind: spec
+    asserted_by: compile:legacy
+  - id: recolor_layer_verified
+    observe: material.recolor
+    "on": materials
+    scope: edit
+    # 每条按层需求都要有一条被独立回读核对过的产物：观察器不信执行器自己的结论，自己读回产物、
+    # 核对哈希与绑定。没有按层目标时该指标为 0，检查自然成立。
+    rule: "layer_unverified_operations == 0"
+    severity: blocking
+    maturity: accepted
+    source: "决定记录/D-74"
+    kind: spec
+    asserted_by: compile:legacy
+    verification: [{kind: harness-regression, ref: test/observe-recolor-layer.test.ts}]
+  - id: recolor_layer_alpha_preserved
+    observe: material.recolor
+    "on": materials
+    scope: edit
+    # 局部性：区域内改色，alpha 与区域外都不得动。alpha 被改等于整张图的采样行为都变了。
+    rule: "layer_alpha_moved == 0"
+    severity: blocking
+    maturity: accepted
+    source: "决定记录/D-75"
+    kind: spec
+    asserted_by: compile:legacy
+    verification: [{kind: harness-regression, ref: test/observe-recolor-layer.test.ts}]
+  - id: recolor_layer_bound
+    observe: material.recolor
+    "on": materials
+    scope: edit
+    # 产物必须真的被绑到槽位：**读材质资产里的贴图属性**，不是读台账。台账是执行器自己的说法，
+    # 观察器的意义正在于不采信那个说法。
+    rule: "layer_bindings_missing == 0"
+    severity: blocking
+    maturity: accepted
+    source: "决定记录/D-74"
+    kind: spec
+    asserted_by: compile:legacy
+    verification: [{kind: harness-regression, ref: test/observe-recolor-layer.test.ts}]
+  - id: recolor_layer_local
+    observe: material.recolor
+    "on": materials
+    scope: edit
+    # 局部性由观察器自己算：把产物与原图相减，变化必须全部落在蒙版内。蒙版由执行器写出但**核对了哈希**，
+    # 所以它不能事后换成另一个形状来把越界改动掩盖掉。
+    rule: "layer_outside_mask_changed == 0"
+    severity: blocking
+    maturity: accepted
+    source: "决定记录/D-75"
+    kind: spec
+    asserted_by: compile:legacy
+    verification: [{kind: harness-regression, ref: test/observe-recolor-layer.test.ts}]
+  - id: recolor_layer_semantics
+    observe: material.recolor
+    "on": materials
+    scope: edit
+    # 按层目标使用作者的软遮罩：先按遮罩权重混合原像素与语义产出的像素，再保留现有 NumPy .round() 的 8 bit 取整。
+    # 这条路线不套用按网格区域的 floor(x + 0.5)；两条路线的边界结果必须分别保持。
+    # 按该目标声明的语义核对，不混用，也**不数通道值**：flat 要求蒙版内可见像素精确等于目标色；
+    # shade 要求它们等于「目标色 ×（本像素最亮通道 ÷ 目标色最亮通道）」。原像素最大通道等于目标色最大
+    # 通道时，乘原像素的写法要求的正是原样不动，会把没改过色的区域读成正确的 shade（R6b 第 1 项）。
+    rule: "layer_semantics_violations == 0"
+    severity: blocking
+    maturity: accepted
+    source: "决定记录/D-75"
+    kind: spec
+    asserted_by: compile:legacy
+    verification: [{kind: harness-regression, ref: test/observe-recolor-layer.test.ts}]
+  - id: recolor_region_verified
+    observe: material.recolor
+    "on": materials
+    scope: edit
+    # 每条按区域需求都要有一条被独立回读核对过的产物。没有按区域目标时该指标为 0，检查自然成立。
+    rule: "region_unverified_operations == 0"
+    severity: blocking
+    maturity: accepted
+    source: "决定记录/D-117"
+    kind: spec
+    asserted_by: compile:legacy
+    verification: [{kind: harness-regression, ref: test/recolor-region.test.ts}]
+  - id: recolor_region_mask_from_mesh
+    observe: material.recolor
+    "on": materials
+    scope: edit
+    # 区域必须是网格 UV 的足迹，不是贴图上的矩形：观察器拿执行器导出的同一份网格数据把掩膜重算一遍，
+    # 逐像素比对。一个 u=0.5 的矩形能通过局部性、alpha 与语义全部检查——因为它与它自己做出来的产物自洽——
+    # 只有重算能说它不是那个区域。这条是「按网格导出区域」这个说法的全部内容。
+    rule: "region_mask_mismatches == 0"
+    severity: blocking
+    maturity: accepted
+    source: "决定记录/D-117"
+    kind: spec
+    asserted_by: compile:legacy
+    verification: [{kind: harness-regression, ref: test/recolor-region.test.ts}]
+  - id: recolor_region_local
+    observe: material.recolor
+    "on": materials
+    scope: edit
+    # 区域外一个像素都不许动。区域的并集由观察器自己从网格重算，不读执行器写的蒙版。
+    rule: "region_outside_mask_changed == 0"
+    severity: blocking
+    maturity: accepted
+    source: "决定记录/D-117"
+    kind: spec
+    asserted_by: compile:legacy
+    verification: [{kind: harness-regression, ref: test/recolor-region.test.ts}]
+  - id: recolor_region_disjoint
+    observe: material.recolor
+    "on": materials
+    scope: edit
+    # 两个区域都覆盖的像素没有唯一归属，两边都不许上色——给它上任何一种颜色都会把一只眼染到另一只。
+    # 局部性查不出这一条：那个像素在两个区域内部。所以观察器分开数「所有区域之外」与「在某区域足迹内、
+    # 却不属于任何区域」两种改动，后者必须是 0。
+    rule: "region_cross_painted_pixels == 0"
+    severity: blocking
+    maturity: accepted
+    source: "决定记录/D-117"
+    kind: spec
+    asserted_by: compile:legacy
+    verification: [{kind: harness-regression, ref: test/recolor-region.test.ts}]
+  - id: recolor_region_ambiguity_reported
+    observe: material.recolor
+    "on": materials
+    scope: edit
+    # 两个区域共有的像素数必须被报出来，哪怕它是 0：这个数就是「左右两边在这张贴图上能不能分开」的读数，
+    # 报不出来时后面的人无法判断一次异色瞳是靠区域分色做成的，还是靠猜的。缺这个指标时规则拿到的是
+    # no_data，引擎不当通过。
+    rule: "region_ambiguous_pixels >= 0"
+    severity: blocking
+    maturity: accepted
+    source: "决定记录/D-117"
+    kind: spec
+    asserted_by: compile:legacy
+    verification: [{kind: harness-regression, ref: test/recolor-region.test.ts}]
+  - id: recolor_region_alpha_preserved
+    observe: material.recolor
+    "on": materials
+    scope: edit
+    rule: "region_alpha_moved == 0"
+    severity: blocking
+    maturity: accepted
+    source: "决定记录/D-117"
+    kind: spec
+    asserted_by: compile:legacy
+    verification: [{kind: harness-regression, ref: test/recolor-region.test.ts}]
+  - id: recolor_region_semantics
+    observe: material.recolor
+    "on": materials
+    scope: edit
+    # 区域使用二值 UV 足迹；flat 直接写目标色，shade 用双精度算出「目标色 ×（本像素最亮通道 ÷ 目标色最亮通道）」
+    # 后按 floor(x + 0.5) 逐通道取整。按层路线的软遮罩混合仍使用 NumPy .round()，不能混用取整规则。
+    # 与按层同一套语义判据，但**逐像素算出该语义应当产生的颜色**再比，不数通道值：flat 是目标色，
+    # shade 是「目标色 ×（本像素最亮通道 ÷ 目标色最亮通道）」。数「有几种通道值」既放过没改过色的渐变，
+    # 也误拒一个正确的纯色区域（R6 第 6 项）。
+    rule: "region_semantics_violations == 0"
+    severity: blocking
+    maturity: accepted
+    source: "决定记录/D-117/D-75"
+    kind: spec
+    asserted_by: compile:legacy
+    verification: [{kind: harness-regression, ref: test/recolor-region.test.ts}]
+  - id: recolor_region_bound
+    observe: material.recolor
+    "on": materials
+    scope: edit
+    # 读材质资产里的贴图属性，不是读台账：产物必须真的被绑到槽位上。优先使用
+    # MeasureMaterialTargets → MaterialTargetReadback 对最终变体的实际 Renderer／槽／材质／贴图集合，
+    # 并核对方案与依赖文件哈希；槽位按完整身份核对。只比槽号与材质，会让「同一槽号、同一材质、
+    # 另一个渲染器」的覆盖项读成声明的那块表面（R6b 第 2 项）。没有独立回读的旧记录只能输出 YAML 诊断，不能放行。
+    rule: "region_bindings_missing == 0"
+    severity: blocking
+    maturity: accepted
+    source: "决定记录/D-117"
+    kind: spec
+    asserted_by: compile:legacy
+    verification: [{kind: harness-regression, ref: test/recolor-region.test.ts}]
+  - id: recolor_region_record_matches
+    observe: material.recolor
+    "on": materials
+    scope: edit
+    # 执行记录不能自己定义要核对的东西。需求集合、渲染器、子网格、骨骼、颜色、语义全部以批准方案为准，
+    # 逐操作比对；重复、遗漏与额外的记录都算不符。少了这一条，把记录和产物一起改成另一个区域仍然全过。
+    rule: "region_record_mismatches == 0"
+    severity: blocking
+    maturity: accepted
+    source: "决定记录/D-117"
+    kind: spec
+    asserted_by: compile:legacy
+    verification: [{kind: harness-regression, ref: test/recolor-region.test.ts}]
+  - id: recolor_region_transparent_untouched
+    observe: material.recolor
+    "on": materials
+    scope: edit
+    # 全透明像素没有颜色可改：那里没有表面。改了它，产物就与原件在什么都没画的地方不同，读数也不再是
+    # 「区域变了色」。区域全是透明像素时这条与语义判据一起阻断，而不是只留一条 note。
+    rule: "region_transparent_rgb_changed == 0"
+    severity: blocking
+    maturity: accepted
+    source: "决定记录/D-117"
+    kind: spec
+    asserted_by: compile:legacy
+    verification: [{kind: harness-regression, ref: test/recolor-region.test.ts}]
+  - id: recolor_region_write_isolated
+    observe: material.recolor
+    "on": materials
+    scope: edit
+    # 归属是逐块表面算出来的：两组区域各写同一张源贴图时，两组区域的并集没有任何一方证明过。先阻断。
+    rule: "region_write_conflicts == 0"
+    severity: blocking
+    maturity: accepted
+    source: "决定记录/D-117"
+    kind: spec
+    asserted_by: compile:legacy
+    verification: [{kind: harness-regression, ref: test/recolor-region.test.ts}]
+  - id: recolor_camera_specs_identical
+    observe: material.recolor
+    "on": materials
+    scope: edit
+    rule: "distinct_camera_specs == 1"
+    severity: blocking
+    maturity: accepted
+    source: "开发工具/SOP/40_贴图配色.md:98@988b9847"
+    source_id: d41bcd2c3658
+    verification:
+      - kind: sop-editorial
+        ref: d41bcd2c3658
+    kind: spec
+    asserted_by: compile:legacy
+  - id: recolor_ledger_matches
+    observe: material.recolor
+    "on": materials
+    scope: edit
+    # 比去重后的槽数：一个槽可以被两个写者写入（相对目标与按层目标共用一个副本），此时台账行数
+    # 大于被改槽数是正确产物，拿行数去比会让凡是含这种配对的方案都不可满足（L1 §74）。
+    rule: "recolor_ledger_slots == replaced_material_slots"
+    severity: blocking
+    maturity: accepted
+    source: "开发工具/SOP/40_贴图配色.md:99@988b9847"
+    source_id: 095d85509bb9
+    verification:
+      - kind: sop-editorial
+        ref: 095d85509bb9
+    kind: spec
+    asserted_by: compile:legacy
+  - id: recolor_empty_slots_zero
+    observe: avatar.observe
+    "on": materials
+    scope: edit
+    rule: "empty_material_slots == 0"
+    severity: blocking
+    maturity: accepted
+    source: "开发工具/SOP/40_贴图配色.md:100@988b9847"
+    source_id: 1cc0b7928ef3
+    verification:
+      - kind: sop-editorial
+        ref: 1cc0b7928ef3
+    kind: spec
+    asserted_by: compile:legacy
+  - id: recolor_skeleton_height_stable
+    observe: avatar.observe
+    "on": materials
+    scope: edit
+    rule: "abs(head_foot_y_delta_mm) <= t.skeleton_height_max_delta_mm"
+    severity: blocking
+    maturity: accepted
+    source: "开发工具/SOP/40_贴图配色.md:100@988b9847"
+    source_id: 1cc0b7928ef3
+    verification:
+      - kind: sop-editorial
+        ref: 1cc0b7928ef3
+    kind: spec
+    asserted_by: compile:legacy
+  - id: recolor_decision_recorded
+    observe: material.recolor
+    "on": materials
+    scope: edit
+    rule: "color_decision_missing_sections == 0"
+    severity: blocking
+    maturity: accepted
+    source: "开发工具/SOP/40_贴图配色.md:144@988b9847"
+    source_id: eb63114c256f
+    verification:
+      - kind: sop-editorial
+        ref: eb63114c256f
+    kind: spec
+    asserted_by: compile:legacy
+  - id: recolor_materials_owned
+    observe: material.recolor
+    "on": materials
+    scope: edit
+    rule: "recolor_materials_outside_own_dir == 0"
+    severity: blocking
+    maturity: accepted
+    source: "开发工具/SOP/40_贴图配色.md:145@988b9847"
+    source_id: a90edf598b29
+    verification:
+      - kind: sop-editorial
+        ref: a90edf598b29
+    kind: spec
+    asserted_by: compile:legacy
+  - id: recolor_menu_curves_repointed
+    observe: menu.dump
+    "on": materials
+    scope: edit
+    rule: "stale_material_curves == 0"
+    severity: blocking
+    maturity: accepted
+    source: "开发工具/SOP/40_贴图配色.md:146@988b9847"
+    source_id: 98cde12bb8a3
+    verification:
+      - kind: sop-editorial
+        ref: 98cde12bb8a3
+    kind: spec
+    asserted_by: compile:legacy
+
+  # ---------- menu：菜单与动画层（60），改色后必须重跑生成 ----------
+  - id: menu_route_decided
+    observe: menu.configure
+    "on": menu
+    scope: edit
+    rule: "menu_route_valid == true"
+    severity: blocking
+    maturity: accepted
+    source: "开发工具/SOP/60_菜单与动画层.md:71@988b9847"
+    source_id: 87ef82e62dd6
+    verification:
+      - kind: sop-editorial
+        ref: 87ef82e62dd6
+    kind: spec
+    asserted_by: compile:legacy
+  - id: menu_controls_per_menu
+    observe: menu.dump
+    "on": menu
+    scope: edit
+    rule: "max_controls_per_menu <= t.menu_controls_max"
+    severity: blocking
+    maturity: accepted
+    source: "开发工具/SOP/60_菜单与动画层.md:90@988b9847"
+    source_id: 2b3e458b64f6
+    verification:
+      - kind: sop-editorial
+        ref: 2b3e458b64f6
+    kind: spec
+    asserted_by: compile:legacy
+  - id: menu_param_budget
+    observe: menu.dump
+    "on": menu
+    scope: edit
+    rule: "param_bits <= t.param_bits_max"
+    severity: blocking
+    maturity: accepted
+    source: "开发工具/SOP/60_菜单与动画层.md:91@988b9847"
+    source_id: 47f41cc8d00e
+    verification:
+      - kind: sop-editorial
+        ref: 47f41cc8d00e
+    kind: spec
+    asserted_by: compile:legacy
+  - id: menu_priority_conflicts_zero
+    observe: menu.configure
+    "on": menu
+    scope: edit
+    rule: "mutual_priority_pairs == 0"
+    severity: blocking
+    maturity: accepted
+    source: "开发工具/SOP/60_菜单与动画层.md:115@988b9847"
+    source_id: 7d4ebadbb47d
+    verification:
+      - kind: sop-editorial
+        ref: 7d4ebadbb47d
+    kind: spec
+    asserted_by: compile:legacy
+  - id: menu_priority_chain_complete
+    observe: menu.configure
+    "on": menu
+    scope: edit
+    rule: "empty_priority_chain_entries == 0"
+    severity: blocking
+    maturity: accepted
+    source: "开发工具/SOP/60_菜单与动画层.md:116@988b9847"
+    source_id: 1614cc174de4
+    verification:
+      - kind: sop-editorial
+        ref: 1614cc174de4
+    kind: spec
+    asserted_by: compile:legacy
+  - id: menu_default_single_source
+    observe: menu.dump
+    "on": menu
+    scope: edit
+    rule: "max_default_active_sources_per_position <= 1"
+    when: '!plan.avatar_config'
+    severity: blocking
+    maturity: accepted
+    source: "开发工具/SOP/60_菜单与动画层.md:117@988b9847"
+    source_id: 0991079a1d28
+    verification:
+      - kind: sop-editorial
+        ref: 0991079a1d28
+    kind: spec
+    asserted_by: compile:legacy
+  - id: menu_readback_curves
+    observe: menu.dump
+    "on": menu
+    scope: edit
+    rule: "clip_curve_binding_mismatches == 0"
+    severity: blocking
+    maturity: accepted
+    source: "开发工具/SOP/60_菜单与动画层.md:138@988b9847"
+    source_id: ddf167d93bca
+    verification:
+      - kind: sop-editorial
+        ref: ddf167d93bca
+    kind: spec
+    asserted_by: compile:legacy
+  - id: menu_asset_nonempty
+    observe: menu.dump
+    "on": menu
+    scope: edit
+    rule: "min_menu_asset_bytes >= t.menu_asset_min_bytes"
+    severity: advisory
+    maturity: candidate
+    source: "开发工具/SOP/60_菜单与动画层.md:139@988b9847"
+  - id: menu_selector_owned_paths
+    observe: menu.dump
+    "on": menu
+    scope: edit
+    rule: "selector_owned_binding_missing == 0"
+    when: '!plan.avatar_config'
+    severity: blocking
+    maturity: accepted
+    source: "开发工具/SOP/60_菜单与动画层/生成器实现坑/层与回读判据.md:124@be0ffadb43ec"
+    kind: spec
+    asserted_by: compile:harness-core
+    source_id: 6ac5117b10bd
+    verification:
+      - kind: sop-editorial
+        ref: 6ac5117b10bd
+  - id: menu_parameter_driver_single_owner
+    observe: menu.dump
+    "on": menu
+    scope: edit
+    rule: "parameter_driver_multiowner_params == 0"
+    severity: blocking
+    maturity: accepted
+    source: "开发工具/SOP/60_菜单与动画层/属性归属与写法.md:21@be0ffadb43ec"
+    kind: spec
+    asserted_by: compile:harness-core
+    source_id: 6ac5117b10bd
+    verification:
+      - kind: sop-editorial
+        ref: 6ac5117b10bd
+  - id: menu_motion_time_reachable
+    observe: menu.dump
+    "on": menu
+    scope: edit
+    rule: "motion_time_looping_clips == 0 and motion_time_zero_length_clips == 0 and motion_time_duplicate_control_samples == 0"
+    when: '!plan.avatar_config'
+    severity: blocking
+    maturity: accepted
+    source: "开发工具/SOP/60_菜单与动画层/生成器实现坑/层与回读判据.md:170@be0ffadb43ec"
+    kind: spec
+    asserted_by: compile:harness-core
+    source_id: b8005daef17c
+    verification:
+      - kind: sop-editorial
+        ref: b8005daef17c
+  - id: menu_skeleton_height_stable
+    observe: avatar.observe
+    "on": menu
+    scope: edit
+    rule: "abs(eye_l_y_delta) <= t.eye_height_delta_max"
+    severity: blocking
+    maturity: accepted
+    source: "开发工具/SOP/60_菜单与动画层.md:140@988b9847"
+    source_id: 199cbf28fd5c
+    verification:
+      - kind: sop-editorial
+        ref: 199cbf28fd5c
+    kind: spec
+    asserted_by: compile:legacy
+
+  # ---------- optimize：优化设置（80），构建时生效的非破坏式改动 ----------
+  - id: perf_clones_cleaned
+    observe: performance.check
+    "on": optimization
+    scope: edit
+    rule: "leftover_baked_clones == 0"
+    severity: blocking
+    maturity: accepted
+    source: "开发工具/SOP/80_性能优化.md:48@988b9847"
+    source_id: 0af752a9c6e4
+    verification:
+      - kind: sop-editorial
+        ref: 0af752a9c6e4
+    kind: spec
+    asserted_by: compile:legacy
+  - id: perf_dead_objects_valid
+    observe: performance.check
+    "on": optimization
+    scope: edit
+    rule: "invalid_dead_object_entries == 0"
+    severity: blocking
+    maturity: accepted
+    source: "开发工具/SOP/80_性能优化.md:70@988b9847"
+    source_id: 1755038a3526
+    verification:
+      - kind: sop-editorial
+        ref: 1755038a3526
+    kind: spec
+    asserted_by: compile:legacy
+  - id: perf_merge_physbones_valid
+    observe: performance.check
+    "on": optimization
+    scope: edit
+    rule: "invalid_merge_physbones == 0"
+    severity: blocking
+    maturity: accepted
+    source: "开发工具/SOP/80_性能优化.md:214@5508323d"
+    source_id: 232379b013f7
+    verification:
+      - kind: sop-editorial
+        ref: 232379b013f7
+    kind: spec
+    asserted_by: compile:harness-core
+  - id: perf_physbone_core_safe
+    observe: performance.check
+    "on": optimization
+    scope: edit
+    rule: "physbone_core_humanoid_coverage == 0"
+    severity: blocking
+    maturity: accepted
+    source: "开发工具/SOP/80_性能优化/PhysBone压到256.md:33@c4f3512c"
+    source_id: e642b90c9c9b
+    verification:
+      - kind: sop-editorial
+        ref: e642b90c9c9b
+    kind: spec
+    asserted_by: compile:harness-core
+  - id: perf_empty_slots_zero
+    observe: avatar.observe
+    "on": optimization
+    scope: edit
+    rule: "empty_material_slots == 0"
+    severity: blocking
+    maturity: accepted
+    source: "开发工具/SOP/80_性能优化.md:71@988b9847"
+    source_id: 04af5ad5e008
+    verification:
+      - kind: sop-editorial
+        ref: 04af5ad5e008
+    kind: spec
+    asserted_by: compile:legacy
+  - id: perf_skeleton_height_stable
+    observe: avatar.observe
+    "on": optimization
+    scope: edit
+    rule: "abs(head_foot_y_delta_mm) <= t.skeleton_height_max_delta_mm and animator_is_human == true"
+    severity: blocking
+    maturity: accepted
+    source: "开发工具/SOP/80_性能优化.md:72@988b9847"
+    source_id: 8c493a58364e
+    verification:
+      - kind: sop-editorial
+        ref: 8c493a58364e
+    kind: spec
+    asserted_by: compile:legacy
+
+  # ---------- build_pre：未优化构建（70 前置），与 build 同观测但 on=build_pre ----------
+  - id: build_param_budget_pre
+    observe: menu.dump
+    "on": build_pre
+    scope: build
+    rule: "param_bits <= t.param_bits_max"
+    severity: blocking
+    maturity: accepted
+    source: "开发工具/SOP/60_菜单与动画层.md:161@f6721fea"
+    source_id: 595a7a16389a
+    verification:
+      - kind: sop-editorial
+        ref: 595a7a16389a
+    kind: spec
+    asserted_by: compile:legacy
+  - id: build_orphan_params_zero_pre
+    observe: menu.dump
+    "on": build_pre
+    scope: build
+    rule: "params_without_menu_or_layer == 0"
+    severity: blocking
+    maturity: accepted
+    source: "开发工具/SOP/60_菜单与动画层.md:161@f6721fea"
+    source_id: 595a7a16389a
+    verification:
+      - kind: sop-editorial
+        ref: 595a7a16389a
+    kind: spec
+    asserted_by: compile:legacy
+  - id: build_deadlock_zero_pre
+    observe: avatar.verify
+    "on": build_pre
+    scope: build
+    rule: "deadlock_combinations == 0"
+    severity: blocking
+    maturity: accepted
+    source: "开发工具/SOP/60_菜单与动画层.md:162@f6721fea"
+    source_id: a1dabc659cc4
+    verification:
+      - kind: sop-editorial
+        ref: a1dabc659cc4
+    kind: spec
+    asserted_by: compile:legacy
+  - id: build_layer_control_resolved_pre
+    observe: menu.dump
+    "on": build_pre
+    scope: build
+    rule: "unresolved_layer_controls == 0"
+    severity: blocking
+    maturity: accepted
+    source: "开发工具/SOP/60_菜单与动画层.md:163@f6721fea"
+    source_id: b30de46f459f
+    verification:
+      - kind: sop-editorial
+        ref: b30de46f459f
+    kind: spec
+    asserted_by: compile:legacy
+  - id: build_descriptor_single_pre
+    observe: avatar.observe
+    "on": build_pre
+    scope: build
+    rule: "avatar_descriptor_count == 1"
+    severity: blocking
+    maturity: accepted
+    source: "开发工具/SOP/60_菜单与动画层.md:164@f6721fea"
+    source_id: 870e2e3e9ce0
+    verification:
+      - kind: sop-editorial
+        ref: 870e2e3e9ce0
+    kind: spec
+    asserted_by: compile:legacy
+  - id: build_selector_owned_paths_pre
+    observe: menu.dump
+    "on": build_pre
+    scope: build
+    rule: "selector_owned_binding_missing == 0"
+    when: '!plan.avatar_config'
+    severity: blocking
+    maturity: accepted
+    source: "开发工具/SOP/60_菜单与动画层/生成器实现坑/层与回读判据.md:124@be0ffadb43ec"
+    kind: spec
+    asserted_by: compile:harness-core
+    source_id: 6ac5117b10bd
+    verification:
+      - kind: sop-editorial
+        ref: 6ac5117b10bd
+  - id: build_parameter_driver_single_owner_pre
+    observe: menu.dump
+    "on": build_pre
+    scope: build
+    rule: "parameter_driver_multiowner_params == 0"
+    severity: blocking
+    maturity: accepted
+    source: "开发工具/SOP/60_菜单与动画层/属性归属与写法.md:21@be0ffadb43ec"
+    kind: spec
+    asserted_by: compile:harness-core
+    source_id: 6ac5117b10bd
+    verification:
+      - kind: sop-editorial
+        ref: 6ac5117b10bd
+  - id: build_motion_time_reachable_pre
+    observe: menu.dump
+    "on": build_pre
+    scope: build
+    rule: "motion_time_looping_clips == 0 and motion_time_zero_length_clips == 0 and motion_time_duplicate_control_samples == 0"
+    severity: blocking
+    maturity: accepted
+    source: "开发工具/SOP/60_菜单与动画层/生成器实现坑/层与回读判据.md:170@be0ffadb43ec"
+    kind: spec
+    asserted_by: compile:harness-core
+    source_id: b8005daef17c
+    verification:
+      - kind: sop-editorial
+        ref: b8005daef17c
+  - id: build_eye_height_stable_pre
+    observe: avatar.observe
+    "on": build_pre
+    scope: build
+    rule: "abs(eye_l_y_delta) <= t.eye_height_delta_max"
+    severity: blocking
+    maturity: accepted
+    source: "开发工具/SOP/60_菜单与动画层.md:164@f6721fea"
+    source_id: 870e2e3e9ce0
+    verification:
+      - kind: sop-editorial
+        ref: 870e2e3e9ce0
+    kind: spec
+    asserted_by: compile:legacy
+
+  # ---------- build：构建（70 前置） ----------
+  - id: build_param_budget
+    observe: menu.dump
+    "on": build
+    scope: build
+    rule: "param_bits <= t.param_bits_max"
+    severity: blocking
+    maturity: accepted
+    source: "开发工具/SOP/60_菜单与动画层.md:161@f6721fea"
+    source_id: 595a7a16389a
+    verification:
+      - kind: sop-editorial
+        ref: 595a7a16389a
+    kind: spec
+    asserted_by: compile:legacy
+  - id: build_orphan_params_zero
+    observe: menu.dump
+    "on": build
+    scope: build
+    rule: "params_without_menu_or_layer == 0"
+    severity: blocking
+    maturity: accepted
+    source: "开发工具/SOP/60_菜单与动画层.md:161@f6721fea"
+    source_id: 595a7a16389a
+    verification:
+      - kind: sop-editorial
+        ref: 595a7a16389a
+    kind: spec
+    asserted_by: compile:legacy
+  - id: build_deadlock_zero
+    observe: avatar.verify
+    "on": build
+    scope: build
+    rule: "deadlock_combinations == 0"
+    severity: blocking
+    maturity: accepted
+    source: "开发工具/SOP/60_菜单与动画层.md:162@f6721fea"
+    source_id: a1dabc659cc4
+    verification:
+      - kind: sop-editorial
+        ref: a1dabc659cc4
+    kind: spec
+    asserted_by: compile:legacy
+  - id: build_layer_control_resolved
+    observe: menu.dump
+    "on": build
+    scope: build
+    rule: "unresolved_layer_controls == 0"
+    severity: blocking
+    maturity: accepted
+    source: "开发工具/SOP/60_菜单与动画层.md:163@f6721fea"
+    source_id: b30de46f459f
+    verification:
+      - kind: sop-editorial
+        ref: b30de46f459f
+    kind: spec
+    asserted_by: compile:legacy
+  - id: build_descriptor_single
+    observe: avatar.observe
+    "on": build
+    scope: build
+    rule: "avatar_descriptor_count == 1"
+    severity: blocking
+    maturity: accepted
+    source: "开发工具/SOP/60_菜单与动画层.md:164@f6721fea"
+    source_id: 870e2e3e9ce0
+    verification:
+      - kind: sop-editorial
+        ref: 870e2e3e9ce0
+    kind: spec
+    asserted_by: compile:legacy
+  - id: build_selector_owned_paths
+    observe: menu.dump
+    "on": build
+    scope: build
+    rule: "selector_owned_binding_missing == 0"
+    when: '!plan.avatar_config'
+    severity: blocking
+    maturity: accepted
+    source: "开发工具/SOP/60_菜单与动画层/生成器实现坑/层与回读判据.md:124@be0ffadb43ec"
+    kind: spec
+    asserted_by: compile:harness-core
+    source_id: 6ac5117b10bd
+    verification:
+      - kind: sop-editorial
+        ref: 6ac5117b10bd
+  - id: build_parameter_driver_single_owner
+    observe: menu.dump
+    "on": build
+    scope: build
+    rule: "parameter_driver_multiowner_params == 0"
+    severity: blocking
+    maturity: accepted
+    source: "开发工具/SOP/60_菜单与动画层/属性归属与写法.md:21@be0ffadb43ec"
+    kind: spec
+    asserted_by: compile:harness-core
+    source_id: 6ac5117b10bd
+    verification:
+      - kind: sop-editorial
+        ref: 6ac5117b10bd
+  - id: build_motion_time_reachable
+    observe: menu.dump
+    "on": build
+    scope: build
+    rule: "motion_time_looping_clips == 0 and motion_time_zero_length_clips == 0 and motion_time_duplicate_control_samples == 0"
+    severity: blocking
+    maturity: accepted
+    source: "开发工具/SOP/60_菜单与动画层/生成器实现坑/层与回读判据.md:170@be0ffadb43ec"
+    kind: spec
+    asserted_by: compile:harness-core
+    source_id: b8005daef17c
+    verification:
+      - kind: sop-editorial
+        ref: b8005daef17c
+  - id: build_eye_height_stable
+    observe: avatar.observe
+    "on": build
+    scope: build
+    rule: "abs(eye_l_y_delta) <= t.eye_height_delta_max"
+    severity: blocking
+    maturity: accepted
+    source: "开发工具/SOP/60_菜单与动画层.md:164@f6721fea"
+    source_id: 870e2e3e9ce0
+    verification:
+      - kind: sop-editorial
+        ref: 870e2e3e9ce0
+    kind: spec
+    asserted_by: compile:legacy
+
+  # ---------- regression_pre：第一轮回归（65/70），针对未优化构建 build_pre ----------
+  - id: regression_t1_states_pre
+    observe: avatar.observe
+    "on": build_pre
+    scope: play
+    rule: "t1_missing_required_states == 0"
+    severity: blocking
+    maturity: accepted
+    source: "开发工具/SOP/70_回归测试.md:23@f6721fea"
+    source_id: 8af28800ad88
+    verification:
+      - kind: sop-editorial
+        ref: 8af28800ad88
+    kind: spec
+    asserted_by: compile:legacy
+  - id: regression_real_sequence_pre
+    observe: avatar.observe
+    "on": build_pre
+    scope: play
+    rule: "missing_real_sequences == 0"
+    severity: blocking
+    maturity: accepted
+    source: "开发工具/SOP/70_回归测试.md:27@f6721fea"
+    source_id: 566fb914443d
+    verification:
+      - kind: sop-editorial
+        ref: 566fb914443d
+    kind: spec
+    asserted_by: compile:legacy
+  - id: regression_key_follow_pre
+    when: "!plan.avatar_config"
+    observe: avatar.verify
+    "on": build_pre
+    scope: play
+    rule: "key_follow_value_delta_max <= t.key_follow_mismatch or key_follow_geometry_p95_mm < t.key_follow_p95_mm"
+    severity: blocking
+    maturity: accepted
+    source: "开发工具/SOP/70_回归测试.md:31@f6721fea"
+    source_id: 0d6f063330f4
+    verification:
+      - kind: sop-editorial
+        ref: 0d6f063330f4
+    kind: spec
+    asserted_by: compile:legacy
+  - id: regression_outfit_photo_pre
+    observe: avatar.observe
+    "on": build_pre
+    scope: edit
+    rule: "outfit_photo_named_minus_worn == 0"
+    severity: blocking
+    maturity: accepted
+    source: "开发工具/SOP/70_回归测试.md:53@988b9847"
+    source_id: 9b0c672a5981
+    verification:
+      - kind: sop-editorial
+        ref: 9b0c672a5981
+    kind: spec
+    asserted_by: compile:legacy
+  - id: regression_fit_probe_pre
+    observe: avatar.fit
+    "on": build_pre
+    scope: play
+    rule: "fit_probe_completed == true and fit_states_completed == fit_states_expected and fit_states_expected > 0"
+    severity: blocking
+    maturity: accepted
+    source: "开发工具/通用工具/审查/README_T2.md:82@988b9847"
+    source_id: 12ee1a56cc60
+    verification: [{kind: sop-editorial, ref: 12ee1a56cc60}]
+    kind: spec
+    asserted_by: compile:legacy
+  - id: regression_body_piercing_pre
+    observe: avatar.fit
+    "on": build_pre
+    scope: play
+    rule: "fit_pierced_vertices == 0"
+    severity: blocking
+    maturity: accepted
+    source: "开发工具/通用工具/审查/README_T2.md:82@988b9847"
+    source_id: 12ee1a56cc60
+    verification: [{kind: sop-editorial, ref: 12ee1a56cc60}]
+    kind: spec
+    asserted_by: compile:legacy
+  - id: regression_footwear_coverage_pre
+    label: "鞋履覆盖"
+    observe: avatar.fit
+    "on": build_pre
+    scope: play
+    rule: "fit_footwear_records >= 2 and fit_sole_signed_samples > 0"
+    severity: warning
+    maturity: accepted
+    source: "开发工具/通用工具/审查/README_T2.md:82@988b9847"
+    source_id: 12ee1a56cc60
+    verification: [{kind: sop-editorial, ref: 12ee1a56cc60}]
+    kind: spec
+    asserted_by: compile:legacy
+  - id: regression_sole_piercing_pre
+    observe: avatar.fit
+    "on": build_pre
+    scope: play
+    rule: "fit_sole_below_vertices == 0"
+    severity: blocking
+    maturity: accepted
+    source: "开发工具/通用工具/审查/README_T2.md:82@988b9847"
+    source_id: 12ee1a56cc60
+    verification: [{kind: sop-editorial, ref: 12ee1a56cc60}]
+    kind: spec
+    asserted_by: compile:legacy
+  - id: regression_toe_piercing_pre
+    observe: avatar.fit
+    "on": build_pre
+    scope: play
+    rule: "fit_toe_pierced_vertices == 0"
+    severity: blocking
+    maturity: accepted
+    source: "开发工具/通用工具/审查/README_T2.md:82@988b9847"
+    source_id: 12ee1a56cc60
+    verification: [{kind: sop-editorial, ref: 12ee1a56cc60}]
+    kind: spec
+    asserted_by: compile:legacy
+  - id: regression_coverage_recorded_pre
+    label: "覆盖记录"
+    observe: avatar.verify
+    "on": build_pre
+    scope: play
+    rule: "coverage_record_present == true"
+    severity: warning
+    maturity: accepted
+    source: "开发工具/SOP/70_回归测试.md:69@f6721fea"
+    source_id: dcce79581e02
+    verification:
+      - kind: sop-editorial
+        ref: dcce79581e02
+    kind: spec
+    asserted_by: compile:legacy
+  - id: perception_declaration_reconciled_pre
+    observe: avatar.verify
+    "on": build_pre
+    scope: play
+    rule: "perception_declaration_unresolved == 0"
+    severity: advisory
+    maturity: candidate
+    source: "开发工具/SOP/65_感知机制.md:7@f6721fea"
+
+  # ---------- regression：第二轮回归（65/70），针对优化后的最终构建 build ----------
+  - id: regression_t1_states
+    observe: avatar.observe
+    "on": build
+    scope: play
+    rule: "t1_missing_required_states == 0"
+    severity: blocking
+    maturity: accepted
+    source: "开发工具/SOP/70_回归测试.md:23@f6721fea"
+    source_id: 8af28800ad88
+    verification:
+      - kind: sop-editorial
+        ref: 8af28800ad88
+    kind: spec
+    asserted_by: compile:legacy
+  - id: regression_real_sequence
+    observe: avatar.observe
+    "on": build
+    scope: play
+    rule: "missing_real_sequences == 0"
+    severity: blocking
+    maturity: accepted
+    source: "开发工具/SOP/70_回归测试.md:27@f6721fea"
+    source_id: 566fb914443d
+    verification:
+      - kind: sop-editorial
+        ref: 566fb914443d
+    kind: spec
+    asserted_by: compile:legacy
+  - id: regression_key_follow
+    when: "!plan.avatar_config"
+    observe: avatar.verify
+    "on": build
+    scope: play
+    rule: "key_follow_value_delta_max <= t.key_follow_mismatch or key_follow_geometry_p95_mm < t.key_follow_p95_mm"
+    severity: blocking
+    maturity: accepted
+    source: "开发工具/SOP/70_回归测试.md:31@f6721fea"
+    source_id: 0d6f063330f4
+    verification:
+      - kind: sop-editorial
+        ref: 0d6f063330f4
+    kind: spec
+    asserted_by: compile:legacy
+  - id: regression_outfit_photo
+    observe: avatar.observe
+    "on": build
+    scope: edit
+    rule: "outfit_photo_named_minus_worn == 0"
+    severity: blocking
+    maturity: accepted
+    source: "开发工具/SOP/70_回归测试.md:53@988b9847"
+    source_id: 9b0c672a5981
+    verification:
+      - kind: sop-editorial
+        ref: 9b0c672a5981
+    kind: spec
+    asserted_by: compile:legacy
+  - id: regression_fit_probe
+    observe: avatar.fit
+    "on": build
+    scope: play
+    rule: "fit_probe_completed == true and fit_states_completed == fit_states_expected and fit_states_expected > 0"
+    severity: blocking
+    maturity: accepted
+    source: "开发工具/通用工具/审查/README_T2.md:82@988b9847"
+    source_id: 12ee1a56cc60
+    verification: [{kind: sop-editorial, ref: 12ee1a56cc60}]
+    kind: spec
+    asserted_by: compile:legacy
+  - id: regression_body_piercing
+    observe: avatar.fit
+    "on": build
+    scope: play
+    rule: "fit_pierced_vertices == 0"
+    severity: blocking
+    maturity: accepted
+    source: "开发工具/通用工具/审查/README_T2.md:82@988b9847"
+    source_id: 12ee1a56cc60
+    verification: [{kind: sop-editorial, ref: 12ee1a56cc60}]
+    kind: spec
+    asserted_by: compile:legacy
+  - id: regression_footwear_coverage
+    label: "鞋履覆盖"
+    observe: avatar.fit
+    "on": build
+    scope: play
+    rule: "fit_footwear_records >= 2 and fit_sole_signed_samples > 0"
+    severity: warning
+    maturity: accepted
+    source: "开发工具/通用工具/审查/README_T2.md:82@988b9847"
+    source_id: 12ee1a56cc60
+    verification: [{kind: sop-editorial, ref: 12ee1a56cc60}]
+    kind: spec
+    asserted_by: compile:legacy
+  - id: regression_sole_piercing
+    observe: avatar.fit
+    "on": build
+    scope: play
+    rule: "fit_sole_below_vertices == 0"
+    severity: blocking
+    maturity: accepted
+    source: "开发工具/通用工具/审查/README_T2.md:82@988b9847"
+    source_id: 12ee1a56cc60
+    verification: [{kind: sop-editorial, ref: 12ee1a56cc60}]
+    kind: spec
+    asserted_by: compile:legacy
+  - id: regression_toe_piercing
+    observe: avatar.fit
+    "on": build
+    scope: play
+    rule: "fit_toe_pierced_vertices == 0"
+    severity: blocking
+    maturity: accepted
+    source: "开发工具/通用工具/审查/README_T2.md:82@988b9847"
+    source_id: 12ee1a56cc60
+    verification: [{kind: sop-editorial, ref: 12ee1a56cc60}]
+    kind: spec
+    asserted_by: compile:legacy
+  - id: regression_coverage_recorded
+    label: "覆盖记录"
+    observe: avatar.verify
+    "on": build
+    scope: play
+    rule: "coverage_record_present == true"
+    severity: warning
+    maturity: accepted
+    source: "开发工具/SOP/70_回归测试.md:69@f6721fea"
+    source_id: dcce79581e02
+    verification:
+      - kind: sop-editorial
+        ref: dcce79581e02
+    kind: spec
+    asserted_by: compile:legacy
+  - id: perception_declaration_reconciled
+    observe: avatar.verify
+    "on": build
+    scope: play
+    rule: "perception_declaration_unresolved == 0"
+    severity: advisory
+    maturity: candidate
+    source: "开发工具/SOP/65_感知机制.md:7@f6721fea"
+
+  # ---------- performance：性能验收（80），build_pre 报告＝基线、build 报告＝优化后，前后对比 ----------
+  - id: perf_measured_on_clone
+    observe: performance.check
+    "on": build
+    scope: build
+    rule: "measured_target_is_clone == true"
+    severity: blocking
+    maturity: accepted
+    source: "开发工具/SOP/80_性能优化.md:47@f6721fea"
+    source_id: 217b87f31083
+    verification:
+      - kind: sop-editorial
+        ref: 217b87f31083
+    kind: spec
+    asserted_by: compile:legacy
+  - id: perf_texture_format
+    observe: performance.check
+    "on": build
+    scope: build
+    rule: "uncompressed_texture_count == 0"
+    severity: blocking
+    maturity: accepted
+    source: "开发工具/SOP/80_性能优化.md:97@f6721fea"
+    source_id: 648a357c6334
+    verification:
+      - kind: sop-editorial
+        ref: 648a357c6334
+    kind: spec
+    asserted_by: compile:legacy
+  - id: perf_mipstreaming
+    observe: performance.check
+    "on": build
+    scope: build
+    rule: "textures_without_mipstreaming == 0"
+    severity: blocking
+    maturity: accepted
+    source: "开发工具/SOP/80_性能优化.md:98@f6721fea"
+    source_id: c3f9b1dcc81f
+    verification:
+      - kind: sop-editorial
+        ref: c3f9b1dcc81f
+    kind: spec
+    asserted_by: compile:legacy
+  - id: perf_texture_tier_audit
+    observe: performance.check
+    "on": build
+    scope: build
+    rule: "texture_tier_audit_failures == 0"
+    severity: blocking
+    maturity: accepted
+    source: "开发工具/SOP/80_性能优化.md:99@f6721fea"
+    source_id: 158ae7e0e849
+    verification:
+      - kind: sop-editorial
+        ref: 158ae7e0e849
+    kind: spec
+    asserted_by: compile:legacy
+  - id: perf_texture_size
+    observe: performance.check
+    "on": build
+    scope: build
+    rule: "min_main_texture_max_size >= t.main_texture_min and textures_above_baseline == 0"
+    severity: blocking
+    maturity: accepted
+    source: "开发工具/SOP/80_性能优化.md:100@f6721fea"
+    source_id: 4e96e6d0c982
+    verification:
+      - kind: sop-editorial
+        ref: 4e96e6d0c982
+    kind: spec
+    asserted_by: compile:legacy
+  - id: perf_ndmf_no_errors
+    observe: avatar.build
+    "on": build
+    scope: build
+    rule: "ndmf_error_logs == 0"
+    severity: blocking
+    maturity: accepted
+    source: "开发工具/SOP/80_性能优化.md:125@f6721fea"
+    source_id: "951491624959"
+    verification:
+      - kind: sop-editorial
+        ref: "951491624959"
+    kind: spec
+    asserted_by: compile:legacy
+  - id: perf_geometry_below_baseline
+    observe: performance.check
+    "on": build
+    scope: build
+    rule: "bones <= baseline_bones and blendshapes <= baseline_blendshapes and skinned_meshes <= baseline_skinned_meshes and triangles == baseline_triangles"
+    severity: blocking
+    maturity: accepted
+    source: "开发工具/SOP/80_性能优化.md:126@f6721fea"
+    source_id: cf3324e16a41
+    verification:
+      - kind: sop-editorial
+        ref: cf3324e16a41
+    kind: spec
+    asserted_by: compile:legacy
+  - id: perf_physbone_limit
+    observe: performance.check
+    "on": build
+    scope: build
+    rule: "physbone_count <= t.physbone_max and duplicate_physbones == 0"
+    severity: blocking
+    maturity: accepted
+    source: "开发工具/SOP/80_性能优化.md:127@f6721fea"
+    source_id: 704f42190bcc
+    verification:
+      - kind: sop-editorial
+        ref: 704f42190bcc
+    kind: spec
+    asserted_by: compile:legacy
+  - id: perf_merge_physbones_valid_final
+    observe: performance.check
+    "on": build
+    scope: build
+    rule: "invalid_merge_physbones == 0"
+    severity: blocking
+    maturity: accepted
+    source: "开发工具/SOP/80_性能优化.md:214@5508323d"
+    source_id: 232379b013f7
+    verification:
+      - kind: sop-editorial
+        ref: 232379b013f7
+    kind: spec
+    asserted_by: compile:harness-core
+  - id: perf_physbone_core_safe_final
+    observe: performance.check
+    "on": build
+    scope: build
+    rule: "physbone_core_humanoid_coverage == 0"
+    severity: blocking
+    maturity: accepted
+    source: "开发工具/SOP/80_性能优化/PhysBone压到256.md:33@c4f3512c"
+    source_id: e642b90c9c9b
+    verification:
+      - kind: sop-editorial
+        ref: e642b90c9c9b
+    kind: spec
+    asserted_by: compile:harness-core
+  - id: perf_aabb_limit
+    observe: performance.check
+    "on": build
+    scope: build
+    rule: "aabb_x <= t.aabb_max_x and aabb_y <= t.aabb_max_y and aabb_z <= t.aabb_max_z"
+    severity: blocking
+    maturity: accepted
+    source: "开发工具/SOP/80_性能优化.md:127@f6721fea"
+    source_id: 704f42190bcc
+    verification:
+      - kind: sop-editorial
+        ref: 704f42190bcc
+    kind: spec
+    asserted_by: compile:legacy
+  - id: perf_texture_memory_down
+    observe: performance.check
+    "on": build
+    scope: build
+    rule: "texture_memory_after <= baseline_texture_memory"
+    severity: blocking
+    maturity: accepted
+    source: "开发工具/SOP/80_性能优化.md:203@f6721fea"
+    source_id: 4c9020654ecc
+    verification:
+      - kind: sop-editorial
+        ref: 4c9020654ecc
+    kind: spec
+    asserted_by: compile:legacy
+
+  # ---------- package：打包与冷验证（90） ----------
+  - id: package_generator_removed
+    observe: delivery.package
+    "on": build
+    scope: edit
+    rule: "generator_dir_present == false"
+    severity: blocking
+    maturity: accepted
+    source: "开发工具/SOP/90_交付打包.md:27@988b9847"
+    source_id: 4535be60a439
+    verification:
+      - kind: sop-editorial
+        ref: 4535be60a439
+    kind: spec
+    asserted_by: compile:legacy
+  - id: package_no_dev_deps
+    observe: delivery.package
+    "on": build
+    scope: edit
+    rule: "dev_dependencies_in_manifest == 0"
+    severity: blocking
+    maturity: accepted
+    source: "开发工具/SOP/90_交付打包.md:28@988b9847"
+    source_id: 8cbb2888aaec
+    verification:
+      - kind: sop-editorial
+        ref: 8cbb2888aaec
+    kind: spec
+    asserted_by: compile:legacy
+  - id: package_single_build_root
+    observe: avatar.observe
+    "on": build
+    scope: edit
+    rule: "selected_build_roots == 1"
+    severity: blocking
+    maturity: accepted
+    source: "开发工具/SOP/90_交付打包.md:29@988b9847"
+    source_id: 0e6767d9a172
+    verification:
+      - kind: sop-editorial
+        ref: 0e6767d9a172
+    kind: spec
+    asserted_by: compile:legacy
+  - id: package_usage_table_no_blank
+    observe: assets.validate
+    "on": build
+    scope: edit
+    rule: "usage_table_blank_cells == 0"
+    severity: blocking
+    maturity: accepted
+    source: "开发工具/SOP/90_交付打包.md:135@988b9847"
+    source_id: a885b7ffd43b
+    verification:
+      - kind: sop-editorial
+        ref: a885b7ffd43b
+    kind: spec
+    asserted_by: compile:legacy
+  - id: package_usage_refs_closed
+    observe: assets.validate
+    "on": build
+    scope: edit
+    rule: "assets_without_external_refs == 0"
+    severity: blocking
+    maturity: accepted
+    source: "开发工具/SOP/90_交付打包.md:181@988b9847"
+    source_id: 47f56ff8fa25
+    verification:
+      - kind: sop-editorial
+        ref: 47f56ff8fa25
+    kind: spec
+    asserted_by: compile:legacy
+  - id: delivery_zip_top_entries
+    observe: delivery.package
+    "on": delivery_package
+    scope: build
+    rule: "zip_top_level_entries == t.package_top_entries"
+    severity: blocking
+    maturity: accepted
+    source: "开发工具/SOP/90_交付打包.md:46@f6721fea"
+    source_id: b9bd8c44b9ec
+    verification:
+      - kind: sop-editorial
+        ref: b9bd8c44b9ec
+    kind: spec
+    asserted_by: compile:legacy
+  - id: delivery_zip_excludes_root_dirs
+    observe: delivery.package
+    "on": delivery_package
+    scope: build
+    rule: "root_excluded_dirs_in_zip == 0"
+    severity: blocking
+    maturity: accepted
+    source: "开发工具/SOP/90_交付打包.md:47@f6721fea"
+    source_id: 5a6b911dec09
+    verification:
+      - kind: sop-editorial
+        ref: 5a6b911dec09
+    kind: spec
+    asserted_by: compile:legacy
+  - id: delivery_zip_keeps_plugin_dirs
+    observe: delivery.package
+    "on": delivery_package
+    scope: build
+    rule: "missing_plugin_internal_dirs_in_zip == 0"
+    severity: blocking
+    maturity: accepted
+    source: "开发工具/SOP/90_交付打包.md:48@f6721fea"
+    source_id: 472b24f05c4d
+    verification:
+      - kind: sop-editorial
+        ref: 472b24f05c4d
+    kind: spec
+    asserted_by: compile:legacy
+  - id: delivery_cold_import_dll
+    observe: delivery.cold_import
+    "on": delivery_package
+    scope: build
+    rule: "cold_import_editor_dll_present == true"
+    severity: blocking
+    maturity: accepted
+    source: "开发工具/SOP/90_交付打包.md:68@f6721fea"
+    source_id: dac43a8ef436
+    verification:
+      - kind: sop-editorial
+        ref: dac43a8ef436
+    kind: spec
+    asserted_by: compile:legacy
+  - id: delivery_cold_import_compile
+    observe: delivery.cold_import
+    "on": delivery_package
+    scope: build
+    rule: "cold_import_cs_errors == 0"
+    severity: blocking
+    maturity: accepted
+    source: "开发工具/SOP/90_交付打包.md:69@f6721fea"
+    source_id: 21447da949f4
+    verification:
+      - kind: sop-editorial
+        ref: 21447da949f4
+    kind: spec
+    asserted_by: compile:legacy
+  - id: delivery_menu_assertion
+    observe: avatar.verify
+    "on": delivery_package
+    scope: build
+    rule: "delivery_menu_assertion_failures == 0"
+    severity: blocking
+    maturity: accepted
+    source: "开发工具/SOP/90_交付打包.md:82@f6721fea"
+    source_id: 128c6795213b
+    verification:
+      - kind: sop-editorial
+        ref: 128c6795213b
+    kind: spec
+    asserted_by: compile:legacy
+  - id: delivery_missing_refs_zero
+    observe: assets.validate
+    "on": delivery_package
+    scope: build
+    rule: "missing_scripts_and_broken_refs == 0"
+    severity: blocking
+    maturity: accepted
+    source: "开发工具/SOP/90_交付打包.md:187@f6721fea"
+    source_id: 12ceaf810fdf
+    verification:
+      - kind: sop-editorial
+        ref: 12ceaf810fdf
+    kind: spec
+    asserted_by: compile:legacy
+  - id: delivery_note_encoding
+    observe: delivery.package
+    "on": delivery_package
+    scope: edit
+    rule: "delivery_note_encoding_ok == true"
+    severity: blocking
+    maturity: accepted
+    source: "开发工具/SOP/90_交付打包.md:99@f6721fea"
+    source_id: af4cfc0577ab
+    verification:
+      - kind: sop-editorial
+        ref: af4cfc0577ab
+    kind: spec
+    asserted_by: compile:legacy
+  - id: delivery_diagnosis_present
+    observe: delivery.package
+    "on": delivery_package
+    scope: build
+    rule: "delivery_diagnosis_present == true"
+    severity: blocking
+    maturity: accepted
+    source: "开发工具/SOP/90_交付打包.md:76@988b9847"
+    source_id: c7f1a14e693d
+    verification:
+      - kind: sop-editorial
+        ref: c7f1a14e693d
+    kind: spec
+    asserted_by: compile:package-diagnosis
+  - id: delivery_added_assets_documented
+    observe: delivery.package
+    "on": delivery_package
+    scope: edit
+    rule: "undocumented_added_assets == 0"
+    severity: blocking
+    maturity: accepted
+    source: "开发工具/SOP/90_交付打包.md:98@f6721fea"
+    source_id: 07dfca3e148a
+    verification:
+      - kind: sop-editorial
+        ref: 07dfca3e148a
+    kind: spec
+    asserted_by: compile:legacy
+  - id: delivery_no_loose_files
+    observe: delivery.package
+    "on": delivery_package
+    scope: build
+    rule: "loose_files_in_delivery_dir == 0"
+    severity: blocking
+    maturity: accepted
+    source: "开发工具/SOP/90_交付打包.md:117@f6721fea"
+    source_id: 4825590b30ea
+    verification:
+      - kind: sop-editorial
+        ref: 4825590b30ea
+    kind: spec
+    asserted_by: compile:legacy
+  - id: delivery_total_size_match
+    observe: delivery.package
+    "on": delivery_package
+    scope: build
+    rule: "abs(total_size_bytes - sum_member_bytes) <= t.package_header_slack_bytes"
+    severity: advisory
+    maturity: candidate
+    source: "开发工具/SOP/90_交付打包.md:116@f6721fea"
+  - id: delivery_7z_test
+    observe: delivery.package
+    "on": delivery_package
+    scope: build
+    rule: "seven_zip_test_exit_code == 0"
+    severity: blocking
+    maturity: accepted
+    source: "开发工具/SOP/90_交付打包.md:118@f6721fea"
+    source_id: 86d551521b9a
+    verification:
+      - kind: sop-editorial
+        ref: 86d551521b9a
+    kind: spec
+    asserted_by: compile:legacy
+
+  - id: fixed_outfits_installed
+    observe: clothing.install
+    "on": outfits
+    scope: edit
+    rule: "fixed_outfit_state_failures == 0"
+    severity: blocking
+    maturity: accepted
+    source: "builtin/tools/harness/unity/Editor/OutfitStage.cs"
+    verification:
+      - kind: harness-regression
+        ref: test/fixed-outfits-unity.test.ts
+
+  # D-138: the blocking check follows what is actually visible after assembly, not only what the plan
+  # declared. Two visible parts sharing a same-position surface (A_mutual >= t.overlap_contact_min_cm2 at
+  # t.overlap_contact_epsilon_mm) are one pile the executor has to decide once. A measurement that did not
+  # run leaves the counter absent, which is no_data and never a pass.
+  - id: outfit_visible_overlaps
+    observe: clothing.install
+    "on": outfits
+    scope: edit
+    rule: "visible_overlap_pairs == 0"
+    severity: blocking
+    maturity: accepted
+    source: "决定记录/D-138；车道报告 OV1-stacked-meshes.md §4"
+    kind: spec
+    asserted_by: compile:harness-core
+    verification:
+      - kind: harness-regression
+        ref: test/outfit-visibility-unity.test.ts
+
+  # D-143 (GI1): the orderer's direction is that the edge cases cannot be enumerated, so the Runtime does not
+  # decide whether a visible garment-through-garment interpenetration is acceptable — it presents the evidence for
+  # every pair the picture confirmed above the noise gate and REQUIRES the executor's decision (close / accept /
+  # ask_user), and it blocks the two ways that can go wrong: a pair with no valid decision, and a pair outside the
+  # two coarse guard bounds (t.visible_interpenetration_guard_vertices / _guard_depth_mm) that was accepted
+  # anyway. The counter is the sum of those two classes. A measurement that did not finish (no render
+  # confirmation, an over-cap candidate set) leaves the counter absent, which is no_data and never a pass.
+  - id: outfit_visible_interpenetration
+    observe: clothing.install
+    "on": outfits
+    scope: edit
+    rule: "visible_interpenetration_pairs == 0"
+    severity: blocking
+    maturity: accepted
+    source: "决定记录/D-143；车道报告 GI1-visible-interpenetration.md"
+    kind: spec
+    asserted_by: compile:harness-core
+    verification:
+      - kind: harness-regression
+        ref: test/outfit-visibility-unity.test.ts
+
+  # The pairs the executor kept and handed to the user (`ask_user`, `D-143` ③) are a non-blocking observation
+  # (`visible_interpenetration_ask_user`), not a check: a rule of `>= 0` can never fail, so it carried no
+  # information while looking like a gate. The count stays in the reading and the delivery note still renders
+  # those pairs from the receipt's `interpenetration_decisions`.
+
+  - id: fixed_outfits_recolored
+    observe: avatar.observe
+    "on": materials
+    scope: edit
+    rule: "fixed_outfit_state_failures == 0"
+    severity: blocking
+    maturity: accepted
+    source: "builtin/tools/harness/unity/Editor/OutfitStage.cs"
+    verification:
+      - kind: harness-regression
+        ref: test/fixed-outfits-unity.test.ts
+
+  - id: fixed_outfits_built_pre
+    observe: avatar.observe
+    "on": build_pre
+    scope: build
+    rule: "fixed_outfit_state_failures == 0"
+    severity: blocking
+    maturity: accepted
+    source: "builtin/tools/harness/unity/Editor/OutfitStage.cs"
+    verification:
+      - kind: harness-regression
+        ref: test/fixed-outfits-unity.test.ts
+
+  - id: fixed_outfits_built
+    observe: avatar.observe
+    "on": build
+    scope: build
+    rule: "fixed_outfit_state_failures == 0"
+    severity: blocking
+    maturity: accepted
+    source: "builtin/tools/harness/unity/Editor/OutfitStage.cs"
+    verification:
+      - kind: harness-regression
+        ref: test/fixed-outfits-unity.test.ts
+
+  - id: fixed_outfits_regression_pre
+    observe: avatar.observe
+    "on": build_pre
+    scope: build
+    rule: "fixed_outfit_state_failures == 0"
+    severity: blocking
+    maturity: accepted
+    source: "builtin/tools/harness/unity/Editor/OutfitStage.cs"
+    verification:
+      - kind: harness-regression
+        ref: test/fixed-outfits-unity.test.ts
+
+  - id: fixed_outfits_regression
+    observe: avatar.observe
+    "on": build
+    scope: build
+    rule: "fixed_outfit_state_failures == 0"
+    severity: blocking
+    maturity: accepted
+    source: "builtin/tools/harness/unity/Editor/OutfitStage.cs"
+    verification:
+      - kind: harness-regression
+        ref: test/fixed-outfits-unity.test.ts
+
+  - id: menu_group_defaults_match
+    observe: menu.dump
+    "on": menu
+    scope: edit
+    when: plan.avatar_config
+    rule: "group_defaults_match == true"
+    severity: blocking
+    maturity: accepted
+    kind: spec
+    asserted_by: compile:avatar-config
+    source: "决定记录/D-107; L12 task authorization (2026-10-04)"
+    verification:
+      - {kind: human-approval, ref: "L12 task authorization: implement run-D3-final.md (2026-10-04)"}
+
+  - id: menu_group_members_reachable
+    observe: menu.dump
+    "on": menu
+    scope: edit
+    when: plan.avatar_config
+    rule: "group_members_reachable == true"
+    severity: blocking
+    maturity: accepted
+    kind: spec
+    asserted_by: compile:avatar-config
+    source: "决定记录/D-107; L12 task authorization (2026-10-04)"
+    verification:
+      - {kind: human-approval, ref: "L12 task authorization: implement run-D3-final.md (2026-10-04)"}
+
+  - id: menu_menu_parameter_contract
+    observe: menu.dump
+    "on": menu
+    scope: edit
+    when: plan.avatar_config
+    rule: "menu_parameter_contract == true"
+    severity: blocking
+    maturity: accepted
+    kind: spec
+    asserted_by: compile:avatar-config
+    source: "决定记录/D-107; L12 task authorization (2026-10-04)"
+    verification:
+      - {kind: human-approval, ref: "L12 task authorization: implement run-D3-final.md (2026-10-04)"}
+
+  - id: menu_menu_parameter_limits
+    observe: menu.dump
+    "on": menu
+    scope: edit
+    when: plan.avatar_config
+    rule: "menu_parameter_limits == true"
+    severity: blocking
+    maturity: accepted
+    kind: spec
+    asserted_by: compile:avatar-config
+    source: "决定记录/D-107; L12 task authorization (2026-10-04)"
+    verification:
+      - {kind: human-approval, ref: "L12 task authorization: implement run-D3-final.md (2026-10-04)"}
+
+  - id: menu_menu_coverage_complete
+    observe: menu.dump
+    "on": menu
+    scope: edit
+    when: plan.avatar_config
+    rule: "menu_coverage_complete == true"
+    severity: blocking
+    maturity: accepted
+    kind: spec
+    asserted_by: compile:avatar-config
+    source: "决定记录/D-107; L12 task authorization (2026-10-04)"
+    verification:
+      - {kind: human-approval, ref: "L12 task authorization: implement run-D3-final.md (2026-10-04)"}
+
+  - id: build_pre_group_defaults_match
+    observe: menu.dump
+    "on": build_pre
+    scope: edit
+    when: plan.avatar_config
+    rule: "group_defaults_match == true"
+    severity: blocking
+    maturity: accepted
+    kind: spec
+    asserted_by: compile:avatar-config
+    source: "决定记录/D-107; L12 task authorization (2026-10-04)"
+    verification:
+      - {kind: human-approval, ref: "L12 task authorization: implement run-D3-final.md (2026-10-04)"}
+
+  - id: build_pre_group_members_reachable
+    observe: menu.dump
+    "on": build_pre
+    scope: edit
+    when: plan.avatar_config
+    rule: "group_members_reachable == true"
+    severity: blocking
+    maturity: accepted
+    kind: spec
+    asserted_by: compile:avatar-config
+    source: "决定记录/D-107; L12 task authorization (2026-10-04)"
+    verification:
+      - {kind: human-approval, ref: "L12 task authorization: implement run-D3-final.md (2026-10-04)"}
+
+  - id: build_pre_menu_parameter_contract
+    observe: menu.dump
+    "on": build_pre
+    scope: edit
+    when: plan.avatar_config
+    rule: "menu_parameter_contract == true"
+    severity: blocking
+    maturity: accepted
+    kind: spec
+    asserted_by: compile:avatar-config
+    source: "决定记录/D-107; L12 task authorization (2026-10-04)"
+    verification:
+      - {kind: human-approval, ref: "L12 task authorization: implement run-D3-final.md (2026-10-04)"}
+
+  - id: build_pre_menu_parameter_limits
+    observe: menu.dump
+    "on": build_pre
+    scope: edit
+    when: plan.avatar_config
+    rule: "menu_parameter_limits == true"
+    severity: blocking
+    maturity: accepted
+    kind: spec
+    asserted_by: compile:avatar-config
+    source: "决定记录/D-107; L12 task authorization (2026-10-04)"
+    verification:
+      - {kind: human-approval, ref: "L12 task authorization: implement run-D3-final.md (2026-10-04)"}
+
+  - id: build_pre_menu_coverage_complete
+    observe: menu.dump
+    "on": build_pre
+    scope: edit
+    when: plan.avatar_config
+    rule: "menu_coverage_complete == true"
+    severity: blocking
+    maturity: accepted
+    kind: spec
+    asserted_by: compile:avatar-config
+    source: "决定记录/D-107; L12 task authorization (2026-10-04)"
+    verification:
+      - {kind: human-approval, ref: "L12 task authorization: implement run-D3-final.md (2026-10-04)"}
+
+  - id: build_group_defaults_match
+    observe: menu.dump
+    "on": build
+    scope: edit
+    when: plan.avatar_config
+    rule: "group_defaults_match == true"
+    severity: blocking
+    maturity: accepted
+    kind: spec
+    asserted_by: compile:avatar-config
+    source: "决定记录/D-107; L12 task authorization (2026-10-04)"
+    verification:
+      - {kind: human-approval, ref: "L12 task authorization: implement run-D3-final.md (2026-10-04)"}
+
+  - id: build_group_members_reachable
+    observe: menu.dump
+    "on": build
+    scope: edit
+    when: plan.avatar_config
+    rule: "group_members_reachable == true"
+    severity: blocking
+    maturity: accepted
+    kind: spec
+    asserted_by: compile:avatar-config
+    source: "决定记录/D-107; L12 task authorization (2026-10-04)"
+    verification:
+      - {kind: human-approval, ref: "L12 task authorization: implement run-D3-final.md (2026-10-04)"}
+
+  - id: build_menu_parameter_contract
+    observe: menu.dump
+    "on": build
+    scope: edit
+    when: plan.avatar_config
+    rule: "menu_parameter_contract == true"
+    severity: blocking
+    maturity: accepted
+    kind: spec
+    asserted_by: compile:avatar-config
+    source: "决定记录/D-107; L12 task authorization (2026-10-04)"
+    verification:
+      - {kind: human-approval, ref: "L12 task authorization: implement run-D3-final.md (2026-10-04)"}
+
+  - id: build_menu_parameter_limits
+    observe: menu.dump
+    "on": build
+    scope: edit
+    when: plan.avatar_config
+    rule: "menu_parameter_limits == true"
+    severity: blocking
+    maturity: accepted
+    kind: spec
+    asserted_by: compile:avatar-config
+    source: "决定记录/D-107; L12 task authorization (2026-10-04)"
+    verification:
+      - {kind: human-approval, ref: "L12 task authorization: implement run-D3-final.md (2026-10-04)"}
+
+  - id: build_menu_coverage_complete
+    observe: menu.dump
+    "on": build
+    scope: edit
+    when: plan.avatar_config
+    rule: "menu_coverage_complete == true"
+    severity: blocking
+    maturity: accepted
+    kind: spec
+    asserted_by: compile:avatar-config
+    source: "决定记录/D-107; L12 task authorization (2026-10-04)"
+    verification:
+      - {kind: human-approval, ref: "L12 task authorization: implement run-D3-final.md (2026-10-04)"}
+
+  - id: plan_group_contract_valid
+    observe: plan.source
+    "on": plan
+    scope: edit
+    when: plan.avatar_config
+    rule: "plan_group_contract_valid == true"
+    severity: blocking
+    maturity: accepted
+    kind: spec
+    asserted_by: compile:avatar-config
+    source: "决定记录/D-107; L12 task authorization (2026-10-04)"
+    verification:
+      - {kind: human-approval, ref: "L12 task authorization: implement run-D3-final.md (2026-10-04)"}
+
+  - id: group_members_installed
+    observe: clothing.install
+    "on": outfits
+    scope: edit
+    when: plan.avatar_config
+    rule: "group_members_installed == true"
+    severity: blocking
+    maturity: accepted
+    kind: spec
+    asserted_by: compile:avatar-config
+    source: "决定记录/D-107; L12 task authorization (2026-10-04)"
+    verification:
+      - {kind: human-approval, ref: "L12 task authorization: implement run-D3-final.md (2026-10-04)"}
+
+
+  - id: outfit_group_defaults_match
+    observe: avatar.observe
+    "on": outfits
+    scope: edit
+    when: plan.avatar_config
+    rule: "group_defaults_match == true"
+    severity: blocking
+    maturity: accepted
+    kind: spec
+    asserted_by: compile:avatar-config
+    source: "决定记录/D-107; L12 task authorization (2026-10-04)"
+    verification:
+      - {kind: human-approval, ref: "L12 task authorization: implement run-D3-final.md (2026-10-04)"}
+
+  - id: recolor_group_defaults_match
+    observe: avatar.observe
+    "on": materials
+    scope: edit
+    when: plan.avatar_config
+    rule: "group_defaults_match == true"
+    severity: blocking
+    maturity: accepted
+    kind: spec
+    asserted_by: compile:avatar-config
+    source: "决定记录/D-107; L12 task authorization (2026-10-04)"
+    verification:
+      - {kind: human-approval, ref: "L12 task authorization: implement run-D3-final.md (2026-10-04)"}
+
+  - id: menu_property_owners_resolved
+    observe: menu.dump
+    "on": menu
+    scope: edit
+    when: plan.avatar_config
+    rule: "property_owners_resolved == true"
+    severity: blocking
+    maturity: accepted
+    kind: spec
+    asserted_by: compile:avatar-config
+    source: "决定记录/D-107; L12 task authorization (2026-10-04)"
+    verification:
+      - {kind: human-approval, ref: "L12 task authorization: implement run-D3-final.md (2026-10-04)"}
+
+  - id: build_pre_property_owners_resolved
+    observe: menu.dump
+    "on": build_pre
+    scope: build
+    when: plan.avatar_config
+    rule: "property_owners_resolved == true"
+    severity: blocking
+    maturity: accepted
+    kind: spec
+    asserted_by: compile:avatar-config
+    source: "决定记录/D-107; L12 task authorization (2026-10-04)"
+    verification:
+      - {kind: human-approval, ref: "L12 task authorization: implement run-D3-final.md (2026-10-04)"}
+
+  - id: build_property_owners_resolved
+    observe: menu.dump
+    "on": build
+    scope: build
+    when: plan.avatar_config
+    rule: "property_owners_resolved == true"
+    severity: blocking
+    maturity: accepted
+    kind: spec
+    asserted_by: compile:avatar-config
+    source: "决定记录/D-107; L12 task authorization (2026-10-04)"
+    verification:
+      - {kind: human-approval, ref: "L12 task authorization: implement run-D3-final.md (2026-10-04)"}
+
+  - id: regression_pre_group_state_assertions
+    observe: avatar.observe
+    "on": build_pre
+    scope: build
+    when: plan.avatar_config
+    rule: "group_state_assertions == true"
+    severity: blocking
+    maturity: accepted
+    kind: spec
+    asserted_by: compile:avatar-config
+    source: "决定记录/D-107; L12 task authorization (2026-10-04)"
+    verification:
+      - {kind: human-approval, ref: "L12 task authorization: implement run-D3-final.md (2026-10-04)"}
+
+  - id: regression_pre_source_shape_state
+    observe: avatar.verify
+    "on": build_pre
+    scope: build
+    when: plan.avatar_config
+    rule: "source_shape_state_complete == true"
+    severity: blocking
+    maturity: accepted
+    kind: spec
+    asserted_by: compile:avatar-config
+    source: "决定记录/D-107; L12 task authorization (2026-10-04)"
+    verification:
+      - {kind: human-approval, ref: "L12 task authorization: implement run-D3-final.md (2026-10-04)"}
+
+  - id: regression_pre_shared_state_preserved
+    observe: avatar.observe
+    "on": build_pre
+    scope: build
+    when: plan.avatar_config
+    rule: "shared_state_preserved == true"
+    severity: blocking
+    maturity: accepted
+    kind: spec
+    asserted_by: compile:avatar-config
+    source: "决定记录/D-107; L12 task authorization (2026-10-04)"
+    verification:
+      - {kind: human-approval, ref: "L12 task authorization: implement run-D3-final.md (2026-10-04)"}
+
+  - id: regression_pre_menu_coverage_complete
+    observe: avatar.observe
+    "on": build_pre
+    scope: build
+    when: plan.avatar_config
+    rule: "menu_coverage_complete == true"
+    severity: blocking
+    maturity: accepted
+    kind: spec
+    asserted_by: compile:avatar-config
+    source: "决定记录/D-107; L12 task authorization (2026-10-04)"
+    verification:
+      - {kind: human-approval, ref: "L12 task authorization: implement run-D3-final.md (2026-10-04)"}
+
+  - id: regression_group_state_assertions
+    observe: avatar.observe
+    "on": build
+    scope: build
+    when: plan.avatar_config
+    rule: "group_state_assertions == true"
+    severity: blocking
+    maturity: accepted
+    kind: spec
+    asserted_by: compile:avatar-config
+    source: "决定记录/D-107; L12 task authorization (2026-10-04)"
+    verification:
+      - {kind: human-approval, ref: "L12 task authorization: implement run-D3-final.md (2026-10-04)"}
+
+  - id: regression_source_shape_state
+    observe: avatar.verify
+    "on": build
+    scope: build
+    when: plan.avatar_config
+    rule: "source_shape_state_complete == true"
+    severity: blocking
+    maturity: accepted
+    kind: spec
+    asserted_by: compile:avatar-config
+    source: "决定记录/D-107; L12 task authorization (2026-10-04)"
+    verification:
+      - {kind: human-approval, ref: "L12 task authorization: implement run-D3-final.md (2026-10-04)"}
+
+  - id: regression_shared_state_preserved
+    observe: avatar.observe
+    "on": build
+    scope: build
+    when: plan.avatar_config
+    rule: "shared_state_preserved == true"
+    severity: blocking
+    maturity: accepted
+    kind: spec
+    asserted_by: compile:avatar-config
+    source: "决定记录/D-107; L12 task authorization (2026-10-04)"
+    verification:
+      - {kind: human-approval, ref: "L12 task authorization: implement run-D3-final.md (2026-10-04)"}
+
+  - id: regression_menu_coverage_complete
+    observe: avatar.observe
+    "on": build
+    scope: build
+    when: plan.avatar_config
+    rule: "menu_coverage_complete == true"
+    severity: blocking
+    maturity: accepted
+    kind: spec
+    asserted_by: compile:avatar-config
+    source: "决定记录/D-107; L12 task authorization (2026-10-04)"
+    verification:
+      - {kind: human-approval, ref: "L12 task authorization: implement run-D3-final.md (2026-10-04)"}
+
+  - id: package_group_state_assertions
+    observe: avatar.verify
+    "on": delivery_package
+    scope: build
+    when: plan.avatar_config
+    rule: "group_state_assertions == true"
+    severity: blocking
+    maturity: accepted
+    kind: spec
+    asserted_by: compile:avatar-config
+    source: "决定记录/D-107; L12 task authorization (2026-10-04)"
+    verification:
+      - {kind: human-approval, ref: "L12 task authorization: implement run-D3-final.md (2026-10-04)"}
+
+  - id: package_shared_state_preserved
+    observe: avatar.verify
+    "on": delivery_package
+    scope: build
+    when: plan.avatar_config
+    rule: "shared_state_preserved == true"
+    severity: blocking
+    maturity: accepted
+    kind: spec
+    asserted_by: compile:avatar-config
+    source: "决定记录/D-107; L12 task authorization (2026-10-04)"
+    verification:
+      - {kind: human-approval, ref: "L12 task authorization: implement run-D3-final.md (2026-10-04)"}
+
+  - id: package_menu_coverage_complete
+    observe: avatar.verify
+    "on": delivery_package
+    scope: build
+    when: plan.avatar_config
+    rule: "menu_coverage_complete == true"
+    severity: blocking
+    maturity: accepted
+    kind: spec
+    asserted_by: compile:avatar-config
+    source: "决定记录/D-107; L12 task authorization (2026-10-04)"
+    verification:
+      - {kind: human-approval, ref: "L12 task authorization: implement run-D3-final.md (2026-10-04)"}
+
+
+  - id: recolor_material_axis_presets_verified
+    observe: material.recolor
+    "on": materials
+    scope: edit
+    when: plan.avatar_config
+    rule: "material_axis_presets_verified == true"
+    severity: blocking
+    maturity: accepted
+    kind: spec
+    asserted_by: compile:material-axes
+    source: "决定记录/D-116; independent hair color axis task authorization (2026-10-05)"
+    verification:
+      - {kind: human-approval, ref: "D-116 task authorization (2026-10-05)"}
+
+gates:
+  - id: face_appearance
+    kind: approve
+    review: face-output
+    when: 'plan.face.mode == "design"'
+    binds: face
+    source: "docs/zh/设计/2-功能模块/09_交互捏脸与后台制作.md"
+  - id: face_choice
+    kind: choose
+    selection: face-candidate
+    binds: face_candidates
+    source: "docs/zh/设计/2-功能模块/09_交互捏脸与后台制作.md"
+  - id: material_gap_confirm
+    kind: approve
+    binds: assets
+    source: "开发工具/SOP/10_接单建档.md:119@f6721fea"
+  - id: plan_approval
+    kind: approve
+    binds: plan
+    source: "开发工具/SOP/00_总表/人工卡口与素材来源.md:20@f6721fea"
+  # 配色决定已并入 plan（随 plan_approval 批准）；本 Gate 改为应用后的外观预览，绑已落实的材质。
+  # 这一步必须先看到 Unity 渲染的候选图（每档 × 每套衣服，同机位）才能批准：界面复用脸型预览的只读取图通道。
+  - id: recolor_approval
+    kind: approve
+    binds: materials
+    preview: recolor-candidates
+    source: "开发工具/SOP/00_总表/人工卡口与素材来源.md:22@988b9847"
+  - id: sdk_upload
+    kind: do
+    binds: delivery_package
+    source: "开发工具/SOP/00_总表/人工卡口与素材来源.md:23@f6721fea"
+  - id: client_test
+    kind: do
+    binds: delivery_package
+    source: "开发工具/SOP/00_总表/人工卡口与素材来源.md:23@f6721fea"
+
+milestones:
+  # package 的 needs 链已覆盖全部前序 stage，故只要求到 package 为止；
+  # 上传（sdk_upload）与客户端实测（client_test）发生在 UPLOAD_READY 之后，写成 CLIENT_VERIFIED 的 Gate。
+  - id: UPLOAD_READY
+    requires_stages: [package]
+    evidence_on: delivery_package
+  - id: CLIENT_VERIFIED
+    after: UPLOAD_READY
+    gates: [sdk_upload, client_test]

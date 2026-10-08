@@ -1,0 +1,7 @@
+# Build context of server/Dockerfile (the repository root): everything is left out except what the image copies.
+# BuildKit reads this file instead of the root .dockerignore because it sits next to the Dockerfile it is named after.
+*
+!harness/package.json
+!harness/src/**
+!server/package.json
+!server/src/**

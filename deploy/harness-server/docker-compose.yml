@@ -1,0 +1,65 @@
+# harness.nymiro.moe API: contribution intake and signed release listings (server/).
+# On the server this file is /docker/harness-server/docker-compose.yml; steps, rollback and details: deploy/README.md.
+#
+# Beside it:
+#   .env      HARNESS_REPO=<checkout of the commit being deployed>; the image is built from it (see .env.example)
+#   config/   trusted-keys.json, {"keyId": "Ed25519 public key PEM"}; mounted read-only
+#   data/     DATA_DIR, owned by uid 1000 (the image's `node` user):
+#     contributions/<receiptId>/bundle/ + meta.json     accepted contributions, never executed or unpacked
+#     quarantine/                                       uploads being checked; emptied at every start
+#     releases/app/<channel>/*.json                     signed software releases; nginx serves releases/app/files/
+#     releases/knowledge/<channel>/*.json               signed knowledge releases; nginx serves releases/knowledge/files/
+name: harness-server
+
+services:
+  harness-server:
+    build:
+      context: ${HARNESS_REPO:-../..}
+      dockerfile: server/Dockerfile
+    image: harness-server:local
+    container_name: harness-server
+    restart: unless-stopped
+    environment:
+      HOST: 0.0.0.0
+      PORT: "8080"
+      DATA_DIR: /data
+      TRUSTED_KEYS_FILE: /config/trusted-keys.json
+      PUBLIC_BASE_URL: https://harness.nymiro.moe
+      MIN_FREE_BYTES: "2147483648"
+      NODE_OPTIONS: --max-old-space-size=512
+      # No scheduled backup of contribution data is installed by this deployment.
+      # Advertise the real policy; set a positive value only with the matching bounded backup job.
+      BACKUP_DAYS: "${BACKUP_DAYS:-0}"
+    volumes:
+      - ./data:/data
+      - ./config:/config:ro
+    networks:
+      - proxy_network
+    # No published port: only nginx-nymiro reaches it, as harness-server:8080 on proxy_network.
+    read_only: true
+    tmpfs:
+      - /tmp
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:8080/v1/health').then(r => process.exit(r.ok ? 0 : 1), () => process.exit(1))"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+    # Two 64 MiB uploads at once peak at about 630 MiB resident (measured with this heap limit).
+    deploy:
+      resources:
+        limits:
+          memory: 1g
+    logging:
+      driver: json-file
+      options:
+        max-size: 10m
+        max-file: "3"
+
+networks:
+  proxy_network:
+    external: true

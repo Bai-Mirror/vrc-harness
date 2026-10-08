@@ -1,0 +1,23 @@
+# Upstream research/SOP material is deliberately not part of the product pack. Only compiled contexts and the
+# production allowlist below are versioned here.
+knowledge/SOP/
+tools/*
+!tools/harness/
+!tools/harness/**
+!tools/project_fingerprint.py
+!tools/vpm_baseline_check.py
+!tools/unpack_unitypackage.py
+!tools/构建/
+tools/构建/*
+!tools/构建/BuildArtifact.cs
+!tools/构建/BuildArtifact.cs.meta
+!tools/审查/
+tools/审查/*
+!tools/审查/unity/
+!tools/审查/unity/**
+!tools/审查/perception/
+tools/审查/perception/*
+!tools/审查/perception/strip_audit.py
+# Python bytecode written while tests run the tools must never be versioned or packed.
+__pycache__/
+*.pyc

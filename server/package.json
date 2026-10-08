@@ -1,0 +1,15 @@
+{
+  "name": "harness-server",
+  "version": "0.1.0",
+  "private": true,
+  "description": "harness.nymiro.moe: contribution intake and signed release listings for Avatar Harness",
+  "type": "module",
+  "engines": {
+    "node": ">=24"
+  },
+  "scripts": {
+    "start": "node src/main.ts",
+    "test": "node --test test/*.test.ts",
+    "typecheck": "node ../harness/node_modules/typescript/bin/tsc -p ."
+  }
+}

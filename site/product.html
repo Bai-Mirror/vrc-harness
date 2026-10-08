@@ -1,0 +1,449 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>产品介绍 · Harness — VRChat 头像改模 AI 工作台（开发中）</title>
+<meta name="description" content="用开发中的界面图逐项说明 Harness 已实现的功能：说明目标、16 个阶段的正式流程、按哈希冻结、独立判定、人工闸门、沙箱、BOOTH 素材索引、能力包、项目记忆、GUI 与 TUI；本版只支持 API 密钥与 Windows，规划中的功能单独标注。">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#f5f6f7">
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#101214">
+<link rel="icon" href="assets/img/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
+<link rel="canonical" href="https://harness.nymiro.moe/product.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Harness">
+<meta property="og:title" content="Harness 产品介绍 — 从素材到交付，每一步都有判定">
+<meta property="og:description" content="16 个阶段的正式流程、独立判定、人工闸门、沙箱与素材索引。本版只支持 API 密钥与 Windows。开发中，尚未发布。">
+<meta property="og:url" content="https://harness.nymiro.moe/product.html">
+<meta property="og:image" content="https://harness.nymiro.moe/assets/img/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="stylesheet" href="assets/css/site.css">
+</head>
+<body>
+<a class="skip" href="#main">跳到正文</a>
+
+<header class="site-header">
+  <div class="container container-wide header-inner">
+    <a class="brand" href="index.html" aria-label="Harness 首页">
+      <img src="assets/img/logo-96.png" width="32" height="32" alt="">
+      <span class="brand-text">Harness<span class="brand-sub">VRChat 头像改模 AI 工作台</span></span>
+    </a>
+    <nav class="site-nav" aria-label="站点导航">
+      <a href="index.html">首页</a>
+      <a href="product.html" aria-current="page">产品</a>
+      <a href="download.html">下载</a>
+      <a href="articles/demo.html">开发日志</a>
+    </nav>
+    <span class="pill header-status"><span class="dot run" aria-hidden="true"></span>开发中 · 尚未发布</span>
+  </div>
+</header>
+
+<main id="main">
+
+  <section class="hero hero-split" aria-labelledby="hero-title">
+    <div class="container container-wide hero-inner">
+      <div>
+        <p class="eyebrow"><span class="dot run" aria-hidden="true"></span>产品介绍 · 开发中</p>
+        <h1 id="hero-title" class="display">从想做的造型，<br>到能接着修改的工程。</h1>
+        <p class="lede">先描述想做的角色，可以附上参考图片，再授权自己的素材目录。Harness 负责准备制作副本和工程；接管已有头像工程是另一种入口，工程模板属于高级选项。你能查看检查结果，在影响造型的节点决定是否继续。下面展示开发版功能，完整改模交付仍在验证。</p>
+        <ul class="jump" aria-label="本页内容">
+          <li><a href="#how">它怎么工作</a></li>
+          <li><a href="#features">已实现</a></li>
+          <li><a href="#security">安全边界</a></li>
+          <li><a href="#planned">规划中</a></li>
+        </ul>
+      </div>
+      <figure class="device-wrap">
+        <div class="device tilt">
+          <div class="device-bar" aria-hidden="true"><i></i><i></i><i></i><span class="title">Harness · 首页</span></div>
+          <div class="device-screen">
+            <img src="assets/renders/home.png" width="1440" height="900" alt="Harness 桌面 GUI 首页（演示数据）：顶部「需要你做什么」提示有 1 项需要你处理——Luna-春樱：批准当前的「配色材质」；「需要你处理」区域是「确认配色效果」决定卡，可批准当前版本、修改要求或暂不执行，并可展开「依据的制作方案」与「方案文件与完整说明」；下方是最近的项目卡片与快速开始入口（新建项目、接管已有工程、导入素材、配置 AI、查看「Luna-春樱」）" loading="eager" decoding="async">
+          </div>
+        </div>
+        <figcaption class="device-caption">开发版 GUI · 首页 · 演示数据 · 等你决定的事排在最上面；后台正在工作</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="section" id="how" aria-labelledby="how-title">
+    <div class="container">
+      <div class="section-head">
+        <p class="eyebrow">一次制作</p>
+        <h2 id="how-title">从说明目标，到检查和确认</h2>
+        <p>每个阶段都能看到当前进度和下一步。</p>
+      </div>
+      <ol class="flow">
+        <li>
+          <span class="who">你</span>
+          <h3>说明目标</h3>
+          <p>管理自己拥有的素材，用对话或表单说明想要的结果。</p>
+        </li>
+        <li>
+          <span class="who">AI 执行方</span>
+          <h3>执行制作</h3>
+          <p>用你自己的 API 密钥驱动模型，按角色自动路由，按实际用量计费；在沙箱里运行。</p>
+        </li>
+        <li>
+          <span class="who">Harness</span>
+          <h3>检查与冻结</h3>
+          <p>流程定义、工具与知识按哈希冻结；每一步由独立观测给出判定；失败时带着证据有限次数地返工。</p>
+        </li>
+        <li class="gate">
+          <span class="who">你</span>
+          <h3>确认关键改动</h3>
+          <p>需要你决定时会暂停。确认后，制作才继续。</p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="section bordered features" id="features" aria-labelledby="features-title">
+    <div class="container">
+      <div class="section-head">
+        <p class="eyebrow">已实现</p>
+        <h2 id="features-title">开发版已实现的功能</h2>
+        <p>以下功能已在开发版中实现。界面图取自开发中的版本，其中的项目与素材均为演示数据，最终发布版本可能不同。</p>
+      </div>
+
+      <article class="feature" aria-labelledby="f-goal">
+        <div class="feature-copy">
+          <p class="eyebrow">01 · 说明目标</p>
+          <h3 id="f-goal"><span class="nb">用对话或表单</span><span class="nb">说明目标</span></h3>
+          <p>新建项目时描述想要的头像，或从素材库挑选；已有的 VCC/VPM 工程可以接管进来。项目列表按进行中、等你处理、未开始、已结束筛选，每张卡片都写着下一步或需要你决定的事。</p>
+          <ul class="fact-list">
+            <li><b>对话或表单</b>：两种方式说明目标，由你选。</li>
+            <li><b>接管已有工程</b>：适用于 VRChat 头像，兼容 VCC/VPM 工程。</li>
+            <li><b>你的素材</b>：目标围绕你自己拥有的素材来定。</li>
+          </ul>
+        </div>
+        <figure class="feature-media">
+          <div class="device-wrap">
+            <div class="device">
+              <div class="device-bar" aria-hidden="true"><i></i><i></i><i></i><span class="title">Harness · 项目</span></div>
+              <div class="device-screen">
+                <img src="assets/renders/projects.png" width="1440" height="900" alt="项目列表页（演示数据）：右上角「新建项目」按钮；搜索框旁是全部、进行中、等你处理、未开始、已结束筛选和「接管已有工程」按钮；两张项目卡片——Luna-夏日泳装（尚未开始，下一步：确认需求与素材）和 Luna-春樱（1 项等你，需要你决定：确认配色效果）" loading="lazy" decoding="async">
+                <span class="callout" style="--x:70.3%; --y:12.3%" aria-hidden="true">1</span>
+                <span class="callout" style="--x:94%; --y:12.3%" aria-hidden="true">2</span>
+                <span class="callout" style="--x:58.2%; --y:33.6%" aria-hidden="true">3</span>
+              </div>
+            </div>
+          </div>
+          <figcaption>
+            <ol class="callout-list" aria-label="图中标注">
+              <li>按「进行中 / 等你处理 / 未开始 / 已结束」筛选项目</li>
+              <li>接管已有工程</li>
+              <li>每张卡片写着下一步或需要你决定的事（「需要你决定：确认配色效果」）</li>
+            </ol>
+          </figcaption>
+        </figure>
+      </article>
+
+      <article class="feature reverse" aria-labelledby="f-workflow">
+        <div class="feature-copy">
+          <p class="eyebrow">02 · 正式流程</p>
+          <h3 id="f-workflow"><span class="nb">16 个阶段，</span><span class="nb">每一步都有判定</span></h3>
+          <p>从检查素材、确认方案、准备制作环境，到装配服装、调整颜色、制作换装菜单、效果检查、性能优化，最后整理交付包，一次改模按正式流程推进；跑起来之后在项目的「运行监视」里看。</p>
+          <div class="stages" aria-hidden="true">
+            <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+          </div>
+          <ul class="stage-names" aria-label="流程中的阶段">
+            <li>检查素材</li><li>确认制作方案</li><li>准备制作环境</li><li>准备工程</li><li>设计脸型候选</li><li>调整脸型</li><li>装配服装</li><li>调整颜色</li><li>制作换装菜单</li><li>首次构建</li><li>首次效果检查</li><li>性能优化</li><li>最终构建</li><li>最终效果与贴合检查</li><li>性能验收</li><li>整理交付包</li>
+          </ul>
+          <ul class="fact-list">
+            <li><b>按哈希冻结</b>：流程定义、工具与知识在开工时冻结。</li>
+            <li><b>独立判定</b>：每一步由独立观测给出判定，而不是 AI 自称完成。</li>
+            <li><b>有限返工</b>：失败时带着证据有限次数地返工。</li>
+            <li><b>人工闸门</b>：关键节点请你批准。</li>
+          </ul>
+        </div>
+        <figure class="feature-media">
+          <div class="device-wrap has-zoom">
+            <div class="device">
+              <div class="device-bar" aria-hidden="true"><i></i><i></i><i></i><span class="title">Harness · 项目 · 运行监视</span></div>
+              <div class="device-screen">
+                <img src="assets/renders/workflow.png" width="1440" height="900" alt="项目内的「制作进度」页（演示数据）：左上是需要你决定的「确认配色效果」决定卡，可批准当前版本、修改要求或暂不执行，可展开「依据的制作方案」看配色、菜单与换装方案的摘要；右侧项目状态——制作流程进行中、制作方案已批准、素材 3 项已关联、检查 153 项检查 · 通过 105 · 缺数据 1（需补测） · 不适用 4 · 待取证 42 · 已过期 1；右下方是制作阶段列表——检查素材、确认制作方案、准备工程、装配服装已通过并标注通过的检查项数，调整颜色待你决定，后面的阶段等前序或已开始" loading="lazy" decoding="async">
+                <span class="callout" style="--x:24.3%; --y:39.7%" aria-hidden="true">1</span>
+                <span class="callout" style="--x:63.9%; --y:52.9%" aria-hidden="true">2</span>
+                <span class="callout" style="--x:74%; --y:68.6%" aria-hidden="true">3</span>
+              </div>
+            </div>
+            <div class="zoom" aria-hidden="true" style="--zx:78%; --zy:70.7%; --zoom:4">
+              <img src="assets/renders/workflow.png" alt="">
+              <span class="zoom-label">局部放大 · 阶段判定</span>
+            </div>
+          </div>
+          <figcaption>
+            <ol class="callout-list" aria-label="图中标注">
+              <li>闸门：「确认配色效果」决定卡——批准当前版本、修改要求或暂不执行</li>
+              <li>制作阶段列表：从检查素材到最终效果与贴合检查</li>
+              <li>每一步的判定：「已通过 · N 项检查通过」；放大处是停在「待你决定」的「调整颜色」</li>
+            </ol>
+          </figcaption>
+        </figure>
+      </article>
+
+      <article class="feature" aria-labelledby="f-project">
+        <div class="feature-copy">
+          <p class="eyebrow">03 · 项目工作区</p>
+          <h3 id="f-project"><span class="nb">项目记忆：</span><span class="nb">换模型、</span><span class="nb">重启、</span><span class="nb">开新对话，</span><span class="nb">进度都在</span></h3>
+          <p>每个项目有自己的工作区：设计目标、素材选择、审美对话、运行监视。进度属于项目，不属于某一次对话。</p>
+          <ul class="fact-list">
+            <li><b>项目记忆</b>：切换模型、重启、开新对话都不丢进度。</li>
+            <li><b>双界面</b>：GUI（桌面窗口）与 TUI（终端），共用同一个本地 Runtime。</li>
+          </ul>
+        </div>
+        <figure class="feature-media">
+          <div class="device-wrap">
+            <div class="device">
+              <div class="device-bar" aria-hidden="true"><i></i><i></i><i></i><span class="title">Harness · 项目 · 设计目标</span></div>
+              <div class="device-screen">
+                <img src="assets/renders/project.png" width="1440" height="900" alt="项目内的「设计目标」页（演示数据）：顶部是工作面标签「设计目标 / 素材 / 制作进度」，制作进度上有 1 项待决定；左上是「需要你做什么」的「确认配色效果」卡，下面是项目对话与「提出修改要求」；右侧依次是「脸型」（保留原脸 / 让 AI 设计 / 我自己来，可在 Blender 中打开）、「头像目标」的共同脸部设定、「造型选择」的 1 个衣装方案，以及页面下部的「头像需求与共同脸部方向」" loading="lazy" decoding="async">
+                <span class="callout" style="--x:67.5%; --y:3.3%" aria-hidden="true">1</span>
+                <span class="callout" style="--x:79%; --y:64.5%" aria-hidden="true">2</span>
+                <span class="callout" style="--x:79%; --y:54.6%" aria-hidden="true">3</span>
+              </div>
+            </div>
+          </div>
+          <figcaption>
+            <ol class="callout-list" aria-label="图中标注">
+              <li>项目的工作面：设计目标、素材、制作进度；「修改要求」在左侧对话里提出</li>
+              <li>头像需求与共同脸部方向</li>
+              <li>造型选择：1 个衣装方案——只决定你最终能看到和使用的结果</li>
+            </ol>
+          </figcaption>
+        </figure>
+      </article>
+
+      <article class="feature reverse" aria-labelledby="f-booth">
+        <div class="feature-copy">
+          <p class="eyebrow">04 · 素材</p>
+          <h3 id="f-booth"><span class="nb">BOOTH 已购素材</span><span class="nb">只建索引，</span><span class="nb">需要时才取文件</span></h3>
+          <p>把你已经拥有的素材登记进来：BOOTH 云端素材只同步索引、使用时下载；本地零散素材只记录原文件位置。</p>
+          <ul class="fact-list">
+            <li><b>只建索引</b>：BOOTH 已购素材只建索引，项目需要时才按需获取文件。</li>
+            <li><b>本地素材</b>：本地素材也可登记。</li>
+          </ul>
+        </div>
+        <figure class="feature-media">
+          <div class="device-wrap has-zoom">
+            <div class="device">
+              <div class="device-bar" aria-hidden="true"><i></i><i></i><i></i><span class="title">Harness · 素材</span></div>
+              <div class="device-screen">
+                <img src="assets/renders/booth.png" width="1440" height="900" alt="素材页（演示数据）：顶部两个入口——BOOTH 云端素材（只同步索引，使用时下载）与本地零散素材（只记录原文件位置）；「BOOTH 连接与索引」显示已连接、4 件已购、4 个远端文件、0 个已获取，并注明不读取、不保存 BOOTH 密码；搜索框旁是项目选择与「按需获取」按钮；下方是「我的 BOOTH 素材」列表，每件带一个可勾选的文件" loading="lazy" decoding="async">
+                <span class="callout" style="--x:38.2%; --y:13.1%" aria-hidden="true">1</span>
+                <span class="callout" style="--x:78.2%; --y:13.1%" aria-hidden="true">2</span>
+                <span class="callout" style="--x:84.8%; --y:37.7%" aria-hidden="true">3</span>
+              </div>
+            </div>
+            <div class="zoom" aria-hidden="true" style="--zx:47.7%; --zy:25%; --zoom:4">
+              <img src="assets/renders/booth.png" alt="">
+              <span class="zoom-label">局部放大 · BOOTH 连接与索引</span>
+            </div>
+          </div>
+          <figcaption>
+            <ol class="callout-list" aria-label="图中标注">
+              <li>BOOTH 云端素材：只同步索引，使用时下载</li>
+              <li>本地零散素材：只记录原文件位置</li>
+              <li>勾选文件后「按需获取」；放大处是连接说明：不读取、不保存 BOOTH 密码</li>
+            </ol>
+          </figcaption>
+        </figure>
+      </article>
+
+      <article class="feature" aria-labelledby="f-core">
+        <div class="feature-copy">
+          <p class="eyebrow">05 · AI 执行方与能力包</p>
+          <h3 id="f-core"><span class="nb">接入你自己的</span><span class="nb"> API 密钥</span></h3>
+          <p>核心管理里列出接入的执行方——经 pi 用你自己的 API 密钥驱动模型，按角色自动路由、按实际用量计费。知识与工具由 Harness 管理版本：新流程固定当前版本，已在运行的项目不会被更新悄悄改变。</p>
+          <ul class="fact-list">
+            <li><b>AI 执行方</b>：经 pi 用你自己的 API 密钥驱动模型，按角色自动路由。本版接入 DeepSeek；OpenAI、Anthropic、Google 的 API 密钥仍在开发，尚未开放。本版不支持订阅制 AI 客户端的接入。</li>
+            <li><b>能力包</b>：受管的知识与工具包，由服务端签名发布；客户端验签后在安全点更新，旧流程保持冻结。</li>
+          </ul>
+        </div>
+        <figure class="feature-media">
+          <div class="device-wrap has-zoom">
+            <div class="device">
+              <div class="device-bar" aria-hidden="true"><i></i><i></i><i></i><span class="title">Harness · 核心管理</span></div>
+              <div class="device-screen">
+                <img src="assets/renders/core.png" width="1440" height="900" alt="核心管理页（演示数据）：状态库版本 33、证据事件 9、服务重启 0；调度运行中，暂停会停止新工作；「AI 与执行」列出当前接入的执行方 pi · deepseek 与「实际探测 Provider」按钮；「知识与核心」注明制作规则、阶段上下文和执行工具作为一个版本由 Harness 管理，新的制作流程会固定当前版本，已在运行的项目不会被更新悄悄改变，当前使用 0.1.0-dev.3；下方候选能力包为空" loading="lazy" decoding="async">
+                <span class="callout" style="--x:21.3%; --y:23%" aria-hidden="true">1</span>
+                <span class="callout" style="--x:21.9%; --y:33%" aria-hidden="true">2</span>
+                <span class="callout" style="--x:77.8%; --y:33.3%" aria-hidden="true">3</span>
+                <span class="callout" style="--x:21.4%; --y:54.9%" aria-hidden="true">4</span>
+              </div>
+            </div>
+            <div class="zoom" aria-hidden="true" style="--zx:78%; --zy:33.5%; --zoom:4">
+              <img src="assets/renders/core.png" alt="">
+              <span class="zoom-label">局部放大 · 版本冻结</span>
+            </div>
+          </div>
+          <figcaption>
+            <ol class="callout-list" aria-label="图中标注">
+              <li>调度运行中：暂停会等当前步骤到达安全点</li>
+              <li>AI 与执行：列出当前接入的执行方并可实际探测；执行方用你自己的 API 密钥驱动</li>
+              <li>知识与核心：新的制作流程固定当前版本，已在运行的项目不会被更新悄悄改变</li>
+              <li>候选能力包：正式采纳必须来自服务端签名版本更新</li>
+            </ol>
+          </figcaption>
+        </figure>
+      </article>
+
+      <article class="feature reverse" aria-labelledby="f-settings">
+        <div class="feature-copy">
+          <p class="eyebrow">06 · 环境与后台服务</p>
+          <h3 id="f-settings"><span class="nb">沙箱、环境依赖</span><span class="nb">与后台服务</span></h3>
+          <p>设置页里有后台服务（调度状态、安全点暂停、Runtime 与数据目录）、配置管理、协作学习开关，以及环境依赖清单——包括执行沙箱所需的系统组件、Unity 编辑器与 VPM CLI。</p>
+          <ul class="fact-list">
+            <li><b>沙箱</b>：执行方在沙箱里运行，工作区以外的写入被阻止。</li>
+            <li><b>本地 Runtime</b>：GUI 与 TUI 共用同一个本地 Runtime。</li>
+            <li><b>安全点</b>：能力包在安全点更新，旧流程保持冻结。</li>
+          </ul>
+        </div>
+        <figure class="feature-media">
+          <div class="device-wrap">
+            <div class="device">
+              <div class="device-bar" aria-hidden="true"><i></i><i></i><i></i><span class="title">Harness · 设置</span></div>
+              <div class="device-screen">
+                <img src="assets/renders/settings.png" width="1440" height="900" alt="设置页（演示数据）：左侧「后台服务」（调度运行中、安全点暂停按钮、可展开的诊断信息）与「配置管理」（项目工作区、交付目录、Unity 编辑器；更多选项在折叠的「高级」里）；右侧「数据与协作」（自愿加入的回传开关、本机记录与待发报告数量、发送与撤回按钮、贡献者用户名、检查软件更新）与「环境依赖」清单（Harness 本身、基础工具、Unity、脸型设计、AI 工具各自的就绪情况）" loading="lazy" decoding="async">
+                <span class="callout" style="--x:23.1%; --y:20.9%" aria-hidden="true">1</span>
+                <span class="callout" style="--x:60.5%; --y:16.1%" aria-hidden="true">2</span>
+                <span class="callout" style="--x:62.2%; --y:54.2%" aria-hidden="true">3</span>
+                <span class="callout" style="--x:22%; --y:32.4%" aria-hidden="true">4</span>
+              </div>
+            </div>
+          </div>
+          <figcaption>
+            <ol class="callout-list" aria-label="图中标注">
+              <li>后台服务：调度运行中，可在安全点暂停</li>
+              <li>加入协作学习：自愿，只回传经你授权的最小候选，可随时退出</li>
+              <li>环境依赖：执行方与工具的写边界（沙箱）由系统组件提供</li>
+              <li>配置管理：项目工作区、交付目录与 Unity 编辑器都在这里改；换了位置，已有的项目和交付物不会被移动</li>
+            </ol>
+          </figcaption>
+        </figure>
+      </article>
+    </div>
+  </section>
+
+  <section class="section bordered" id="security" aria-labelledby="security-title">
+    <div class="container">
+      <div class="section-head">
+        <p class="eyebrow">安全边界</p>
+        <h2 id="security-title"><span class="nb">执行方能做什么，</span><span class="nb">边界是明确的</span></h2>
+        <p>AI 执行方负责做事；它够不到的地方，同样是设计的一部分。</p>
+      </div>
+      <div class="cards">
+        <article class="card">
+          <span class="num" aria-hidden="true">01</span>
+          <div class="icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="5" width="17" height="14" rx="2.5"/><path d="M3.5 9.5h17M8 15h4"/></svg>
+          </div>
+          <h3>沙箱运行</h3>
+          <p>执行方在沙箱里运行。</p>
+        </article>
+        <article class="card">
+          <span class="num" aria-hidden="true">02</span>
+          <div class="icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7.5A2.5 2.5 0 0 1 6.5 5h4l2 2h5A2.5 2.5 0 0 1 20 9.5v7a2.5 2.5 0 0 1-2.5 2.5h-11A2.5 2.5 0 0 1 4 16.5v-9z"/><path d="M9.5 12.5l5 5M14.5 12.5l-5 5"/></svg>
+          </div>
+          <h3>工作区以外不可写</h3>
+          <p>工作区以外的写入被阻止。执行方（AI）运行时能读取你电脑上的文件，也能联网；这条限制的只是写入，不是读取或联网（见<a href="known-limitations.html">已知限制</a>）。</p>
+        </article>
+        <article class="card">
+          <span class="num" aria-hidden="true">03</span>
+          <div class="icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="14" r="3.5"/><path d="M10.5 11.5L19 3M15 7l2 2M13 9l2 2"/></svg>
+          </div>
+          <h3>控制接口不可见</h3>
+          <p>Windows 上执行方在 Low 完整性下运行时，Harness 的控制接口、配置与 BOOTH 会话对执行方不可见，执行方无法替你批准；部分 Unity 步骤会回退为不做额外隔离，那种情况下这条不成立（见<a href="known-limitations.html">已知限制</a>）。</p>
+        </article>
+      </div>
+
+      <div class="cards" style="margin-top: var(--s-4)">
+        <article class="card">
+          <h3>协作学习 <span class="tag">自愿加入</span></h3>
+          <p>产品改进数据默认关闭。明确加入后，按授权类别回传结构化报告，可随时退出；素材、模型 Key 和自由文本不会随默认报告上传。接收服务已开放，并完成授权、归属与撤回检查；收到报告不等于自动采用或公开发布。服务器保存 90 天后自动删除；删除或撤回后，数据在运营者的备份中最多再保留 90 天。</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section bordered" id="planned" aria-labelledby="planned-title">
+    <div class="container">
+      <div class="section-head">
+        <p class="eyebrow">规划中</p>
+        <h2 id="planned-title">规划中，尚未实现</h2>
+        <p>本版只提供 Windows 版；Linux 版稍后提供。以下功能仍在规划，何时提供以后续更新为准。更完整的未做清单见<a href="known-limitations.html">已知限制</a>。</p>
+      </div>
+      <div class="planned">
+        <p class="small muted" style="margin:0">每一项都标注为规划中；在实现并经过判定之前，不会出现在上面的「已实现」里。</p>
+        <ul class="planned-list">
+          <li><span class="tag plan">规划中</span><b>3D 实时预览</b><small>制作过程中实时查看改动</small></li>
+          <li><span class="tag plan">规划中</span><b>形态键滑杆面板</b><small>在产品内直接拖动形态键调整脸型</small></li>
+          <li><span class="tag plan">规划中</span><b>圈画改脸</b><small>在预览图上圈出区域，换算成形态键候选</small></li>
+          <li><span class="tag plan">规划中</span><b>菜单预览与编辑</b><small>游戏轮盘菜单的预览、编排与写回工程</small></li>
+          <li><span class="tag plan">规划中</span><b>多语言界面</b><small>中 / 日 / 英 i18n 框架</small></li>
+          <li><span class="tag plan">规划中</span><b>统一素材库与分步选材向导</b><small>BOOTH 与本地素材合成一个图库，按步骤选材</small></li>
+          <li><span class="tag plan">规划中</span><b>素材缓存管理</b><small>全量缓存、更新检查与本地空间管理</small></li>
+          <li><span class="tag plan">规划中</span><b>Linux 版</b><small>本版只提供 Windows，Linux 稍后</small></li>
+        </ul>
+      </div>
+      <div class="note-line" role="note">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3.5l9 16h-18l9-16z"/><path d="M12 10v4M12 17.2v.3"/></svg>
+        <p>dev.0.1（<code>0.1.0-dev.1</code>）是首个公开技术预览版，只提供 Windows，安装包尚未公开。<a href="download.html">下载页</a>写了安装与放行步骤，<a href="known-limitations.html">已知限制</a>逐条列出本版还没做到的部分。真实完整自动改模交付仍未成功，官方知识与工具更新已开放不代表应用安装包已经发布。</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section bordered" aria-labelledby="next-title">
+    <div class="container">
+      <div class="section-head">
+        <p class="eyebrow">继续了解</p>
+        <h2 id="next-title">为什么要这样设计</h2>
+        <p>开发日志里有一篇更完整的说明：为什么 Harness 不让 AI 自己宣布完成。</p>
+      </div>
+      <div class="cta" style="margin-top:0">
+        <a class="btn btn-primary" href="articles/demo.html">阅读「让 AI 改模可以被验证」
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+        <a class="btn" href="download.html">下载与测试说明</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div>
+      <div class="footer-brand"><img src="assets/img/logo-48.png" width="28" height="28" alt="">Harness</div>
+      <p>个人使用的 VRChat 头像改模 AI 工作台。首个测试版仅提供 Windows，尚未开放下载。</p>
+      <p class="muted">harness.nymiro.moe · 项目咨询 harness@nymiro.moe</p>
+    </div>
+    <nav aria-label="页脚导航">
+      <h2>站点</h2>
+      <ul>
+        <li><a href="index.html">首页</a></li>
+        <li><a href="product.html">产品介绍</a></li>
+        <li><a href="download.html">下载与安装说明</a></li>
+        <li><a href="known-limitations.html">已知限制</a></li>
+        <li><a href="articles/demo.html">开发日志</a></li>
+      </ul>
+    </nav>
+    <div>
+      <h2>兼容</h2>
+      <ul>
+        <li>适用于 VRChat 头像</li>
+        <li>兼容 VCC/VPM 工程</li>
+        <li>支持 BOOTH 素材</li>
+      </ul>
+    </div>
+  </div>
+  <div class="container disclaimer">
+    <p>Harness 与 VRChat Inc. 及 pixiv 株式会社（BOOTH 的运营方）没有隶属关系，也未获其背书。VRChat、VCC、VPM、BOOTH 等名称仅用于说明兼容性，相关商标归其各自所有者所有；本站不使用上述商标图形。</p>
+    <p>页面中的界面图为开发中的版本，项目与素材均为演示数据，最终发布版本可能不同。</p>
+  </div>
+</footer>
+</body>
+</html>

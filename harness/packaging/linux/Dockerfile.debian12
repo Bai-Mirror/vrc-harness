@@ -1,0 +1,29 @@
+FROM node:24-bookworm AS builder
+
+ENV DEBIAN_FRONTEND=noninteractive \
+    PATH=/root/.cargo/bin:$PATH
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    build-essential curl file libayatana-appindicator3-dev libgtk-3-dev librsvg2-dev \
+    libssl-dev libwebkit2gtk-4.1-dev libxdo-dev patchelf pkg-config wget xdg-utils \
+    && rm -rf /var/lib/apt/lists/*
+RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --profile minimal
+
+WORKDIR /src
+COPY . .
+WORKDIR /src/harness
+ARG AVH_BUILD_COMMIT
+ENV AVH_BUILD_COMMIT=$AVH_BUILD_COMMIT
+RUN npm ci --no-audit --no-fund
+RUN npm run tauri:build
+# The bundle names carry the version from package.json; exactly one of each is expected in a fresh build.
+RUN mkdir /out && cp src-tauri/target/release/bundle/deb/Harness_*_amd64.deb \
+    src-tauri/target/release/bundle/appimage/Harness_*_amd64.AppImage dist/build-info.json /out/ && \
+    test "$(ls /out/*.deb | wc -l)" = 1 && test "$(ls /out/*.AppImage | wc -l)" = 1 && \
+    test "$(dpkg-deb -f /out/*.deb Depends)" = "libwebkit2gtk-4.1-0, libgtk-3-0 | libgtk-3-0t64"
+RUN max="$(objdump -T src-tauri/target/release/avatar-harness-desktop | \
+    sed -n 's/.*(GLIBC_\([^)]*\)).*/\1/p' | sort -V | tail -n 1)"; \
+    test "$(printf '%s\n2.36\n' "$max" | sort -V | tail -n 1)" = "2.36"
+
+FROM scratch AS artifacts
+COPY --from=builder /out/ /
+

@@ -1,0 +1,11 @@
+*
+!LICENSE
+!LICENSE-docs.md
+!NOTICE.md
+!harness/**
+harness/node_modules
+harness/dist
+harness/desktop-resources
+harness/src-tauri/target
+harness/.vite
+

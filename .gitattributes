@@ -1,0 +1,7 @@
+# Harness hashes and signs file contents (capability packs, knowledge, frozen tools), so every checkout must hold the
+# same bytes on Linux and Windows: text is always LF in the working tree, whatever core.autocrlf says.
+* text=auto eol=lf
+*.png binary
+*.ico binary
+*.icns binary
+*.unitypackage binary

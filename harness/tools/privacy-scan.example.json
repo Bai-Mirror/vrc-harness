@@ -1,0 +1,24 @@
+{
+  "version": 1,
+  "largeBinaryBytes": 10485760,
+  "syntheticUsers": ["user", "example", "alice", "bob", "test-user", "runner", "Public", "Default"],
+  "allowedMatches": [
+    { "id": "private-user-path", "value": "/home/|" },
+    { "id": "private-user-path", "value": "/Users/)(?!" }
+  ],
+  "syntheticOrderIds": [],
+  "stripPaths": [".claude/worktrees/"],
+  "stripGlobs": [],
+  "blockedBlobIds": [],
+  "rewriteRules": [
+    { "literal": "EXAMPLE_PRIVATE_USER_PATH", "replacement": "EXAMPLE_GENERIC_USER_PATH" }
+  ],
+  "patterns": [
+    { "id": "customer-root", "literal": "EXAMPLE_PRIVATE_MATERIAL_ROOT", "replacement": "customer-materials" },
+    { "id": "customer-name", "literal": "EXAMPLE_CUSTOMER_NAME", "replacement": "customer" },
+    { "id": "order-directory", "literal": "EXAMPLE_PRIVATE_ORDER_DIRECTORY", "replacement": "order-example" },
+    { "id": "local-hostname", "literal": "EXAMPLE_PRIVATE_HOSTNAME", "replacement": "workstation" },
+    { "id": "commercial-reference", "regex": "EXAMPLE_VENDOR_NAME", "scopes": ["content", "metadata"], "reviewOnly": true },
+    { "id": "commercial-file", "regex": "EXAMPLE_VENDOR_NAME.*\\.(?:unitypackage|zip|fbx|blend|prefab|png|jpg)$", "scopes": ["path"] }
+  ]
+}

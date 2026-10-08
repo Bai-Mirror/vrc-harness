@@ -1,0 +1,77 @@
+schema: process/0.1
+id: synthetic-flow
+version: fixture-1
+applies_to: {platform: example}
+artifacts: [plan, scene, build, fbx, delivery_package]
+stages:
+  - id: setup
+    needs: []
+    produces: [scene, build]
+    requires: [scene_check, warning_check, advisory_check, conditional_check]
+    gates: [plan_approval]
+    invalidated_by: [fbx]
+  - id: optional
+    needs: [setup]
+    when: plan.features
+    produces: []
+    requires: []
+    gates: []
+    invalidated_by: [plan]
+  - id: package
+    needs: [optional]
+    produces: [delivery_package]
+    requires: [package_check]
+    gates: []
+    invalidated_by: [plan]
+checks:
+  - id: scene_check
+    observe: scene.inspect
+    on: scene
+    scope: edit
+    rule: count <= t.max_count
+    severity: blocking
+    maturity: accepted
+  - id: warning_check
+    observe: build.inspect
+    on: build
+    scope: build
+    rule: count <= t.max_count
+    severity: warning
+    maturity: accepted
+  - id: advisory_check
+    observe: scene.inspect
+    on: scene
+    scope: edit
+    rule: count <= t.max_count
+    severity: advisory
+    maturity: candidate
+  - id: conditional_check
+    when: plan.features
+    observe: build.inspect
+    on: build
+    scope: build
+    rule: count <= t.max_count
+    severity: blocking
+    maturity: accepted
+  - id: package_check
+    observe: package.inspect
+    on: delivery_package
+    scope: client
+    rule: count <= t.max_count
+    severity: blocking
+    maturity: accepted
+gates:
+  - id: plan_approval
+    kind: approve
+    binds: plan
+  - id: client_test
+    kind: do
+    binds: delivery_package
+milestones:
+  - id: UPLOAD_READY
+    requires_stages: all
+    evidence_on: delivery_package
+  - id: CLIENT_VERIFIED
+    after: UPLOAD_READY
+    gates: [client_test]
+  - id: EMPTY_CONDITIONS

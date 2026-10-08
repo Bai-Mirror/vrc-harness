@@ -1,0 +1,603 @@
+schema: process/0.1
+id: pc-recolor-outfit
+version: 988b9847
+applies_to:
+  platform: pc
+artifacts:
+  - assets
+  - plan
+  - face_input
+  - environment
+  - fbx
+  - face_candidates
+  - face
+stages:
+  - id: intake
+    needs: []
+    produces:
+      - assets
+    requires:
+      - requirement_files_present
+      - inventory_count_match
+      - compat_conclusion_complete
+      - budget_reserves_recorded
+      - plan_inputs_ready
+    gates:
+      - material_gap_confirm
+    invalidated_by: []
+    source: 开发工具/SOP/10_接单建档.md:1@f6721fea
+  - id: plan
+    needs:
+      - intake
+    produces:
+      - plan
+    requires:
+      - plan_source_contract
+      - plan_group_contract_valid
+      - plan_layer_paths_resolvable
+      - gallery_no_external_links
+      - gallery_each_item_has_image
+      - gallery_entry_count_match
+      - gallery_excludes_unsupported
+      - gallery_source_labels_valid
+      - gallery_pdf_controls_match
+      - gallery_pdf_no_copy_claim
+      - gallery_selection_mapped
+    gates:
+      - plan_approval
+    invalidated_by:
+      - assets
+    source: 开发工具/SOP/14_选型图鉴.md:1@f6721fea
+  - id: environment
+    needs:
+      - plan
+    produces:
+      - environment
+    requires:
+      - environment_lock_consistent
+    gates: []
+    invalidated_by: []
+    source: docs/zh/设计/1-整体架构/目标架构与联通合同.md:C
+  - id: setup
+    needs:
+      - environment
+    produces:
+      - fbx
+    requires:
+      - project_version_present
+      - vpm_locked_match
+      - editor_dll_present
+      - console_no_cs_errors
+      - unpack_conflicts_resolved
+      - unpacked_archives_zero
+      - common_material_packs_present
+      - material_inheritance_ok
+      - guid_unique
+      - guid_refs_resolved
+      - usage_table_rows_match
+      - dependency_reproducible
+    gates: []
+    invalidated_by:
+      - plan
+      - environment
+    source: 开发工具/SOP/20_素材清点导入.md:1@988b9847
+  - id: face_design
+    needs:
+      - setup
+    when: plan.face.mode == "design"
+    produces:
+      - face_candidates
+    requires:
+      - face_candidates_integrity
+    gates:
+      - face_choice
+    invalidated_by:
+      - fbx
+      - plan
+      - face_input
+    source: docs/zh/设计/2-功能模块/09_交互捏脸与后台制作.md
+  - id: face
+    needs:
+      - face_design
+    produces:
+      - face
+    requires:
+      - face_output_integrity
+      - face_runtime_integrity
+      - face_production_qualification
+      - face_input_integrity
+    gates:
+      - face_appearance
+    invalidated_by:
+      - fbx
+      - plan
+      - face_candidates
+      - face_input
+    source: docs/zh/设计/2-功能模块/09_交互捏脸与后台制作.md
+checks:
+  - id: face_input_integrity
+    observe: face.input
+    on: face
+    scope: edit
+    rule: face_input_bound == true
+    severity: blocking
+    maturity: accepted
+    kind: spec
+    asserted_by: compile:managed-face
+    verification:
+      - kind: harness-regression
+        ref: test/workflow/input-runtime.test.ts
+  - id: plan_inputs_ready
+    observe: plan.inputs
+    on: assets
+    scope: edit
+    rule: plan_input_catalog_ready == true
+    severity: blocking
+    maturity: accepted
+    kind: spec
+    asserted_by: compile:managed-plan
+    verification:
+      - kind: harness-regression
+        ref: test/plan-tool.test.ts
+  - id: plan_source_contract
+    observe: plan.source
+    on: plan
+    scope: edit
+    rule: plan_source_contract_valid == true
+    severity: blocking
+    maturity: accepted
+    kind: spec
+    asserted_by: compile:managed-plan
+    verification:
+      - kind: harness-regression
+        ref: test/plan-tool.test.ts
+  - id: plan_layer_paths_resolvable
+    observe: plan.source
+    on: plan
+    scope: edit
+    rule: plan_layer_paths_unresolved == 0
+    severity: blocking
+    maturity: accepted
+    source: 决定记录/D-100
+    kind: spec
+    asserted_by: compile:managed-plan
+    verification:
+      - kind: harness-regression
+        ref: test/plan-layer-targets.test.ts
+  - id: face_candidates_integrity
+    observe: face.candidates
+    on: face_candidates
+    scope: edit
+    rule: face_candidates_valid == true and face_candidate_preview_integrity == true
+    severity: blocking
+    maturity: accepted
+    kind: spec
+    asserted_by: compile:managed-face
+    verification:
+      - kind: harness-regression
+        ref: test/face-preview.test.ts
+  - id: face_output_integrity
+    observe: face.apply
+    on: face
+    scope: edit
+    rule: face_source_preserved_valid == true or face_geometry_valid == true
+    severity: blocking
+    maturity: accepted
+    kind: spec
+    asserted_by: compile:managed-face
+    verification:
+      - kind: harness-regression
+        ref: test/face-stage.test.ts
+  - id: face_runtime_integrity
+    observe: face.apply
+    on: face
+    scope: edit
+    rule: face_source_preserved_valid == true or face_runtime_bindings_valid == true
+    severity: blocking
+    maturity: accepted
+    kind: spec
+    asserted_by: compile:managed-face
+    verification:
+      - kind: harness-regression
+        ref: test/face-stage.test.ts
+  - id: face_production_qualification
+    observe: face.apply
+    on: face
+    scope: edit
+    rule: face_source_preserved_valid == true or (face_expression_compensation_valid
+      == true and face_damage_smoothness_measured == true and
+      face_eye_exposure_measured == true)
+    severity: blocking
+    maturity: accepted
+    kind: spec
+    asserted_by: compile:managed-face
+    verification:
+      - kind: harness-regression
+        ref: test/face-stage.test.ts
+  - id: environment_lock_consistent
+    observe: environment.verify
+    on: environment
+    scope: edit
+    rule: environment_consistent == true
+    severity: blocking
+    maturity: accepted
+    source: docs/zh/设计/1-整体架构/目标架构与联通合同.md:C
+    kind: spec
+    asserted_by: compile:design-reachability-20260930
+    verification:
+      - kind: harness-regression
+        ref: test/managed-environment.test.ts
+  - id: requirement_files_present
+    observe: assets.validate
+    on: assets
+    scope: edit
+    rule: missing_requirement_files == 0
+    severity: blocking
+    maturity: accepted
+    source: 开发工具/SOP/10_接单建档.md:11@f6721fea
+    source_id: 18acaf0a750a
+    verification:
+      - kind: sop-editorial
+        ref: 18acaf0a750a
+    kind: spec
+    asserted_by: compile:legacy
+  - id: inventory_count_match
+    observe: assets.inventory
+    on: assets
+    scope: edit
+    rule: inventory_entries == product_directory_count
+    severity: blocking
+    maturity: accepted
+    source: 开发工具/SOP/10_接单建档.md:13@f6721fea
+    source_id: b7702f4cc6b6
+    verification:
+      - kind: sop-editorial
+        ref: b7702f4cc6b6
+    kind: spec
+    asserted_by: compile:legacy
+  - id: compat_conclusion_complete
+    observe: assets.validate
+    on: assets
+    scope: edit
+    rule: items_without_valid_compat_conclusion == 0
+    severity: blocking
+    maturity: accepted
+    source: 开发工具/SOP/10_接单建档.md:15@f6721fea
+    source_id: eb52703f06fb
+    verification:
+      - kind: sop-editorial
+        ref: eb52703f06fb
+    kind: spec
+    asserted_by: compile:legacy
+  - id: budget_reserves_recorded
+    observe: assets.validate
+    on: assets
+    scope: edit
+    rule: budget_reserve_fields_recorded == true
+    severity: blocking
+    maturity: accepted
+    source: 开发工具/SOP/10_接单建档.md:47@f6721fea
+    source_id: 94da1fdef51a
+    verification:
+      - kind: sop-editorial
+        ref: 94da1fdef51a
+    kind: spec
+    asserted_by: compile:legacy
+  - id: gallery_no_external_links
+    when: plan.client_gallery
+    observe: assets.validate
+    on: plan
+    scope: edit
+    rule: html_external_refs == 0
+    severity: blocking
+    maturity: accepted
+    source: 开发工具/SOP/14_选型图鉴.md:79@f6721fea
+    source_id: 000bd975fda3
+    verification:
+      - kind: sop-editorial
+        ref: 000bd975fda3
+    kind: spec
+    asserted_by: compile:legacy
+  - id: gallery_each_item_has_image
+    when: plan.client_gallery
+    observe: assets.validate
+    on: plan
+    scope: edit
+    rule: items_without_image == 0
+    severity: blocking
+    maturity: accepted
+    source: 开发工具/SOP/14_选型图鉴.md:67@f6721fea
+    source_id: 2220ac2d49b4
+    verification:
+      - kind: sop-editorial
+        ref: 2220ac2d49b4
+    kind: spec
+    asserted_by: compile:legacy
+  - id: gallery_entry_count_match
+    when: plan.client_gallery
+    observe: assets.inventory
+    on: plan
+    scope: edit
+    rule: gallery_entry_count == client_compatible_count + library_hit_count
+    severity: blocking
+    maturity: accepted
+    source: 开发工具/SOP/14_选型图鉴.md:50@f6721fea
+    source_id: 4aed103fdd8e
+    verification:
+      - kind: sop-editorial
+        ref: 4aed103fdd8e
+    kind: spec
+    asserted_by: compile:legacy
+  - id: gallery_excludes_unsupported
+    when: plan.client_gallery
+    observe: assets.validate
+    on: plan
+    scope: edit
+    rule: unsupported_items_in_gallery == 0
+    severity: blocking
+    maturity: accepted
+    source: 开发工具/SOP/14_选型图鉴.md:52@f6721fea
+    source_id: f4cc1ee82cd8
+    verification:
+      - kind: sop-editorial
+        ref: f4cc1ee82cd8
+    kind: spec
+    asserted_by: compile:legacy
+  - id: gallery_source_labels_valid
+    when: plan.client_gallery
+    observe: assets.validate
+    on: plan
+    scope: edit
+    rule: invalid_source_labels == 0
+    severity: blocking
+    maturity: accepted
+    source: 开发工具/SOP/14_选型图鉴.md:51@f6721fea
+    source_id: ddadfd832f5a
+    verification:
+      - kind: sop-editorial
+        ref: ddadfd832f5a
+    kind: spec
+    asserted_by: compile:legacy
+  - id: gallery_pdf_controls_match
+    when: plan.client_gallery
+    observe: assets.validate
+    on: plan
+    scope: edit
+    rule: pdf_button_count == gallery_entry_count and pdf_text_field_count == 1 and
+      pdf_stale_pick_links == 0
+    severity: blocking
+    maturity: accepted
+    source: 开发工具/SOP/14_选型图鉴.md:99@f6721fea
+    source_id: a252410f408c
+    verification:
+      - kind: sop-editorial
+        ref: a252410f408c
+    kind: spec
+    asserted_by: compile:legacy
+  - id: gallery_pdf_no_copy_claim
+    when: plan.client_gallery
+    observe: assets.validate
+    on: plan
+    scope: edit
+    rule: pdf_copy_list_mentions == 0
+    severity: blocking
+    maturity: accepted
+    source: 开发工具/SOP/14_选型图鉴.md:101@f6721fea
+    source_id: 4bcc502f0a31
+    verification:
+      - kind: sop-editorial
+        ref: 4bcc502f0a31
+    kind: spec
+    asserted_by: compile:legacy
+  - id: gallery_selection_mapped
+    when: plan.client_gallery
+    observe: assets.validate
+    on: plan
+    scope: edit
+    rule: unmatched_selection_ids == 0
+    severity: blocking
+    maturity: accepted
+    source: 开发工具/SOP/14_选型图鉴.md:116@f6721fea
+    source_id: 86015a73dc55
+    verification:
+      - kind: sop-editorial
+        ref: 86015a73dc55
+    kind: spec
+    asserted_by: compile:legacy
+  - id: project_version_present
+    observe: project.initialize
+    on: fbx
+    scope: edit
+    rule: project_version_file_present == true
+    severity: blocking
+    maturity: accepted
+    source: 开发工具/SOP/02_环境准备与人工介入.md:127@988b9847
+    source_id: d0ec2864028b
+    verification:
+      - kind: sop-editorial
+        ref: d0ec2864028b
+    kind: spec
+    asserted_by: compile:legacy
+  - id: vpm_locked_match
+    observe: project.initialize
+    on: fbx
+    scope: edit
+    rule: package_resolution_consistent == true
+    severity: blocking
+    maturity: accepted
+    source: 开发工具/SOP/20_素材清点导入.md:33@988b9847
+    source_id: 528543c32f33
+    verification:
+      - kind: sop-editorial
+        ref: 528543c32f33
+    kind: spec
+    asserted_by: compile:legacy
+  - id: editor_dll_present
+    observe: project.initialize
+    on: fbx
+    scope: edit
+    rule: editor_dll_present == true
+    severity: blocking
+    maturity: accepted
+    source: 开发工具/SOP/20_素材清点导入.md:34@988b9847
+    source_id: dac43a8ef436
+    verification:
+      - kind: sop-editorial
+        ref: dac43a8ef436
+    kind: spec
+    asserted_by: compile:legacy
+  - id: console_no_cs_errors
+    observe: project.initialize
+    on: fbx
+    scope: edit
+    rule: console_cs_errors == 0
+    severity: blocking
+    maturity: accepted
+    source: 开发工具/SOP/02_环境准备与人工介入.md:192@988b9847
+    source_id: b9367efe5361
+    verification:
+      - kind: sop-editorial
+        ref: b9367efe5361
+    kind: spec
+    asserted_by: compile:legacy
+  - id: unpack_conflicts_resolved
+    observe: assets.import
+    on: fbx
+    scope: edit
+    rule: unresolved_unpack_conflicts == 0
+    severity: blocking
+    maturity: accepted
+    source: 开发工具/SOP/20_素材清点导入.md:91@988b9847
+    source_id: d7ef79a2d71f
+    verification:
+      - kind: sop-editorial
+        ref: d7ef79a2d71f
+    kind: spec
+    asserted_by: compile:legacy
+  - id: unpacked_archives_zero
+    observe: assets.import
+    on: fbx
+    scope: edit
+    rule: remaining_unopened_archives == 0
+    severity: blocking
+    maturity: accepted
+    source: 开发工具/SOP/20_素材清点导入.md:92@988b9847
+    source_id: 0f23161f923a
+    verification:
+      - kind: sop-editorial
+        ref: 0f23161f923a
+    kind: spec
+    asserted_by: compile:legacy
+  - id: common_material_packs_present
+    observe: assets.validate
+    on: fbx
+    scope: edit
+    rule: missing_common_material_packs == 0
+    severity: blocking
+    maturity: accepted
+    source: 开发工具/SOP/20_素材清点导入.md:117@988b9847
+    source_id: ca78ffa48e02
+    verification:
+      - kind: sop-editorial
+        ref: ca78ffa48e02
+    kind: spec
+    asserted_by: compile:legacy
+  - id: material_inheritance_ok
+    observe: assets.validate
+    on: fbx
+    scope: edit
+    rule: min_liltoon_material_lines >= t.liltoon_material_min_lines
+    severity: advisory
+    maturity: candidate
+    source: 开发工具/SOP/20_素材清点导入.md:127@988b9847
+  - id: guid_unique
+    observe: assets.validate
+    on: fbx
+    scope: edit
+    rule: duplicate_guid_paths == 0
+    severity: blocking
+    maturity: accepted
+    source: 开发工具/SOP/20_素材清点导入.md:128@988b9847
+    source_id: 9e310db76be5
+    verification:
+      - kind: sop-editorial
+        ref: 9e310db76be5
+    kind: spec
+    asserted_by: compile:legacy
+  - id: guid_refs_resolved
+    observe: assets.validate
+    on: fbx
+    scope: edit
+    rule: broken_guid_refs == 0
+    severity: blocking
+    maturity: accepted
+    source: 开发工具/SOP/20_素材清点导入.md:129@988b9847
+    source_id: 292982e6d51d
+    verification:
+      - kind: sop-editorial
+        ref: 292982e6d51d
+    kind: spec
+    asserted_by: compile:legacy
+  - id: usage_table_rows_match
+    observe: assets.inventory
+    on: fbx
+    scope: edit
+    rule: usage_table_rows == product_count
+    severity: blocking
+    maturity: accepted
+    source: 开发工具/SOP/20_素材清点导入.md:155@988b9847
+    source_id: 1eb06d19a243
+    verification:
+      - kind: sop-editorial
+        ref: 1eb06d19a243
+    kind: spec
+    asserted_by: compile:legacy
+  - id: dependency_reproducible
+    observe: project.initialize
+    on: fbx
+    scope: edit
+    rule: file_or_git_dependencies == 0
+    severity: blocking
+    maturity: accepted
+    source: 开发工具/SOP/20_素材清点导入.md:190@988b9847
+    source_id: 2e8127eee230
+    verification:
+      - kind: sop-editorial
+        ref: 2e8127eee230
+    kind: spec
+    asserted_by: compile:legacy
+  - id: plan_group_contract_valid
+    observe: plan.source
+    on: plan
+    scope: edit
+    when: plan.avatar_config
+    rule: plan_group_contract_valid == true
+    severity: blocking
+    maturity: accepted
+    kind: spec
+    asserted_by: compile:avatar-config
+    source: 决定记录/D-107; L12 task authorization (2026-10-04)
+    verification:
+      - kind: human-approval
+        ref: "L12 task authorization: implement run-D3-final.md (2026-10-04)"
+gates:
+  - id: face_appearance
+    kind: approve
+    review: face-output
+    when: plan.face.mode == "design"
+    binds: face
+    source: docs/zh/设计/2-功能模块/09_交互捏脸与后台制作.md
+  - id: face_choice
+    kind: choose
+    selection: face-candidate
+    binds: face_candidates
+    source: docs/zh/设计/2-功能模块/09_交互捏脸与后台制作.md
+  - id: material_gap_confirm
+    kind: approve
+    binds: assets
+    source: 开发工具/SOP/10_接单建档.md:119@f6721fea
+  - id: plan_approval
+    kind: approve
+    binds: plan
+    source: 开发工具/SOP/00_总表/人工卡口与素材来源.md:20@f6721fea
+milestones: []
