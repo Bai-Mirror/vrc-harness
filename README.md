@@ -27,12 +27,13 @@ matter.*
 ```sh
 cd harness
 npm ci
+npm run native:build        # 仅 Windows：编译辅助程序 avh-win.exe，需要 Rust
 npm run build
 node bin/avh.js deps        # 列出依赖状态
 node bin/avh.js gui         # 或 node bin/avh.js tui
 ```
 
-`npm test` 运行测试；需要 Unity 的测试默认跳过。Windows 版的说明见 [`harness/docs/windows-handoff.md`](harness/docs/windows-handoff.md)。
+`npm test` 运行测试；需要 Unity 的测试默认跳过，Windows 上要先完成 `npm run native:build`。Windows 版的说明见 [`harness/docs/windows-handoff.md`](harness/docs/windows-handoff.md)。
 
 ## 许可证
 
